@@ -58,7 +58,7 @@ class DocumentLayout
         self::LAYOUT_SCREEN_16X9 => array('cx' => 9144000, 'cy' => 5143500),
         self::LAYOUT_35MM => array('cx' => 10287000, 'cy' => 6858000),
         self::LAYOUT_A3 => array('cx' => 15120000, 'cy' => 10692000),
-        self::LAYOUT_A4 => array('cx' => 10692000, 'cy' => 7560000),
+    	self::LAYOUT_A4 => array('cx' => 9906120, 'cy' => 6858000),
         self::LAYOUT_B4ISO => array('cx' => 10826750, 'cy' => 8120063),
         self::LAYOUT_B5ISO => array('cx' => 7169150, 'cy' => 5376863),
         self::LAYOUT_BANNER => array('cx' => 7315200, 'cy' => 914400),

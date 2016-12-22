@@ -79,10 +79,11 @@ class PptSlides extends AbstractSlide
         $idxSlide = $pSlide->getParent()->getIndex($pSlide);
 
         // Write slideLayout relationship
+        $layoutId = 1;
         if ($pSlide->getSlideLayout()) {
             $layoutId = $pSlide->getSlideLayout()->layoutNr;
-            $this->writeRelationship($objWriter, $relId++, 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/slideLayout', '../slideLayouts/slideLayout' . $layoutId . '.xml');
         }
+        $this->writeRelationship($objWriter, $relId, 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/slideLayout', '../slideLayouts/slideLayout' . $layoutId . '.xml');
 
         // Write drawing relationships?
         if ($pSlide->getShapeCollection()->count() > 0) {
@@ -1476,6 +1477,9 @@ class PptSlides extends AbstractSlide
 
                         // Size
                         $objWriter->writeAttribute('sz', ($element->getFont()->getSize() * 100));
+                        
+                        // Character spacing
+                        $objWriter->writeAttribute('spc', $element->getFont()->getCSpacing());
 
                         // Underline
                         $objWriter->writeAttribute('u', $element->getFont()->getUnderline());
@@ -1498,11 +1502,14 @@ class PptSlides extends AbstractSlide
                         $this->writeHyperlink($objWriter, $element);
 
                         $objWriter->endElement();
+                        
                     }
-
+	
                     // t
                     $objWriter->startElement('a:t');
+                    
                     $objWriter->writeCData(Text::controlCharacterPHP2OOXML($element->getText()));
+                    
                     $objWriter->endElement();
 
                     $objWriter->endElement();

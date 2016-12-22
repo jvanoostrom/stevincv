@@ -86,8 +86,8 @@ class Border implements ComparableInterface
     public function __construct()
     {
         // Initialise values
-        $this->lineWidth = 1;
-        $this->lineStyle = self::LINE_SINGLE;
+        $this->lineWidth = 0;
+        $this->lineStyle = self::LINE_NONE;
         $this->dashStyle = self::DASH_SOLID;
         $this->color     = new Color(Color::COLOR_BLACK);
     }
