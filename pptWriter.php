@@ -1,10 +1,10 @@
 <?php
 
 // Include all necessary PHPPresentation files
-require_once 'PHPPresentation/src/PhpPresentation/Autoloader.php';
+require_once 'lib/PHPPresentation/src/PhpPresentation/Autoloader.php';
 \PhpOffice\PhpPresentation\Autoloader::register();
 
-require_once 'PHPOffice/src/Common/Autoloader.php';
+require_once 'lib/PHPOffice/src/Common/Autoloader.php';
 \PhpOffice\Common\Autoloader::register();
 
 define('CLI', (PHP_SAPI == 'cli') ? true : false);
@@ -104,7 +104,7 @@ $oNameText = $oSlide1->createRichTextShape()
 					 ->setOffsetX(450)
 					 ->setOffsetY(110);
 $oNameText->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_LEFT );
-$oNameTextRun = $oNameText->createTextRun('ALBERT-JAN EGMOND');
+$oNameTextRun = $oNameText->createTextRun('JEFFREY VAN OOSTROM');
 $oNameTextRun->getFont()
 			 ->setCSpacing(3)
 			 ->setBold(true)
