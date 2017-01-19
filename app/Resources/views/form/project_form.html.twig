@@ -1,0 +1,95 @@
+{% form_theme form 'form/materialize_layout.html.twig' %}
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+    <div class="row">
+        <form class="col s12" method="POST" enctype="multipart/form-data">
+
+            {% for flash_message in app.session.flashBag.get('notice') %}
+                <div id="card-alert" class="card green" style="display:none">
+                    <div class="card-content white-text valign-wrapper">
+                        <i class="material-icons valign">done</i>&nbsp;<span>{{ flash_message }}</span>
+                    </div>
+                </div>
+            {% endfor %}
+
+            <div class="col s12">
+                <div class="row">
+                    <div class="input-field col s12 m1">
+                        {{ form_label(form.startDate, 'Startdatum') }}
+                        {{ form_errors(form.startDate) }}
+                        {{ form_widget(form.startDate, {'attr': {
+                            'class': 'datepicker',
+                        }}) }}
+                    </div>
+                    <div class="input-field col s12 m1">
+                        {{ form_label(form.endDate, 'Einddatum') }}
+                        {{ form_errors(form.endDate) }}
+                        {{ form_widget(form.endDate, {'attr': {
+                            'class': 'datepicker',
+                        }}) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m6">
+                        {{ form_label(form.functionTitle, 'Functietitel') }}
+                        {{ form_errors(form.functionTitle) }}
+                        {{ form_widget(form.functionTitle, {'attr': {
+                            'class': 'validate',
+                            'maxlength': 100,
+                        }}) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m6">
+                        {{ form_label(form.customerName, 'Klant') }}
+                        {{ form_errors(form.customerName) }}
+                        {{ form_widget(form.customerName, {'attr': {
+                            'class': 'validate',
+                            'maxlength': 100,
+                        }}) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        {{ form_label(form.customerProfile, 'Opdrachtgever') }}
+                        {{ form_errors(form.customerProfile) }}
+                        {{ form_widget(form.customerProfile, {'attr': {
+                            'class': 'validate materialize-textarea',
+                            'length': 1250,
+                            'maxlength': 1250,
+                        }}) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        {{ form_label(form.taskText, 'Werkzaamheden') }}
+                        {{ form_errors(form.taskText) }}
+                        {{ form_widget(form.taskText, {'attr': {
+                            'class': 'validate materialize-textarea',
+                            'length': 1250,
+                            'maxlength': 1250,
+                        }}) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        {{ form_label(form.resultText, 'Resultaat') }}
+                        {{ form_errors(form.resultText) }}
+                        {{ form_widget(form.resultText, {'attr': {
+                            'class': 'validate materialize-textarea',
+                            'length': 1250,
+                            'maxlength': 1250,
+                        }}) }}
+                    </div>
+                </div>
+                <div class="row right">
+                    {{ form_widget(form.submit, {'attr': {'class': 'btn waves-effect waves-light'}}) }}
+                </div>
+            </div>
+            {{ form_rest(form) }}
+        </form>
+    </div>
+
+{% endblock %}

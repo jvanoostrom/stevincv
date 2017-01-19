@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+            <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+            <link type="text/css" rel="stylesheet" href="{{ asset('css/materialize.css') }}" media="screen,projection"/>
+            <link type="text/css" rel="stylesheet" href="{{ asset('css/materialize-tags.css') }}" media="screen,projection"/>
+            <link type="text/css" rel="stylesheet" href="{{ asset('css/custom.css') }}" media="screen,projection"/>
+            <!-- <link rel="icon" type="image/x-icon" href="{# asset('favicon.ico') #}" /> -->
+        {% endblock %}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    </head>
+
+    <body>
+    <header>
+        <nav class="top-nav">
+
+                <div class="nav-wrapper">
+                    <a href="#" class="brand-logo hide-on-med-and-up"><img src="{{ asset('img/logostevin.png') }}" height="60px"></a>
+                    <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+
+                    <ul class="right">
+                        <li><a class="dropdown-button" data-beloworigin="true" href="#!" data-activates="dropdown-top">&nbsp;<i class="material-icons right">perm_identity</i></a></li>
+                    </ul>
+                    <ul id="dropdown-top" class="dropdown-content">
+                        <li><a href="{{ url('change_password') }}">Wachtwoord wijzigen</a></li>
+                        <li><a href="{{ url('user_logout') }}">Uitloggen</a></li>
+                    </ul>
+
+                    <div class="side-nav fixed black-text collection" id="nav-mobile">
+                        <div class="center logo" style="height:100px">
+                            <img src="{{ asset('img/logostevin.png') }}" height="70px">
+                        </div>
+                        {{ knp_menu_render('AppBundle:Builder:mainMenu',{'template': 'Menu/menu.html.twig'}) }}
+                    </div>
+
+                </div>
+        </nav>
+    </header>
+    <main>
+        <div class="row">
+
+            <div class="col s12 m12 l12">
+                <div class="row">
+                    <div class="col s12">
+                        <ul class="tabs tabs-fixed-width">
+                            <li class="tab"><a target="_self" {% if app.request.attributes.get('_route') starts with 'cv' %}class="active"{% endif %} href="{{ url('cv_view', {'userId' : userId}) }}">CV</a></li>
+                            <li class="tab"><a target="_self" {% if app.request.attributes.get('_route') starts with 'personalia' %}class="active"{% endif %} href="{{ url('personalia', {'userId' : userId}) }}">Personalia</a></li>
+                            <li class="tab"><a target="_self" {% if app.request.attributes.get('_route') starts with 'profiel' %}class="active"{% endif %} href="{{ url('profiel_view', {'userId' : userId}) }}">Profielen</a></li>
+                            <li class="tab"><a target="_self" {% if app.request.attributes.get('_route') starts with 'project' %}class="active"{% endif %} href="{{ url('project_view', {'userId' : userId}) }}">Projecten</a></li>
+                            <li class="tab"><a target="_self" {% if app.request.attributes.get('_route') starts with 'opleiding' %}class="active"{% endif %} href="#test3">Opleidingen</a></li>
+                            <li class="tab"><a target="_self" {% if app.request.attributes.get('_route') starts with 'competentie' %}class="active"{% endif %} href="#test3">Competenties</a></li>
+                            <li class="tab"><a target="_self" {% if app.request.attributes.get('_route') starts with 'certificaat' %}class="active"{% endif %} href="#test3">Certificaten</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">{% block content %}{% endblock %}</div>
+                </div>
+            </div>
+        </div>
+    </main>
+        {% block javascripts %}
+            <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+            <script src="http://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js"></script>
+            <script src="{{ asset('js/materialize-tags.js') }}"></script>
+            <script src="{{ asset('js/init.js') }}"></script>
+        {% endblock %}
+    </body>
+</html>

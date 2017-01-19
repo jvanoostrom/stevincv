@@ -1,0 +1,34 @@
+.top-nav {
+    box-shadow: none;
+}
+header, main, footer {
+    padding-left: 300px;
+}
+
+@media only screen and (max-width : 992px) {
+    header, main, footer {
+        padding-left: 0;
+    }
+}
+.tabs {
+    overflow-x: hidden;
+}
+
+.collection a.collection-item {
+    display: block;
+    transition: .25s;
+    color: black;
+}
+
+.collection .collection-item.avatar .circle {
+    object-fit: cover;
+    object-position: 0 0;
+}
+
+.dropdown-content {
+    min-width: 200px;
+}
+
+#active-link {
+    background-color: rgba(0, 0, 0, 0.1) !important;
+}

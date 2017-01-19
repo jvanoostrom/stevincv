@@ -1,0 +1,20 @@
+{% extends 'knp_menu.html.twig' %}
+
+{% macro attributes(attributes) %}
+    {% for name, value in attributes %}
+        {%- if value is not none and value is not same as(false) -%}
+            {{- ' %s="%s"'|format(name, value is same as(true) ? name|e : value|e)|raw -}}
+        {%- endif -%}
+    {%- endfor -%}
+{% endmacro %}
+
+{% block linkElement %}
+    {% import _self as knp_menu %}
+    <div class="valign-wrapper hide-on-small-only">
+        <img src="{{ asset('img/profile/' ~ item.extra('img'))}}" height="35" alt="">
+    <a href="{{ url('base') ~ item.uri }}"{{ knp_menu.attributes(item.linkAttributes) }} class="dropdown-button valign" data-beloworigin="true" href="#!" data-activates="dropdown-top" {% if item.extra('userId') == app.request.get('userId') %}{% endif %}>
+        <span class="black-text">{{ block('label') }}</span>
+        <i class="material-icons right black-text">arrow_drop_down</i>
+    </a>
+    </div>
+{% endblock %}

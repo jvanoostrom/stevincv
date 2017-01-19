@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    {% for flash_message in app.session.flashBag.get('notice') %}
+        <div id="card-alert" class="card green succes-entity" style="display:none">
+            <div class="card-content white-text valign-wrapper">
+                <i class="material-icons valign">done</i>&nbsp;<span>{{ flash_message }}</span>
+            </div>
+        </div>
+    {% endfor %}
+
+    <div class="row">
+        <div class="col s12">
+            <a href="{{ url('project_add',{'userId' : userId}) }}" class="valign-wrapper"><i class="material-icons valign">add</i>Voeg een project toe</a>
+        </div>
+    </div>
+
+    {% if projects %}
+    <table class="highlight responsive-table">
+        <thead>
+        <tr>
+            <th data-field="id" width="65"></th>
+            <th data-field="functionTitle" width="300">Functie</th>
+            <th data-field="customerName">Klant</th>
+            <th data-field="updatedAt" width="150">Bijgewerkt</th>
+        </tr>
+        </thead>
+
+        <tbody>
+    {% for project in projects %}
+        <tr>
+            <td>
+                <a href="{{ url('project_edit',{'userId' : userId, 'projectId' : project.Id}) }}" alt="Bewerken">
+                    <i class="material-icons">edit</i>
+                </a>
+                <a href="#" class="delete-button" alt="Verwijderen">
+                    <i class="material-icons">delete</i>
+                </a>
+            </td>
+            <td>{{ project.functionTitle }}</td>
+            <td>{{ project.customerName }}</td>
+            <td>{{ project.updatedAt|date('d-m-Y H:i:s') }}</td>
+        </tr>
+        {% for flash_message in app.session.flashBag.get('delete') %}
+            <div id="card-alert" class="card red delete-entity" style="display:none">
+                <div class="card-content white-text valign-wrapper">
+                    <i class="material-icons valign">warning</i>&nbsp;
+                    <span>{{ flash_message }}
+                        <strong><a class="white-text" href="{{ url('project_delete',{'userId' : userId, 'projectId' : project.Id}) }}">Ja, verwijder.</a></strong>
+                    </span>
+                </div>
+            </div>
+        {% endfor %}
+    {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <div class="row">
+            <div class="col s12"><h3>Geen projecten gevonden.</h3></div>
+        </div>
+    {% endif %}
+{% endblock %}
