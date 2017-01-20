@@ -19,9 +19,9 @@ class Curriculumvitae
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Profiel")
+     * @ORM\ManyToOne(targetEntity="Profile")
      */
-    private $profiel;
+    private $profile;
 
     /**
      * @ORM\ManyToMany(targetEntity="Project")
@@ -121,27 +121,27 @@ class Curriculumvitae
     }
 
     /**
-     * Set profiel
+     * Set profile
      *
-     * @param \AppBundle\Entity\Profiel $profiel
+     * @param \AppBundle\Entity\Profile $profile
      *
      * @return Curriculumvitae
      */
-    public function setProfiel(\AppBundle\Entity\Profiel $profiel = null)
+    public function setProfile(\AppBundle\Entity\Profile $profile = null)
     {
-        $this->profiel = $profiel;
+        $this->profile = $profile;
 
         return $this;
     }
 
     /**
-     * Get profiel
+     * Get profile
      *
-     * @return \AppBundle\Entity\Profiel
+     * @return \AppBundle\Entity\Profile
      */
-    public function getProfiel()
+    public function getProfile()
     {
-        return $this->profiel;
+        return $this->profile;
     }
 
     /**

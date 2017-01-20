@@ -8,9 +8,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="profiel")
+ * @ORM\Table(name="profile")
  */
-class Profiel
+class Profile
 {
     /**
      * @ORM\ManyToOne(targetEntity="User")
@@ -19,8 +19,8 @@ class Profiel
 
     /**
      * @ORM\ManyToMany(targetEntity="Tag")
-     * @ORM\JoinTable(name="profiel_tag",
-     *      joinColumns={@ORM\JoinColumn(name="profiel_id", referencedColumnName="id")},
+     * @ORM\JoinTable(name="profile_tag",
+     *      joinColumns={@ORM\JoinColumn(name="profile_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
      *      )
      */
@@ -36,7 +36,7 @@ class Profiel
     /**
      * @ORM\Column(type="string")
      *
-     * @Assert\NotBlank(message="Vul de korte beschrijving in.", groups={"Profiel"})
+     * @Assert\NotBlank(message="Vul de korte beschrijving in.", groups={"Profile"})
      *
      */
     protected $shortDescription;
@@ -44,7 +44,7 @@ class Profiel
     /**
      * @ORM\Column(type="string",)
      *
-     * @Assert\NotBlank(message="Vul de quote in.", groups={"Profiel"})
+     * @Assert\NotBlank(message="Vul de quote in.", groups={"Profile"})
      *
      */
     protected $quoteLine;
@@ -52,7 +52,7 @@ class Profiel
     /**
      * @ORM\Column(type="text")
      *
-     * @Assert\NotBlank(message="Vul de profieltekst in.", groups={"Profiel"})
+     * @Assert\NotBlank(message="Vul de profieltekst in.", groups={"Profile"})
      *
      */
     protected $profileText;
@@ -85,7 +85,7 @@ class Profiel
      *
      * @param string $quoteLine
      *
-     * @return Profiel
+     * @return Profile
      */
     public function setQuoteLine($quoteLine)
     {
@@ -109,7 +109,7 @@ class Profiel
      *
      * @param string $profileText
      *
-     * @return Profiel
+     * @return Profile
      */
     public function setProfileText($profileText)
     {
@@ -133,7 +133,7 @@ class Profiel
      *
      * @param \DateTime $updatedAt
      *
-     * @return Profiel
+     * @return Profile
      */
     public function setUpdatedAt($updatedAt)
     {
@@ -157,7 +157,7 @@ class Profiel
      *
      * @param \AppBundle\Entity\User $user
      *
-     * @return Profiel
+     * @return Profile
      */
     public function setUser(\AppBundle\Entity\User $user = null)
     {
@@ -181,7 +181,7 @@ class Profiel
      *
      * @param string $shortDescription
      *
-     * @return Profiel
+     * @return Profile
      */
     public function setShortDescription($shortDescription)
     {
@@ -225,7 +225,7 @@ class Profiel
      *
      * @param \AppBundle\Entity\Tag $tag
      *
-     * @return Profiel
+     * @return Profile
      */
     public function addTag(\AppBundle\Entity\Tag $tag)
     {

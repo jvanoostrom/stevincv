@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+                <div class="row">
+                    <div class="col s12">
+                        <label>Korte beschrijving</label><br/>
+                        {{ profile.shortDescription }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="tags" class="col s12">
+                        <label>Tags</label><br/>
+                        {% for tag in profile.tags %}
+                        <div class="chip">{{ tag.tagText }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <label>Quote</label><br/>
+                        {{ profile.quoteLine }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <label>Profiel</label><br/>
+                        {{ profile.profileText }}
+                    </div>
+                </div>
+                <div class="row">
+                     <div class="col s12 right-align">
+                         <a class="waves-effect waves-light btn" href="javascript:history.back()"><i class="material-icons left">keyboard_arrow_left</i>Terug</a>
+                     </div>
+                </div>
+{% endblock %}

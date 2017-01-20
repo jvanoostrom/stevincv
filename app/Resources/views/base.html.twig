@@ -48,7 +48,7 @@
                         <ul class="tabs tabs-fixed-width">
                             <li class="tab"><a target="_self" {% if app.request.attributes.get('_route') starts with 'cv' %}class="active"{% endif %} href="{{ url('cv_view', {'userId' : userId}) }}">CV</a></li>
                             <li class="tab"><a target="_self" {% if app.request.attributes.get('_route') starts with 'personalia' %}class="active"{% endif %} href="{{ url('personalia', {'userId' : userId}) }}">Personalia</a></li>
-                            <li class="tab"><a target="_self" {% if app.request.attributes.get('_route') starts with 'profiel' %}class="active"{% endif %} href="{{ url('profiel_view', {'userId' : userId}) }}">Profielen</a></li>
+                            <li class="tab"><a target="_self" {% if app.request.attributes.get('_route') starts with 'profile' %}class="active"{% endif %} href="{{ url('profile_index', {'userId' : userId}) }}">Profielen</a></li>
                             <li class="tab"><a target="_self" {% if app.request.attributes.get('_route') starts with 'project' %}class="active"{% endif %} href="{{ url('project_view', {'userId' : userId}) }}">Projecten</a></li>
                             <li class="tab"><a target="_self" {% if app.request.attributes.get('_route') starts with 'opleiding' %}class="active"{% endif %} href="#test3">Opleidingen</a></li>
                             <li class="tab"><a target="_self" {% if app.request.attributes.get('_route') starts with 'competentie' %}class="active"{% endif %} href="#test3">Competenties</a></li>

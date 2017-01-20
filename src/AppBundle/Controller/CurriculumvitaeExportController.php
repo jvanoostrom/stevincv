@@ -37,7 +37,7 @@ class CurriculumvitaeExportController extends Controller
         $user = $cv->getUser();
         $personalia = $em->getRepository('AppBundle:Personalia')
             ->findOneBy(array('user' => $user));
-        $profiel = $cv->getProfiel();
+        $profile = $cv->getProfile();
         $projects = $cv->getProjects();
 
 
@@ -135,7 +135,7 @@ class CurriculumvitaeExportController extends Controller
             ->setOffsetX(450)
             ->setOffsetY(140);
         $oQuoteText->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_LEFT );
-        $oQuoteTextRun = $oQuoteText->createTextRun(strtoupper($profiel->getQuoteLine()));
+        $oQuoteTextRun = $oQuoteText->createTextRun(strtoupper($profile->getQuoteLine()));
         $oQuoteTextRun->getFont()
             ->setCharacterSpacing(2)
             ->setBold(true)
@@ -151,7 +151,7 @@ class CurriculumvitaeExportController extends Controller
             ->setOffsetX(450)
             ->setOffsetY(210);
         $oProfileText->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_LEFT );
-        $oProfileTextRun = $oProfileText->createTextRun($profiel->getProfileText());
+        $oProfileTextRun = $oProfileText->createTextRun($profile->getProfileText());
         $oProfileTextRun->getFont()
             ->setCharacterSpacing(0.5)
             ->setName('Open Sans')

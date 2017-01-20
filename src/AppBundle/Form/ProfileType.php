@@ -3,7 +3,7 @@
 
 namespace AppBundle\Form;
 
-use AppBundle\Entity\Profiel;
+use AppBundle\Entity\Profile;
 use AppBundle\Form\DataTransformer\TagsDataTransformer;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\AbstractType;
@@ -13,7 +13,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class ProfielType extends AbstractType
+class ProfileType extends AbstractType
 {
 
     private $em;
@@ -40,7 +40,7 @@ class ProfielType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => Profiel::class,
+            'data_class' => Profile::class,
         ));
     }
 }

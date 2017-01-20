@@ -21,10 +21,10 @@ class CurriculumvitaeType extends AbstractType
 
         $builder
                 ->add('curriculumvitaeName', TextType::class)
-                ->add('profiel', EntityType::class, array(
+                ->add('profile', EntityType::class, array(
                     'expanded' => true,
                     'multiple' => false,
-                    'class' => 'AppBundle:Profiel',
+                    'class' => 'AppBundle:Profile',
                     'choice_label' => 'shortDescription',
                     'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('u')

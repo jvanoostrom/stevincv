@@ -43,6 +43,17 @@ class ProjectController extends Controller
     public function addAction(Request $request, $userId)
     {
 
+        // If not correct user
+        if($userId != $this->getUser()->getId())
+        {
+            $this->addFlash(
+                'error',
+                'Je kunt geen projecten voor andere consultants aanmaken.'
+            );
+
+            return $this->redirectToRoute('project_view', array('userId' => $userId));
+        }
+
         $project = new Project();
 
         $form = $this->createForm(ProjectType::class, $project);
@@ -83,6 +94,19 @@ class ProjectController extends Controller
      */
     public function editAction(Request $request, $userId, $projectId)
     {
+
+        // If not correct user
+        $roles = $this->getUser()->getRoles();
+        if($userId != $this->getUser()->getId())
+        {
+            $this->addFlash(
+                'error',
+                'Je kunt geen projecten van andere consultants bewerken.'
+            );
+
+            return $this->redirectToRoute('project_view', array('userId' => $userId));
+        }
+
         $em = $this->getDoctrine()->getManager();
 
         $project = $em->getRepository('AppBundle:Project')
@@ -118,6 +142,17 @@ class ProjectController extends Controller
      */
     public function deleteAction(Request $request, $userId, $projectId)
     {
+
+        // If not correct user
+        if($userId != $this->getUser()->getId())
+        {
+            $this->addFlash(
+                'error',
+                'Je kunt geen projecten van andere consultants verwijderen.'
+            );
+
+            return $this->redirectToRoute('project_view', array('userId' => $userId));
+        }
 
         $em = $this->getDoctrine()->getManager();
         $project = $em->getRepository('AppBundle:Project')->findOneBy(
