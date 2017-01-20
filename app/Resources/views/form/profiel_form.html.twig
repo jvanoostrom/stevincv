@@ -31,7 +31,8 @@
                         {{ form_label(form.tags, 'Tags') }}
                         {{ form_errors(form.tags) }}
                         {{ form_widget(form.tags, {'attr': {
-                            'class': 'typeahead-input'
+                            'data-role': 'materialtags',
+                            'class': 'autocomplete'
                         }}) }}
                     </div>
                 </div>

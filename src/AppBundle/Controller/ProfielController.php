@@ -20,7 +20,7 @@ class ProfielController extends Controller
      * @Route("/{userId}/profiel/", name="profiel_view")
      *
      */
-    public function showAction(Request $request, $userId)
+    public function indexAction(Request $request, $userId)
     {
 
         $profiles = $this->getDoctrine()->getRepository('AppBundle:Profiel')->findBy(
@@ -33,7 +33,7 @@ class ProfielController extends Controller
             'Weet je zeker dat je dit profiel wilt verwijderen?'
         );
 
-        return $this->render('pages/profiel.html.twig', array(
+        return $this->render('index/profiel.html.twig', array(
             'profiles' => $profiles,
             'userId' => $userId
         ));

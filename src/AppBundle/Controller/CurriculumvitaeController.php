@@ -18,7 +18,7 @@ class CurriculumvitaeController extends Controller
      * @Route("/{userId}/cv/", name="cv_view")
      *
      */
-    public function showAction(Request $request, $userId)
+    public function indexAction(Request $request, $userId)
     {
 
         $cvs = $this->getDoctrine()->getRepository('AppBundle:Curriculumvitae')->findBy(
@@ -31,7 +31,7 @@ class CurriculumvitaeController extends Controller
             'Weet je zeker dat je dit cv wilt verwijderen?'
         );
 
-        return $this->render('pages/curriculumvitae.html.twig', array(
+        return $this->render('index/curriculumvitae.html.twig', array(
             'cvs' => $cvs,
             'userId' => $userId
         ));

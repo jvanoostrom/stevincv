@@ -1,8 +1,29 @@
 $( document ).ready(function() {
+
+    // var tags = new Bloodhound({
+    //     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('text'),
+    //     queryTokenizer: Bloodhound.tokenizers.whitespace,
+    //     prefetch: '/json/tags.json'
+    // });
+    //
+    // tags.initialize();
+    //
+    // $('.typeahead-input').materialtags({
+    //     trimValue: true,
+    //     typeaheadjs: [{
+    //         highlight   : true
+    //     },
+    //         {
+    //             name: 'tags',
+    //             displayKey: 'name',
+    //             valueKey: 'name',
+    //             source: tags.ttAdapter()
+    //         }]
+    // });
+
 	$(".button-collapse").sideNav();
 
-    $(".succes-entity").delay(200).slideDown(300);
-    $(".succes-entity").delay(2000).slideUp(300);
+    $(".succes-entity").delay(200).slideDown(300).delay(2000).slideUp(300);
 
     $(".delete-button").click(function() {
         $(".delete-entity").delay(200).slideDown(300);
@@ -72,32 +93,15 @@ $( document ).ready(function() {
         });
     });
 
-
+    $('input.n-tag').autocomplete({
+        data: {
+            "Apple": null,
+            "Microsoft": null,
+            "Google": 'http://placehold.it/250x250'
+        }
+    });
 
 
 
 
 });
-
-
-// var tags = new Bloodhound({
-//     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('text'),
-//     queryTokenizer: Bloodhound.tokenizers.whitespace,
-//     local: ['tag1', 'dummy'],
-//     prefetch: window.location.protocol + '//' + window.location.host + '/json/tags.json'
-// });
-//
-// tags.initialize();
-//
-// $('#profiel_tags').materialtags({
-//     trimValue: true,
-//     typeaheadjs: [{
-//         highlight   : true
-//     },
-//         {
-//         name: 'tags',
-//         displayKey: 'name',
-//         valueKey: 'name',
-//         source: tags.ttAdapter()
-//     }]
-// });

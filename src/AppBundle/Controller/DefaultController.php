@@ -24,7 +24,7 @@ class DefaultController extends Controller
     public function indexAction(Request $request, $userId)
     {
 
-        $render = $this->render('pages/home.html.twig',
+        $render = $this->render('index/home.html.twig',
             array('userId' => $userId)
         );
 

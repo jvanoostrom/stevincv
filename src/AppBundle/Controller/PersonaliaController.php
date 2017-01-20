@@ -63,7 +63,7 @@ class PersonaliaController extends Controller
             return $this->redirectToRoute('personalia', array('userId' => $userId));
         }
 
-        return $this->render('pages/personalia.html.twig', array(
+        return $this->render('show/personalia.html.twig', array(
             'form' => $form->createView(),
             'profileImage' => $profileImageName,
             'userId' => $userId

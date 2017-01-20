@@ -16,7 +16,7 @@ class ProjectController extends Controller
      * @Route("/{userId}/project/", name="project_view")
      *
      */
-    public function showAction(Request $request, $userId)
+    public function indexAction(Request $request, $userId)
     {
 
         $projects = $this->getDoctrine()->getRepository('AppBundle:Project')->findBy(
@@ -29,7 +29,7 @@ class ProjectController extends Controller
             'Weet je zeker dat je dit project wilt verwijderen?'
         );
 
-        return $this->render('pages/project.html.twig', array(
+        return $this->render('index/project.html.twig', array(
             'projects' => $projects,
             'userId' => $userId
         ));
