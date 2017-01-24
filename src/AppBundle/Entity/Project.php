@@ -18,6 +18,15 @@ class Project
     private $user;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Tag")
+     * @ORM\JoinTable(name="project_tag",
+     *      joinColumns={@ORM\JoinColumn(name="project_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
+     *      )
+     */
+    private $tags;
+
+    /**
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -43,10 +52,10 @@ class Project
     /**
      * @ORM\Column(type="text")
      *
-     * @Assert\NotBlank(message="Vul de tekst voor de opdrachtgever in.", groups={"Project"})
+     * @Assert\NotBlank(message="Vul de tekst voor de situatie in.", groups={"Project"})
      *
      */
-    protected $customerProfile;
+    protected $situationText;
 
     /**
      * @ORM\Column(type="text")
@@ -150,27 +159,27 @@ class Project
     }
 
     /**
-     * Set customerProfile
+     * Set situationText
      *
-     * @param string $customerProfile
+     * @param string $situationText
      *
      * @return Project
      */
-    public function setCustomerProfile($customerProfile)
+    public function setSituationText($situationText)
     {
-        $this->customerProfile = $customerProfile;
+        $this->situationText = $situationText;
 
         return $this;
     }
 
     /**
-     * Get customerProfile
+     * Get situationText
      *
      * @return string
      */
-    public function getCustomerProfile()
+    public function getSituationText()
     {
-        return $this->customerProfile;
+        return $this->situationText;
     }
 
     /**
@@ -315,5 +324,39 @@ class Project
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Remove tag
+     *
+     * @param \AppBundle\Entity\Tag $tag
+     */
+    public function removeTag(\AppBundle\Entity\Tag $tag)
+    {
+        $this->tags->removeElement($tag);
+    }
+
+    /**
+     * Get tags
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * Add tag
+     *
+     * @param \AppBundle\Entity\Tag $tag
+     *
+     * @return Project
+     */
+    public function addTag(\AppBundle\Entity\Tag $tag)
+    {
+        $this->tags[] = $tag;
+
+        return $this;
     }
 }

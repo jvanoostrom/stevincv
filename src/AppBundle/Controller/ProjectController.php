@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 class ProjectController extends Controller
 {
     /**
-     * @Route("/{userId}/project/", name="project_view")
+     * @Route("/{userId}/project/", name="project_index")
      *
      */
     public function indexAction(Request $request, $userId)
@@ -37,6 +37,23 @@ class ProjectController extends Controller
     }
 
     /**
+     * @Route("/{userId}/project/show/{projectId}", name="project_show")
+     *
+     */
+    public function showAction(Request $request, $userId, $projectId)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $project = $em->getRepository('AppBundle:Project')
+            ->findOneBy(array('id' => $projectId));
+
+        return $this->render('show/project_show.html.twig', array(
+            'userId' => $userId,
+            'project' => $project
+        ));
+    }
+
+    /**
      * @Route("/{userId}/project/add", name="project_add")
      *
      */
@@ -44,14 +61,18 @@ class ProjectController extends Controller
     {
 
         // If not correct user
+        $roles = $this->getUser()->getRoles();
         if($userId != $this->getUser()->getId())
         {
-            $this->addFlash(
-                'error',
-                'Je kunt geen projecten voor andere consultants aanmaken.'
-            );
+            if(!in_array('ROLE_ADMIN', $roles))
+            {
+                $this->addFlash(
+                    'error',
+                    'Je kunt geen projecten voor andere consultants toevoegen.'
+                );
 
-            return $this->redirectToRoute('project_view', array('userId' => $userId));
+                return $this->redirectToRoute('project_index', array('userId' => $userId));
+            }
         }
 
         $project = new Project();
@@ -77,7 +98,7 @@ class ProjectController extends Controller
                 'Het project is succesvol aangemaakt.'
             );
 
-            return $this->redirectToRoute('project_view', array('userId' => $userId));
+            return $this->redirectToRoute('project_index', array('userId' => $userId));
         }
 
 
@@ -99,12 +120,15 @@ class ProjectController extends Controller
         $roles = $this->getUser()->getRoles();
         if($userId != $this->getUser()->getId())
         {
-            $this->addFlash(
-                'error',
-                'Je kunt geen projecten van andere consultants bewerken.'
-            );
+            if(!in_array('ROLE_ADMIN', $roles))
+            {
+                $this->addFlash(
+                    'error',
+                    'Je kunt geen projecten van andere consultants aanpassen.'
+                );
 
-            return $this->redirectToRoute('project_view', array('userId' => $userId));
+                return $this->redirectToRoute('project_index', array('userId' => $userId));
+            }
         }
 
         $em = $this->getDoctrine()->getManager();
@@ -126,7 +150,7 @@ class ProjectController extends Controller
                 'De wijzigingen zijn opgeslagen.'
             );
 
-            return $this->redirectToRoute('project_view', array('userId' => $userId));
+            return $this->redirectToRoute('project_index', array('userId' => $userId));
         }
 
         return $this->render('form/project_form.html.twig', array(
@@ -144,14 +168,18 @@ class ProjectController extends Controller
     {
 
         // If not correct user
+        $roles = $this->getUser()->getRoles();
         if($userId != $this->getUser()->getId())
         {
-            $this->addFlash(
-                'error',
-                'Je kunt geen projecten van andere consultants verwijderen.'
-            );
+            if(!in_array('ROLE_ADMIN', $roles))
+            {
+                $this->addFlash(
+                    'error',
+                    'Je kunt geen projecten van andere consultants verwijderen.'
+                );
 
-            return $this->redirectToRoute('project_view', array('userId' => $userId));
+                return $this->redirectToRoute('project_index', array('userId' => $userId));
+            }
         }
 
         $em = $this->getDoctrine()->getManager();
@@ -169,7 +197,7 @@ class ProjectController extends Controller
             'Het project is succesvol verwijderd.'
         );
 
-        return $this->redirectToRoute('project_view', array('userId' => $userId));
+        return $this->redirectToRoute('project_index', array('userId' => $userId));
 
     }
 

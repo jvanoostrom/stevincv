@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+{% if education %}
+    <div class="row">
+        <div class="col s12 m2">
+            <label>Startdatum</label><br/>
+            {{ education.startDate|date('d-m-Y') }}
+        </div>
+        <div class="col s12 m2">
+            <label>Einddatum</label><br/>
+            {{ education.endDate|date('d-m-Y') }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <label>Opleiding</label><br/>
+            {{ education.educationName }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <label>Specialisatie</label><br/>
+            {{ education.educationSpecialisation }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <label>Instituut</label><br/>
+            {{ education.educationInstitute }}
+        </div>
+    </div>
+    <div class="row">
+         <div class="col s12 right-align">
+             <a class="waves-effect waves-light btn" href="javascript:history.back()"><i class="material-icons left">keyboard_arrow_left</i>Terug</a>
+         </div>
+    </div>
+{% endif %}
+{% endblock %}

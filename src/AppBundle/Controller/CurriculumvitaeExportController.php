@@ -3,14 +3,11 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Curriculumvitae;
-use AppBundle\Form\CurriculumvitaeType;
 use PhpOffice\PhpPresentation\Shape\Table\Cell;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
-use PhpOffice\PhpPresentation\DocumentLayout;
 use PhpOffice\PhpPresentation\IOFactory;
 use PhpOffice\PhpPresentation\PhpPresentation;
 use PhpOffice\PhpPresentation\Shape\Drawing;
@@ -39,7 +36,7 @@ class CurriculumvitaeExportController extends Controller
             ->findOneBy(array('user' => $user));
         $profile = $cv->getProfile();
         $projects = $cv->getProjects();
-
+        $education = $cv->getEducation();
 
         $outputDirectory = $this->container->getParameter('curriculumvitae_output_directory');
         $profileImageDirectory = $this->container->getParameter('profile_image_directory');
@@ -246,7 +243,7 @@ class CurriculumvitaeExportController extends Controller
             ->setColor($darkGrey);
         $this->setBorderStyle($oCell, 0);
 
-        // Time to add education table
+        // Education table
         $oTable = $oSlide2->createTableShape(2)
                         ->setHeight(300)
                         ->setWidth(430)
@@ -270,74 +267,52 @@ OPLEIDING');
         $oCell->setWidth(85);
         $this->setBorderStyle($oCell, 0);
 
-        $nEducation = 3;
+        $nEducation = count($education);
         $rowHeight = floor(300/$nEducation);
 
         // Iteration over #education
         //Edu 1
-        $oRow = $oTable->createRow();
-        $oRow->setHeight($rowHeight);
-        $oCell = $oRow->nextCell();
-        $oCell->getActiveParagraph()->setLineSpacing(120);
-        $oCellText = $oCell->createTextRun('Master Aerospace Engineering,
-specialisatie Aerodynamics and Wind Energy
-Technische Universiteit Delft');
-        $oCellText->getFont()
-            ->setSize(10)
-            ->setName('Open Sans')
-            ->setColor($darkGrey);
-        $this->setBorderStyle($oCell, 0);
+        foreach($education as $edu) {
+            $oRow = $oTable->createRow();
+            $oRow->setHeight($rowHeight);
+            $oCell = $oRow->nextCell();
+            $oCell->getActiveParagraph()->setLineSpacing(120);
 
-        $oCell = $oRow->nextCell();
-        $oCellText = $oCell->createTextRun('2011-2014');
-        $oCellText->getFont()
-            ->setSize(10)
-            ->setName('Open Sans')
-            ->setColor($darkGrey);
-        $this->setBorderStyle($oCell, 0);
+            if(
+                (strpos(strtolower($edu->getEducationName()), 'master') !== false)
+                ||
+                (strpos(strtolower($edu->getEducationName()), 'msc') !== false)
+            )
+            {
+                $oCellText = $oCell->createTextRun($edu->getEducationName().',
+'.$edu->getEducationSpecialisation().'
+'.$edu->getEducationInstitute());
+            }
+            else
+            {
+                $oCellText = $oCell->createTextRun($edu->getEducationName().',
+'.$edu->getEducationInstitute());
+            }
 
-        //Edu 2
-        $oRow = $oTable->createRow();
-        $oRow->setHeight($rowHeight);
-        $oCell = $oRow->nextCell();
-        $oCell->getActiveParagraph()->setLineSpacing(120);
-        $oCellText = $oCell->createTextRun('Bachelor Aerospace Engineering,
-Minor Educatie Wiskunde
-Technische Universiteit Delft');
-        $oCellText->getFont()
-            ->setSize(10)
-            ->setName('Open Sans')
-            ->setColor($darkGrey);
-        $this->setBorderStyle($oCell, 0);
 
-        $oCell = $oRow->nextCell();
-        $oCellText = $oCell->createTextRun('2008-2011');
-        $oCellText->getFont()
-            ->setSize(10)
-            ->setName('Open Sans')
-            ->setColor($darkGrey);
-        $this->setBorderStyle($oCell, 0);
+            $oCellText->getFont()
+                ->setSize(10)
+                ->setName('Open Sans')
+                ->setColor($darkGrey);
+            $this->setBorderStyle($oCell, 0);
 
-        //Edu 3
-        $oRow = $oTable->createRow();
-        $oRow->setHeight($rowHeight);
-        $oCell = $oRow->nextCell();
-        $oCell->getActiveParagraph()->setLineSpacing(120);
-        $oCellText = $oCell->createTextRun('VWO, Natuur & Techniek met muziek
-Mgr. Frencken College Oosterhout');
-        $oCellText->getFont()
-            ->setSize(10)
-            ->setName('Open Sans')
-            ->setColor($darkGrey);
-        $this->setBorderStyle($oCell, 0);
-
-        $oCell = $oRow->nextCell();
-        $oCellText = $oCell->createTextRun('2012-2008');
-        $oCellText->getFont()
-            ->setSize(10)
-            ->setName('Open Sans')
-            ->setColor($darkGrey);
-        $this->setBorderStyle($oCell, 0);
+            $oCell = $oRow->nextCell();
+            $oCellText = $oCell->createTextRun(
+                date_format($edu->getStartDate(),'Y')
+                .'-'.
+                date_format($edu->getEndDate(),'Y')
+            );
+            $oCellText->getFont()
+                ->setSize(10)
+                ->setName('Open Sans')
+                ->setColor($darkGrey);
+            $this->setBorderStyle($oCell, 0);
+        }
 
         // Time to add extracurricular table
         $oTable = $oSlide2->createTableShape(2);
@@ -524,7 +499,7 @@ NEVENACTIVITEITEN');
                 ->setOffsetX($offset)
                 ->setOffsetY(145);
             $oExecutiveText->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_LEFT );
-            $oExecutiveTextRun = $oExecutiveText->createTextRun('OPDRACHTGEVER');
+            $oExecutiveTextRun = $oExecutiveText->createTextRun('SITUATIE');
             $oExecutiveTextRun->getFont()
                 ->setName('Open Sans SemiBold')
                 ->setCharacterSpacing(0.5)
@@ -539,7 +514,7 @@ NEVENACTIVITEITEN');
                 ->setOffsetY(165);
             $oExecutiveTextBox->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_LEFT );
             $oExecutiveTextBox->getActiveParagraph()->setLineSpacing(120);
-            $oExecutiveTextBoxRun = $oExecutiveTextBox->createTextRun($project->getCustomerProfile());
+            $oExecutiveTextBoxRun = $oExecutiveTextBox->createTextRun($project->getSituationText());
             $oExecutiveTextBoxRun->getFont()
                 ->setName('Open Sans SemiBold')
                 ->setCharacterSpacing(0.5)
@@ -606,50 +581,6 @@ NEVENACTIVITEITEN');
 
 
         }
-
-        /* --------------------------
-         *  Values slide
-         * --------------------------
-         */
-
-        $oSlideWaarden = $objPHPPresentation->createSlide();
-        $oSlideWaarden->setSlideLayout($oSlideLayout);
-
-        // Add Background image
-        $oBackgroundImageSlide = new BackgroundImage();
-        $oBackgroundImageSlide->setPath('./img/cv/cvBackgroundWaarden.jpg');
-        $oSlideWaarden->setBackground($oBackgroundImageSlide);
-
-        // Add placeholder picture
-        $oPlaceholder = new Drawing\File();
-        $oPlaceholder->setPath('./img/cv/placeholder.png')
-            ->setHeight(0)
-            ->setWidth(0)
-            ->setOffsetX(0)
-            ->setOffsetY(0);
-        $oSlideWaarden->addShape($oPlaceholder);
-
-        /* --------------------------
-         *  Final slide
-         * --------------------------
-         */
-
-        $oSlideEinde = $objPHPPresentation->createSlide();
-        $oSlideEinde->setSlideLayout($oSlideLayout);
-
-        // Add Background image
-        $oBackgroundImageSlide = new BackgroundImage();
-        $oBackgroundImageSlide->setPath('./img/cv/cvBackgroundEinde.jpg');
-        $oSlideEinde->setBackground($oBackgroundImageSlide);
-
-        // Add placeholder picture
-        $oPlaceholder = new Drawing\File();
-        $oPlaceholder->setPath('./img/cv/placeholder.png')
-            ->setHeight(0)
-            ->setWidth(0)
-            ->setOffsetX(0)
-            ->setOffsetY(0);
-        $oSlideEinde->addShape($oPlaceholder);
 
         /* --------------------------
          *  Output

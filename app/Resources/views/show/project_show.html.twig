@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+{% if project %}
+    <div class="row">
+        <div class="col s12 m2">
+            <label>Startdatum</label><br/>
+            {{ project.startDate|date('d-m-Y') }}
+        </div>
+        <div class="col s12 m2">
+            <label>Einddatum</label><br/>
+            {{ project.endDate|date('d-m-Y') }}
+        </div>
+    </div>
+    <div class="row">
+        <div id="tags" class="col s12">
+            <label>Tags</label><br/>
+            {% for tag in project.tags %}
+            <div class="chip">{{ tag.tagText }}</div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <label>Functietitel</label><br/>
+            {{ project.functionTitle }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <label>Klant</label><br/>
+            {{ project.customerName }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <label>Situatie</label><br/>
+            {{ project.situationText }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <label>Werkzaamheden</label><br/>
+            {{ project.taskText }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <label>Resultaat</label><br/>
+            {{ project.resultText }}
+        </div>
+    </div>
+    <div class="row">
+         <div class="col s12 right-align">
+             <a class="waves-effect waves-light btn" href="javascript:history.back()"><i class="material-icons left">keyboard_arrow_left</i>Terug</a>
+         </div>
+    </div>
+{% endif %}
+{% endblock %}

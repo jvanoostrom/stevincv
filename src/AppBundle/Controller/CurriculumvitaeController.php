@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 class CurriculumvitaeController extends Controller
 {
     /**
-     * @Route("/{userId}/cv/", name="cv_view")
+     * @Route("/{userId}/cv/", name="cv_index")
      *
      */
     public function indexAction(Request $request, $userId)
@@ -45,6 +45,21 @@ class CurriculumvitaeController extends Controller
     public function addAction(Request $request, $userId)
     {
 
+        // If not correct user
+        $roles = $this->getUser()->getRoles();
+        if($userId != $this->getUser()->getId())
+        {
+            if(!in_array('ROLE_ADMIN', $roles))
+            {
+                $this->addFlash(
+                    'error',
+                    'Je kunt geen CV\'s voor anderen consultants aanmaken.'
+                );
+
+                return $this->redirectToRoute('cv_index', array('userId' => $userId));
+            }
+        }
+
         $cv = new Curriculumvitae();
 
         $em = $this->getDoctrine()->getManager();
@@ -70,7 +85,7 @@ class CurriculumvitaeController extends Controller
                 'Het cv is succesvol aangemaakt.'
             );
 
-            return $this->redirectToRoute('cv_view', array('userId' => $userId));
+            return $this->redirectToRoute('cv_index', array('userId' => $userId));
         }
 
 
@@ -87,6 +102,22 @@ class CurriculumvitaeController extends Controller
      */
     public function editAction(Request $request, $userId, $cvId)
     {
+
+        // If not correct user
+        $roles = $this->getUser()->getRoles();
+        if($userId != $this->getUser()->getId())
+        {
+            if(!in_array('ROLE_ADMIN', $roles))
+            {
+                $this->addFlash(
+                    'error',
+                    'Je kunt geen CV\'s van anderen consultants aanpassen.'
+                );
+
+                return $this->redirectToRoute('cv_index', array('userId' => $userId));
+            }
+        }
+
         $em = $this->getDoctrine()->getManager();
 
         $cv = $em->getRepository('AppBundle:Curriculumvitae')
@@ -106,7 +137,7 @@ class CurriculumvitaeController extends Controller
                 'De wijzigingen zijn opgeslagen.'
             );
 
-            return $this->redirectToRoute('cv_view', array('userId' => $userId));
+            return $this->redirectToRoute('cv_index', array('userId' => $userId));
         }
 
         return $this->render('form/curriculumvitae_form.html.twig', array(
@@ -123,6 +154,21 @@ class CurriculumvitaeController extends Controller
     public function deleteAction(Request $request, $userId, $cvId)
     {
 
+        // If not correct user
+        $roles = $this->getUser()->getRoles();
+        if($userId != $this->getUser()->getId())
+        {
+            if(!in_array('ROLE_ADMIN', $roles))
+            {
+                $this->addFlash(
+                    'error',
+                    'Je kunt geen CV\'s van anderen consultants verwijderen.'
+                );
+
+                return $this->redirectToRoute('cv_index', array('userId' => $userId));
+            }
+        }
+
         $em = $this->getDoctrine()->getManager();
         $cv = $em->getRepository('AppBundle:Curriculumvitae')->findOneBy(
             array(
@@ -138,7 +184,7 @@ class CurriculumvitaeController extends Controller
             'Het cv is succesvol verwijderd.'
         );
 
-        return $this->redirectToRoute('cv_view', array('userId' => $userId));
+        return $this->redirectToRoute('cv_index', array('userId' => $userId));
 
     }
 

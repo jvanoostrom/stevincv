@@ -6,11 +6,11 @@
         {% set isUser = true %}
     {% endif %}
     {% if isUser %}
-    <div class="row">
-        <div class="col s12">
-            <a href="{{ url('profile_add',{'userId' : userId}) }}" class="valign-wrapper"><i class="material-icons valign">add</i>Voeg een profiel toe</a>
+        <div class="row">
+            <div class="col s12">
+                <a href="{{ url('profile_add',{'userId' : userId}) }}" class="valign-wrapper"><i class="material-icons valign">add</i>Voeg een profiel toe</a>
+            </div>
         </div>
-    </div>
     {% endif %}
     {% for flash_message in app.session.flashBag.get('notice') %}
         <div id="card-alert" class="card green succes-entity" style="display:none">
@@ -32,10 +32,10 @@
         <thead>
         <tr>
             <th data-field="id" width="65"></th>
-            <th data-field="korteBeschrijving">Beschrijving</th>
-            <th data-field="keywords"width="450">Tags</th>
+            <th data-field="shortDescription">Beschrijving</th>
+            <th data-field="tags" width="450">Tags</th>
             <th data-field="updatedAt" width="150">Bijgewerkt</th>
-        </tr>
+        </tr>s
         </thead>
 
         <tbody>

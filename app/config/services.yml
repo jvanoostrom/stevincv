@@ -14,3 +14,15 @@ services:
         arguments: ["@doctrine.orm.entity_manager"]
         tags:
             - { name: form.type }
+
+  app.form.type.project:
+          class: AppBundle\Form\ProjectType
+          arguments: ["@doctrine.orm.entity_manager"]
+          tags:
+              - { name: form.type }
+
+  app.form.type.cv:
+          class: AppBundle\Form\CurriculumvitaeType
+          arguments: ["@doctrine.orm.entity_manager"]
+          tags:
+              - { name: form.type }

@@ -8,7 +8,7 @@
     {% if isUser %}
         <div class="row">
             <div class="col s12">
-                <a href="{{ url('cv_add',{'userId' : userId}) }}" class="valign-wrapper"><i class="material-icons valign">add</i>Voeg een cv toe</a>
+                <a href="{{ url('edu_add',{'userId' : userId}) }}" class="valign-wrapper"><i class="material-icons valign">add</i>Voeg een opleiding toe</a>
             </div>
         </div>
     {% endif %}
@@ -19,50 +19,52 @@
             </div>
         </div>
     {% endfor %}
-    {% if cvs %}
+    {% for flash_message in app.session.flashBag.get('error') %}
+        <div id="card-alert" class="card red succes-entity" style="display:none">
+            <div class="card-content white-text valign-wrapper">
+                <i class="material-icons valign">warning</i>&nbsp;<span>{{ flash_message }}</span>
+            </div>
+        </div>
+    {% endfor %}
+
+    {% if education %}
     <table class="highlight responsive-table">
         <thead>
         <tr>
-            <th data-field="" width="100"></th>
-            <th data-field="curriculumvitaeName">Naam</th>
-            <th data-field="tags">Tags</th>
+            <th data-field="id" width="65"></th>
+            <th data-field="educationName">Opleiding</th>
+            <th data-field="educationInstitute" width="450">Instituut</th>
             <th data-field="updatedAt" width="150">Bijgewerkt</th>
         </tr>
         </thead>
 
         <tbody>
-    {% for cv in cvs %}
+    {% for edu in education %}
         <tr>
             <td>
                 {% if isUser %}
-                    <a href="{{ url('cv_edit',{'userId' : userId, 'cvId' : cv.Id}) }}" alt="Bewerken">
+                    <a href="{{ url('edu_edit',{'userId' : userId, 'educationId' : edu.Id}) }}" alt="Bewerken">
                         <i class="material-icons">edit</i>
                     </a>
                     <a href="#" class="delete-button" alt="Verwijderen">
                         <i class="material-icons">delete</i>
                     </a>
-                    <a href="{{ url('cv_export',{'userId' : userId, 'cvId' : cv.Id}) }}" alt="Exporteren">
-                        <i class="material-icons">file_download</i>
-                    </a>
                 {% else %}
-                    <a href="{{ url('cv_export',{'userId' : userId, 'cvId' : cv.Id}) }}" alt="Exporteren">
-                        <i class="material-icons">file_download</i>
+                    <a href="{{ url('edu_show',{'userId' : userId, 'educationId' : edu.Id}) }}" alt="Bewerken">
+                        <i class="material-icons">visibility</i>
                     </a>
                 {% endif %}
             </td>
-            <td>{{ cv.curriculumvitaeName }}</td>
-            <td id="tags">{% for tag in cv.tags %}
-                    <div class="chip">{{ tag.tagText }}</div>
-                {% endfor %}
-            </td>
-            <td>{{ cv.updatedAt|date('d-m-Y H:i:s') }}</td>
+            <td>{{ edu.educationName }}</td>
+            <td>{{ edu.educationInstitute }}</td>
+            <td>{{ edu.updatedAt|date('d-m-Y H:i:s') }}</td>
         </tr>
         {% for flash_message in app.session.flashBag.get('delete') %}
             <div id="card-alert" class="card red delete-entity" style="display:none">
                 <div class="card-content white-text valign-wrapper">
                     <i class="material-icons valign">warning</i>&nbsp;
                     <span>{{ flash_message }}
-                        <strong><a class="white-text" href="{{ url('cv_delete',{'userId' : userId, 'cvId' : cv.Id}) }}">Ja, verwijder.</a></strong>
+                        <strong><a class="white-text" href="{{ url('edu_delete',{'userId' : userId, 'educationId' : edu.Id}) }}">Ja, verwijder.</a></strong>
                     </span>
                 </div>
             </div>
@@ -72,7 +74,7 @@
     </table>
     {% else %}
         <div class="row">
-            <div class="col s12"><h3>Geen CV's gevonden.</h3></div>
+            <div class="col s12"><h3>Geen opleidingen gevonden.</h3></div>
         </div>
     {% endif %}
 {% endblock %}

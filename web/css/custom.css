@@ -34,5 +34,44 @@ header, main, footer {
 }
 
 #tags .chip {
-    margin-top: 0px;
+    margin-top: 0;
+}
+
+.collapsible {
+    box-shadow: none;
+    border: 0;
+}
+
+.collapsible-header {
+    display: block;
+    cursor: pointer;
+    background-color: #fff;
+    border-bottom: 1px solid #9e9e9e;
+    padding:0;
+}
+
+.collapsible-header label {
+    font-size: 1.0rem;
+    color: #9e9e9e;
+}
+
+.collapsible-header i {
+    width: 2rem;
+    font-size: 1.6rem;
+    line-height: 3rem;
+    display: block;
+    float: right;
+    text-align: center;
+    margin-right: 1rem;
+}
+
+.collapsible-body {
+    display: none;
+    border: 0;
+}
+
+.collapsible-body p {
+    margin-top: 15px;
+    margin-bottom: 10px;
+    padding: 0;
 }

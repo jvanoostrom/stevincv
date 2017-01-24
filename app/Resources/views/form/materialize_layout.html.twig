@@ -138,6 +138,7 @@
 {%- endblock radio_widget %}
 
 {% block checkbox_widget -%}
+    {% set attr = attr|merge({class: (attr.class|default(''))|trim}) %}
     <p>
         <input class="filled-in" type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
         <label for="{{ id }}"{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>

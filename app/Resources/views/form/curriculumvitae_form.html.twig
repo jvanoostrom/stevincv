@@ -26,16 +26,38 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s12 m6">
-                        {{ form_label(form.profile, 'Profiel') }}<br/>
-                        {{ form_errors(form.profile) }}
-                        {{ form_widget(form.profile) }}
+                        {{ form_label(form.tags, 'Tags') }}
+                        {{ form_errors(form.tags) }}
+                        {{ form_widget(form.tags, {'attr': {
+                            'data-role': 'materialtags',
+                        }}) }}
                     </div>
                 </div>
                 <div class="row">
-                    <div class="input-field col s12 m6">
-                        {{ form_label(form.projects, 'Projecten') }}<br/>
-                        {{ form_errors(form.projects) }}
-                        {{ form_widget(form.projects) }}
+                    <div class="col s12 m6">
+                        <ul class="collapsible" data-collapsible="expandable">
+                            <li>
+                                <div class="collapsible-header">{{ form_label(form.profile, 'Profiel') }}<i class="material-icons">arrow_drop_down</i></div>
+                                <div class="collapsible-body">
+                                    {{ form_errors(form.profile) }}
+                                    {{ form_widget(form.profile) }}
+                                </div>
+                            </li>
+                            <li>
+                                <div class="collapsible-header">{{ form_label(form.projects, 'Projecten (maximaal 6)') }}<i class="material-icons">arrow_drop_down</i></div>
+                                <div class="collapsible-body">
+                                    {{ form_errors(form.projects) }}
+                                    {{ form_widget(form.projects) }}
+                                </div>
+                            </li>
+                            <li>
+                                <div class="collapsible-header">{{ form_label(form.education, 'Opleidingen (maximaal 4)') }}<i class="material-icons">arrow_drop_down</i></div>
+                                <div class="collapsible-body">
+                                    {{ form_errors(form.education) }}
+                                    {{ form_widget(form.education) }}
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
                 <div class="row right">

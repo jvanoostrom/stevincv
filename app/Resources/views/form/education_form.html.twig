@@ -33,18 +33,9 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s12 m6">
-                        {{ form_label(form.tags, 'Tags') }}
-                        {{ form_errors(form.tags) }}
-                        {{ form_widget(form.tags, {'attr': {
-                            'data-role': 'materialtags',
-                        }}) }}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s12 m6">
-                        {{ form_label(form.functionTitle, 'Functietitel') }}
-                        {{ form_errors(form.functionTitle) }}
-                        {{ form_widget(form.functionTitle, {'attr': {
+                        {{ form_label(form.educationName, 'Opleiding') }}
+                        {{ form_errors(form.educationName) }}
+                        {{ form_widget(form.educationName, {'attr': {
                             'class': 'validate',
                             'maxlength': 100,
                         }}) }}
@@ -52,44 +43,21 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s12 m6">
-                        {{ form_label(form.customerName, 'Klant') }}
-                        {{ form_errors(form.customerName) }}
-                        {{ form_widget(form.customerName, {'attr': {
+                        {{ form_label(form.educationSpecialisation, 'Specialisatie') }}
+                        {{ form_errors(form.educationSpecialisation) }}
+                        {{ form_widget(form.educationSpecialisation, {'attr': {
                             'class': 'validate',
                             'maxlength': 100,
                         }}) }}
                     </div>
                 </div>
                 <div class="row">
-                    <div class="input-field col s12">
-                        {{ form_label(form.situationText, 'Situatie') }}
-                        {{ form_errors(form.situationText) }}
-                        {{ form_widget(form.situationText, {'attr': {
-                            'class': 'validate materialize-textarea',
-                            'length': 1250,
-                            'maxlength': 1250,
-                        }}) }}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s12">
-                        {{ form_label(form.taskText, 'Werkzaamheden') }}
-                        {{ form_errors(form.taskText) }}
-                        {{ form_widget(form.taskText, {'attr': {
-                            'class': 'validate materialize-textarea',
-                            'length': 1250,
-                            'maxlength': 1250,
-                        }}) }}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s12">
-                        {{ form_label(form.resultText, 'Resultaat') }}
-                        {{ form_errors(form.resultText) }}
-                        {{ form_widget(form.resultText, {'attr': {
-                            'class': 'validate materialize-textarea',
-                            'length': 1250,
-                            'maxlength': 1250,
+                    <div class="input-field col s12 m6">
+                        {{ form_label(form.educationInstitute, 'Instituut') }}
+                        {{ form_errors(form.educationInstitute) }}
+                        {{ form_widget(form.educationInstitute, {'attr': {
+                            'class': 'validate',
+                            'maxlength': 100,
                         }}) }}
                     </div>
                 </div>

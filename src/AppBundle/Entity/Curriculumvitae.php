@@ -24,6 +24,15 @@ class Curriculumvitae
     private $profile;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Tag")
+     * @ORM\JoinTable(name="cv_tag",
+     *      joinColumns={@ORM\JoinColumn(name="cv_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
+     *      )
+     */
+    private $tags;
+
+    /**
      * @ORM\ManyToMany(targetEntity="Project")
      * @ORM\JoinTable(name="curriculumvitae_project",
      *      joinColumns={@ORM\JoinColumn(name="cv_id", referencedColumnName="id")},
@@ -31,6 +40,16 @@ class Curriculumvitae
      *      )
      */
     private $projects;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Education")
+     * @ORM\JoinTable(name="curriculumvitae_education",
+     *      joinColumns={@ORM\JoinColumn(name="cv_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="education_id", referencedColumnName="id")}
+     *      )
+     * @ORM\OrderBy({"endDate" = "desc", "startDate" = "desc"})
+     */
+    private $education;
 
 
     /**
@@ -200,5 +219,73 @@ class Curriculumvitae
     public function getProjects()
     {
         return $this->projects;
+    }
+
+    /**
+     * Remove tag
+     *
+     * @param \AppBundle\Entity\Tag $tag
+     */
+    public function removeTag(\AppBundle\Entity\Tag $tag)
+    {
+        $this->tags->removeElement($tag);
+    }
+
+    /**
+     * Get tags
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * Add tag
+     *
+     * @param \AppBundle\Entity\Tag $tag
+     *
+     * @return Curriculumvitae
+     */
+    public function addTag(\AppBundle\Entity\Tag $tag)
+    {
+        $this->tags[] = $tag;
+
+        return $this;
+    }
+
+    /**
+     * Add education
+     *
+     * @param \AppBundle\Entity\Education $education
+     *
+     * @return Curriculumvitae
+     */
+    public function addEducation(\AppBundle\Entity\Education $education)
+    {
+        $this->education[] = $education;
+
+        return $this;
+    }
+
+    /**
+     * Remove education
+     *
+     * @param \AppBundle\Entity\Education $education
+     */
+    public function removeEducation(\AppBundle\Entity\Education $education)
+    {
+        $this->education->removeElement($education);
+    }
+
+    /**
+     * Get education
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEducation()
+    {
+        return $this->education;
     }
 }

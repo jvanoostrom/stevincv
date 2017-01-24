@@ -54,7 +54,7 @@ $( document ).ready(function() {
         labelMonthSelect: 'Selecteer maand',
         labelYearSelect: 'Selecteer jaar',
         formatSubmit: 'yyyy-mm-dd',
-		format: 'dd-mm-yyyy',
+		format: 'yyyy-mm-dd',
         closeOnSelect: true,
         closeOnClear: true
     });
@@ -91,6 +91,27 @@ $( document ).ready(function() {
                 });
             }
         });
+    });
+
+    $('.collapsible').collapsible();
+
+
+    // Limit number of projects in CV
+    var maxProjects = 6;
+    $("input[type=checkbox][id^=curriculumvitae_projects]").click(function() {
+
+        var bol = $("input[type=checkbox][id^=curriculumvitae_projects]:checked").length >= maxProjects;
+        $("input[type=checkbox][id^=curriculumvitae_projects]").not(":checked").attr("disabled",bol);
+
+    });
+
+    // Limit number of education in CV
+    var maxEducation = 4;
+    $("input[type=checkbox][id^=curriculumvitae_education]").click(function() {
+
+        var bol = $("input[type=checkbox][id^=curriculumvitae_education]:checked").length >= maxEducation;
+        $("input[type=checkbox][id^=curriculumvitae_education]").not(":checked").attr("disabled",bol);
+
     });
 
 });
