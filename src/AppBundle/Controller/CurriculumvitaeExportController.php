@@ -37,6 +37,9 @@ class CurriculumvitaeExportController extends Controller
         $profile = $cv->getProfile();
         $projects = $cv->getProjects();
         $education = $cv->getEducation();
+        $certificates = $cv->getCertificates();
+        $extracurricular = $cv->getExtracurricular();
+        $publications = $cv->getPublications();
 
         $outputDirectory = $this->container->getParameter('curriculumvitae_output_directory');
         $profileImageDirectory = $this->container->getParameter('profile_image_directory');
@@ -267,14 +270,11 @@ OPLEIDING');
         $oCell->setWidth(85);
         $this->setBorderStyle($oCell, 0);
 
-        $nEducation = count($education);
-        $rowHeight = floor(300/$nEducation);
-
         // Iteration over #education
         //Edu 1
         foreach($education as $edu) {
             $oRow = $oTable->createRow();
-            $oRow->setHeight($rowHeight);
+            $oRow->setHeight(60);
             $oCell = $oRow->nextCell();
             $oCell->getActiveParagraph()->setLineSpacing(120);
 
@@ -302,6 +302,7 @@ OPLEIDING');
             $this->setBorderStyle($oCell, 0);
 
             $oCell = $oRow->nextCell();
+            $oCell->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_RIGHT );
             $oCellText = $oCell->createTextRun(
                 date_format($edu->getStartDate(),'Y')
                 .'-'.
@@ -314,19 +315,19 @@ OPLEIDING');
             $this->setBorderStyle($oCell, 0);
         }
 
-        // Time to add extracurricular table
+        // Certificate table
         $oTable = $oSlide2->createTableShape(2);
         $oTable->setHeight(200);
         $oTable->setWidth(430);
         $oTable->setOffsetX($xOffsetLeft);
-        $oTable->setOffsetY(500);
+        $oTable->setOffsetY(440);
 
         $oRow = $oTable->createRow();
         $oRow->setHeight(12);
         $oCell = $oRow->nextCell();
         $oCell->setWidth(345);
         $oCellText = $oCell->createTextRun('
-NEVENACTIVITEITEN');
+CERTIFICATEN');
         $oCellText->getFont()
             ->setSize(10)
             ->setName('Open Sans SemiBold')
@@ -334,66 +335,32 @@ NEVENACTIVITEITEN');
         $this->setBorderStyle($oCell, 0);
 
         $oCell = $oRow->nextCell();
-        $oCell->setWidth(85);
+        $oCell->setWidth(90);
         $this->setBorderStyle($oCell, 0);
 
-        //Iteration extracurriculair
+        //Iteration certificates
         // Extra 1
-        $oRow = $oTable->createRow();
-        $oRow->setHeight(10);
-        $oCell = $oRow->nextCell();
-        $oCellText = $oCell->createTextRun('Stagiair Technische Analyse DAF Trucks N.V.');
-        $oCellText->getFont()
-            ->setSize(10)
-            ->setName('Open Sans')
-            ->setColor($darkGrey);
-        $this->setBorderStyle($oCell, 0);
+        foreach($certificates as $certificate)
+        {
+            $oRow = $oTable->createRow();
+            $oRow->setHeight(10);
+            $oCell = $oRow->nextCell();
+            $oCellText = $oCell->createTextRun($certificate->getCertificateName().' - '.$certificate->getCertificateInstitute());
+            $oCellText->getFont()
+                ->setSize(10)
+                ->setName('Open Sans')
+                ->setColor($darkGrey);
+            $this->setBorderStyle($oCell, 0);
 
-        $oCell = $oRow->nextCell();
-        $oCellText = $oCell->createTextRun('2013');
-        $oCellText->getFont()
-            ->setSize(10)
-            ->setName('Open Sans')
-            ->setColor($darkGrey);
-        $this->setBorderStyle($oCell, 0);
-
-        // Extra 2
-        $oRow = $oTable->createRow();
-        $oRow->setHeight(10);
-        $oCell = $oRow->nextCell();
-        $oCellText = $oCell->createTextRun('Onderwijsassistent TU Delft (80 studenten)');
-        $oCellText->getFont()
-            ->setSize(10)
-            ->setName('Open Sans')
-            ->setColor($darkGrey);
-        $this->setBorderStyle($oCell, 0);
-
-        $oCell = $oRow->nextCell();
-        $oCellText = $oCell->createTextRun('2012-2013');
-        $oCellText->getFont()
-            ->setSize(10)
-            ->setName('Open Sans')
-            ->setColor($darkGrey);
-        $this->setBorderStyle($oCell, 0);
-
-        // Extra 3
-        $oRow = $oTable->createRow();
-        $oRow->setHeight(10);
-        $oCell = $oRow->nextCell();
-        $oCellText = $oCell->createTextRun('2e-graads bevoegdheid docent Wiskunde');
-        $oCellText->getFont()
-            ->setSize(10)
-            ->setName('Open Sans')
-            ->setColor($darkGrey);
-        $this->setBorderStyle($oCell, 0);
-
-        $oCell = $oRow->nextCell();
-        $oCellText = $oCell->createTextRun('2010-2011');
-        $oCellText->getFont()
-            ->setSize(10)
-            ->setName('Open Sans')
-            ->setColor($darkGrey);
-        $this->setBorderStyle($oCell, 0);
+            $oCell = $oRow->nextCell();
+            $oCell->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_RIGHT );
+            $oCellText = $oCell->createTextRun(date_format($certificate->getObtainedDate(),'Y'));
+            $oCellText->getFont()
+                ->setSize(10)
+                ->setName('Open Sans')
+                ->setColor($darkGrey);
+            $this->setBorderStyle($oCell, 0);
+        }
 
         // Add Stevin Logo
         $oStevinLogo = new Drawing\File();
@@ -408,6 +375,156 @@ NEVENACTIVITEITEN');
          * --------------------------
          */
 
+        // Add important Projects table
+        $oTable = $oSlide2->createTableShape(1);
+        $oTable->setHeight(200);
+        $oTable->setWidth(430);
+        $oTable->setOffsetX($xOffsetRight);
+        $oTable->setOffsetY(50);
+
+        $oRow = $oTable->createRow();
+        $oRow->setHeight(12);
+        $oCell = $oRow->nextCell();
+        $oCell->setWidth(345);
+        $oCellText = $oCell->createTextRun('
+BELANGRIJKSTE PROJECTEN');
+        $oCellText->getFont()
+            ->setSize(10)
+            ->setName('Open Sans SemiBold')
+            ->setColor($red);
+        $this->setBorderStyle($oCell, 0);
+
+        for($i = 0; $i<3; $i++)
+        {
+            $oRow = $oTable->createRow();
+            $oRow->setHeight(10);
+            $oCell = $oRow->nextCell();
+            $oCellText = $oCell->createTextRun($projects[$i]->getFunctionTitle());
+            $oCellText->getFont()
+                ->setSize(10)
+                ->setName('Open Sans')
+                ->setColor($darkGrey);
+            $this->setBorderStyle($oCell, 0);
+        }
+
+
+        if(count($extracurricular) > 0)
+        {
+
+        // Add Extracurricular table
+        $oTable = $oSlide2->createTableShape(2);
+        $oTable->setHeight(200);
+        $oTable->setWidth(430);
+        $oTable->setOffsetX($xOffsetRight);
+        $oTable->setOffsetY(300);
+
+        $oRow = $oTable->createRow();
+        $oRow->setHeight(12);
+        $oCell = $oRow->nextCell();
+        $oCell->setWidth(345);
+        $oCellText = $oCell->createTextRun('
+NEVENACTIVITEITEN');
+        $oCellText->getFont()
+            ->setSize(10)
+            ->setName('Open Sans SemiBold')
+            ->setColor($red);
+        $this->setBorderStyle($oCell, 0);
+
+        $oCell = $oRow->nextCell();
+        $oCell->setWidth(90);
+        $this->setBorderStyle($oCell, 0);
+
+            foreach($extracurricular as $extra)
+            {
+                $oRow = $oTable->createRow();
+                $oRow->setHeight(10);
+                $oCell = $oRow->nextCell();
+                $oCellText = $oCell->createTextRun($extra->getExtraCurricularName());
+                $oCellText->getFont()
+                    ->setSize(10)
+                    ->setName('Open Sans')
+                    ->setColor($darkGrey);
+                $this->setBorderStyle($oCell, 0);
+
+                $oCell = $oRow->nextCell();
+                $oCell->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_RIGHT );
+
+                if($extra->getEndDate())
+                {
+                    $text = date_format($extra->getStartDate(),'Y').'-'.date_format($extra->getEndDate(),'Y');
+                }
+                else
+                {
+                    $text = date_format($extra->getStartDate(),'Y').'- nu';
+                }
+
+                $oCellText = $oCell->createTextRun($text);
+                $oCellText->getFont()
+                    ->setSize(10)
+                    ->setName('Open Sans')
+                    ->setColor($darkGrey);
+                $this->setBorderStyle($oCell, 0);
+            }
+
+        }
+        elseif(count($publications) > 0)
+        {
+            // Add Publications table
+            $oTable = $oSlide2->createTableShape(2);
+            $oTable->setHeight(200);
+            $oTable->setWidth(430);
+            $oTable->setOffsetX($xOffsetRight);
+            $oTable->setOffsetY(300);
+
+            $oRow = $oTable->createRow();
+            $oRow->setHeight(12);
+            $oCell = $oRow->nextCell();
+            $oCell->setWidth(345);
+            $oCellText = $oCell->createTextRun('
+PUBLICATIES');
+            $oCellText->getFont()
+                ->setSize(10)
+                ->setName('Open Sans SemiBold')
+                ->setColor($red);
+            $this->setBorderStyle($oCell, 0);
+
+            $oCell = $oRow->nextCell();
+            $oCell->setWidth(85);
+            $this->setBorderStyle($oCell, 0);
+
+            foreach($publications as $publication)
+            {
+                $oRow = $oTable->createRow();
+                $oRow->setHeight(10);
+                $oCell = $oRow->nextCell();
+                $oCellText = $oCell->createTextRun($publication->getPublicationTitle());
+                $oCellText->getFont()
+                    ->setSize(10)
+                    ->setName('Open Sans')
+                    ->setColor($darkGrey);
+                $oCell->createBreak();
+                $oCellText = $oCell->createTextRun($publication->getPublicationJournal());
+                $oCellText->getFont()
+                    ->setSize(10)
+                    ->setItalic(true)
+                    ->setName('Open Sans')
+                    ->setColor($darkGrey);
+                $this->setBorderStyle($oCell, 0);
+
+                $oCell = $oRow->nextCell();
+                $oCell->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_RIGHT );
+                $oCellText = $oCell->createTextRun(date_format($publication->getPublishedDate(),'Y'));
+                $oCellText->getFont()
+                    ->setSize(10)
+                    ->setName('Open Sans')
+                    ->setColor($darkGrey);
+                $this->setBorderStyle($oCell, 0);
+            }
+        }
+        else
+        {
+            die('Geen nevenactiviteit OF publicatie toegevoegd aan het CV.');
+        }
 
         /* --------------------------
          *  Project Slides

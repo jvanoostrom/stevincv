@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+{% if certificate %}
+    <div class="row">
+        <div class="col s12">
+            <label>Naam certificaat</label><br/>
+            {{ certificate.certificateName }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12 m2">
+            <label>Datum behaald</label><br/>
+            {{ certificate.obtainedDate|date('d-m-Y') }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <label>Instituut</label><br/>
+            {{ certificate.certificateInstitute }}
+        </div>
+    </div>
+    <div class="row">
+         <div class="col s12 right-align">
+             <a class="waves-effect waves-light btn" href="javascript:history.back()"><i class="material-icons left">keyboard_arrow_left</i>Terug</a>
+         </div>
+    </div>
+{% endif %}
+{% endblock %}

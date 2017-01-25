@@ -64,6 +64,39 @@ class CurriculumvitaeType extends AbstractType
                             ->orderBy('u.endDate', 'DESC');
                     },
                 ))
+                ->add('certificates', EntityType::class, array(
+                    'expanded' => true,
+                    'multiple' => true,
+                    'class' => 'AppBundle:Certificate',
+                    'choice_label' => 'certificateName',
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('u')
+                            ->where('u.user = '.$this->userId)
+                            ->orderBy('u.obtainedDate', 'DESC');
+                    },
+                ))
+                ->add('extracurricular', EntityType::class, array(
+                    'expanded' => true,
+                    'multiple' => true,
+                    'class' => 'AppBundle:Extracurricular',
+                    'choice_label' => 'extracurricularName',
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('u')
+                            ->where('u.user = '.$this->userId)
+                            ->orderBy('u.endDate', 'DESC');
+                    },
+                ))
+                ->add('publications', EntityType::class, array(
+                    'expanded' => true,
+                    'multiple' => true,
+                    'class' => 'AppBundle:Publication',
+                    'choice_label' => 'PublicationTitle',
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('u')
+                            ->where('u.user = '.$this->userId)
+                            ->orderBy('u.publishedDate', 'DESC');
+                    },
+                ))
                 ->add('submit', SubmitType::class, array('label' => 'Opslaan'))
                 ->getForm();
 

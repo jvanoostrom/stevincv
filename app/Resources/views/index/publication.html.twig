@@ -8,7 +8,7 @@
     {% if isUser %}
         <div class="row">
             <div class="col s12">
-                <a href="{{ url('profile_add',{'userId' : userId}) }}" class="valign-wrapper"><i class="material-icons valign">add</i>Voeg een profiel toe</a>
+                <a href="{{ url('pub_add',{'userId' : userId}) }}" class="valign-wrapper"><i class="material-icons valign">add</i>Voeg een publicatie toe</a>
             </div>
         </div>
     {% endif %}
@@ -27,47 +27,44 @@
         </div>
     {% endfor %}
 
-    {% if profiles %}
+    {% if publications %}
     <table class="highlight responsive-table">
         <thead>
         <tr>
             <th data-field="id" width="65"></th>
-            <th data-field="shortDescription">Beschrijving</th>
-            <th data-field="tags" width="450">Tags</th>
+            <th data-field="publicationTitle">Titel</th>
+            <th data-field="publishedDate" width="150">Publicatiedatum</th>
             <th data-field="updatedAt" width="150">Bijgewerkt</th>
         </tr>
         </thead>
 
         <tbody>
-    {% for profile in profiles %}
+    {% for publication in publications %}
         <tr>
             <td>
                 {% if isUser %}
-                    <a href="{{ url('profile_edit',{'userId' : userId, 'profileId' : profile.Id}) }}" alt="Bewerken">
+                    <a href="{{ url('pub_edit',{'userId' : userId, 'publicationId' : publication.Id}) }}" alt="Bewerken">
                         <i class="material-icons">edit</i>
                     </a>
                     <a href="#" class="delete-button" alt="Verwijderen">
                         <i class="material-icons">delete</i>
                     </a>
                 {% else %}
-                    <a href="{{ url('profile_show',{'userId' : userId, 'profileId' : profile.Id}) }}" alt="Bewerken">
+                    <a href="{{ url('pub_show',{'userId' : userId, 'publicationId' : publication.Id}) }}" alt="Bewerken">
                         <i class="material-icons">visibility</i>
                     </a>
                 {% endif %}
             </td>
-            <td>{{ profile.shortDescription }}</td>
-            <td id="tags">{% for tag in profile.tags %}
-                    <div class="chip">{{ tag.tagText }}</div>
-                {% endfor %}
-            </td>
-            <td>{{ profile.updatedAt|date('d-m-Y H:i:s') }}</td>
+            <td>{{ publication.publicationTitle }}</td>
+            <td>{{ publication.publishedDate|date('d-m-Y') }}</td>
+            <td>{{ publication.updatedAt|date('d-m-Y H:i:s') }}</td>
         </tr>
         {% for flash_message in app.session.flashBag.get('delete') %}
             <div id="card-alert" class="card red delete-entity" style="display:none">
                 <div class="card-content white-text valign-wrapper">
                     <i class="material-icons valign">warning</i>&nbsp;
                     <span>{{ flash_message }}
-                        <strong><a class="white-text" href="{{ url('profile_delete',{'userId' : userId, 'profileId' : profile.Id}) }}">Ja, verwijder.</a></strong>
+                        <strong><a class="white-text" href="{{ url('pub_delete',{'userId' : userId, 'publicationId' : publication.Id}) }}">Ja, verwijder.</a></strong>
                     </span>
                 </div>
             </div>
@@ -77,7 +74,7 @@
     </table>
     {% else %}
         <div class="row">
-            <div class="col s12"><h3>Geen profielen gevonden.</h3></div>
+            <div class="col s12"><h3>Geen publicaties gevonden.</h3></div>
         </div>
     {% endif %}
 {% endblock %}

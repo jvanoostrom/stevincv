@@ -15,7 +15,7 @@ class DefaultController extends Controller
     {
         $userId = $this->getUser()->getId();
 
-        return $this->redirectToRoute('homepage', array('userId' => $userId));
+        return $this->redirectToRoute('cv_index', array('userId' => $userId));
     }
 
     /**
@@ -24,11 +24,13 @@ class DefaultController extends Controller
     public function indexAction(Request $request, $userId)
     {
 
-        $render = $this->render('index/home.html.twig',
-            array('userId' => $userId)
-        );
+        return $this->redirectToRoute('cv_index', array('userId' => $userId));
 
-        return $render;
+//        $render = $this->render('index/home.html.twig',
+//            array('userId' => $userId)
+//        );
+//
+//        return $render;
     }
 
 }

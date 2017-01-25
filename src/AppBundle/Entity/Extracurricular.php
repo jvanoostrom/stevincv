@@ -8,9 +8,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="education")
+ * @ORM\Table(name="extracurricular")
  */
-class Education
+class Extracurricular
 {
     /**
      * @ORM\ManyToOne(targetEntity="User")
@@ -27,36 +27,21 @@ class Education
     /**
      * @ORM\Column(type="string")
      *
-     * @Assert\NotBlank(message="Vul de naam van de opleiding in.", groups={"Education"})
+     * @Assert\NotBlank(message="Vul de titel van de nevenactiviteit in.", groups={"Extracurricular"})
      *
      */
-    protected $educationName;
-
-    /**
-     * @ORM\Column(type="string")
-     *
-     */
-    protected $educationSpecialisation;
-
-    /**
-     * @ORM\Column(type="string")
-     *
-     * @Assert\NotBlank(message="Vul het opleidingsinstituut in.", groups={"Education"})
-     *
-     */
-    protected $educationInstitute;
+    protected $extracurricularName;
 
     /**
      * @ORM\Column(type="date")
      *
-     * @Assert\NotBlank(message="Vul de startdatum in.", groups={"Education"})
+     * @Assert\NotBlank(message="Vul de startdatum van de nevenactiviteit in.", groups={"Extracurricular"})
      */
     protected $startDate;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      *
-     * @Assert\NotBlank(message="Vul de einddatum in.", groups={"Education"})
      */
     protected $endDate;
 
@@ -83,75 +68,27 @@ class Education
     }
 
     /**
-     * Set educationName
+     * Set extracurricularName
      *
-     * @param string $educationName
+     * @param string $extracurricularName
      *
-     * @return Education
+     * @return Extracurricular
      */
-    public function setEducationName($educationName)
+    public function setExtracurricularName($extracurricularName)
     {
-        $this->educationName = $educationName;
+        $this->extracurricularName = $extracurricularName;
 
         return $this;
     }
 
     /**
-     * Get educationName
+     * Get extracurricularName
      *
      * @return string
      */
-    public function getEducationName()
+    public function getExtracurricularName()
     {
-        return $this->educationName;
-    }
-
-    /**
-     * Set educationSpecialisation
-     *
-     * @param string $educationSpecialisation
-     *
-     * @return Education
-     */
-    public function setEducationSpecialisation($educationSpecialisation)
-    {
-        $this->educationSpecialisation = $educationSpecialisation;
-
-        return $this;
-    }
-
-    /**
-     * Get educationSpecialisation
-     *
-     * @return string
-     */
-    public function getEducationSpecialisation()
-    {
-        return $this->educationSpecialisation;
-    }
-
-    /**
-     * Set educationInstitute
-     *
-     * @param string $educationInstitute
-     *
-     * @return Education
-     */
-    public function setEducationInstitute($educationInstitute)
-    {
-        $this->educationInstitute = $educationInstitute;
-
-        return $this;
-    }
-
-    /**
-     * Get educationInstitute
-     *
-     * @return string
-     */
-    public function getEducationInstitute()
-    {
-        return $this->educationInstitute;
+        return $this->extracurricularName;
     }
 
     /**
@@ -159,9 +96,9 @@ class Education
      *
      * @param \DateTime $startDate
      *
-     * @return Education
+     * @return Extracurricular
      */
-    public function setStartDate(\DateTime $startDate)
+    public function setStartDate(\DateTime $startDate = null)
     {
         $this->startDate = $startDate;
 
@@ -183,9 +120,9 @@ class Education
      *
      * @param \DateTime $endDate
      *
-     * @return Education
+     * @return Extracurricular
      */
-    public function setEndDate(\DateTime $endDate)
+    public function setEndDate(\DateTime $endDate = null)
     {
         $this->endDate = $endDate;
 
@@ -207,7 +144,7 @@ class Education
      *
      * @param \DateTime $updatedAt
      *
-     * @return Education
+     * @return Extracurricular
      */
     public function setUpdatedAt($updatedAt)
     {
@@ -231,7 +168,7 @@ class Education
      *
      * @param \AppBundle\Entity\User $user
      *
-     * @return Education
+     * @return Extracurricular
      */
     public function setUser(\AppBundle\Entity\User $user = null)
     {
@@ -249,5 +186,4 @@ class Education
     {
         return $this->user;
     }
-
 }

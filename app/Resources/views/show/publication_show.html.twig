@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+{% if publication %}
+    <div class="row">
+        <div class="col s12">
+            <label>Titel</label><br/>
+            {{ publication.publicationTitle }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12 m2">
+            <label>Publicatiedatum</label><br/>
+            {{ publication.publishedDate|date('d-m-Y') }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <label>Medium</label><br/>
+            {{ publication.publicationJournal }}
+        </div>
+    </div>
+    <div class="row">
+         <div class="col s12 right-align">
+             <a class="waves-effect waves-light btn" href="javascript:history.back()"><i class="material-icons left">keyboard_arrow_left</i>Terug</a>
+         </div>
+    </div>
+{% endif %}
+{% endblock %}

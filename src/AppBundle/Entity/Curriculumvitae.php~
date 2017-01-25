@@ -19,19 +19,67 @@ class Curriculumvitae
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Profiel")
+     * @ORM\ManyToOne(targetEntity="Profile")
      */
-    private $profiel;
+    private $profile;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Tag")
+     * @ORM\JoinTable(name="cv_tag",
+     *      joinColumns={@ORM\JoinColumn(name="cv_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
+     *      )
+     */
+    private $tags;
 
     /**
      * @ORM\ManyToMany(targetEntity="Project")
      * @ORM\JoinTable(name="curriculumvitae_project",
      *      joinColumns={@ORM\JoinColumn(name="cv_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="project_id", referencedColumnName="id", unique=true)}
+     *      inverseJoinColumns={@ORM\JoinColumn(name="project_id", referencedColumnName="id")}
      *      )
      */
     private $projects;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Education")
+     * @ORM\JoinTable(name="curriculumvitae_education",
+     *      joinColumns={@ORM\JoinColumn(name="cv_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="education_id", referencedColumnName="id")}
+     *      )
+     * @ORM\OrderBy({"endDate" = "desc", "startDate" = "desc"})
+     */
+    private $education;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Certificate")
+     * @ORM\JoinTable(name="curriculumvitae_certificate",
+     *      joinColumns={@ORM\JoinColumn(name="cv_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="certificate_id", referencedColumnName="id")}
+     *      )
+     * @ORM\OrderBy({"obtainedDate" = "desc"})
+     */
+    private $certificates;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Extracurricular")
+     * @ORM\JoinTable(name="curriculumvitae_extracurricular",
+     *      joinColumns={@ORM\JoinColumn(name="cv_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="extracurricular_id", referencedColumnName="id")}
+     *      )
+     * @ORM\OrderBy({"obtainedDate" = "desc"})
+     */
+    private $extracurricular;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Publication")
+     * @ORM\JoinTable(name="curriculumvitae_publication",
+     *      joinColumns={@ORM\JoinColumn(name="cv_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="publication_id", referencedColumnName="id")}
+     *      )
+     * @ORM\OrderBy({"obtainedDate" = "desc"})
+     */
+    private $publications;
 
     /**
      * @ORM\Id
@@ -59,6 +107,8 @@ class Curriculumvitae
     {
         $this->updatedAt = new \DateTime();
         $this->projects = new ArrayCollection();
+        $this->education = new ArrayCollection();
+        $this->certificates = new ArrayCollection();
     }
 
     /**
@@ -121,27 +171,27 @@ class Curriculumvitae
     }
 
     /**
-     * Set profiel
+     * Set profile
      *
-     * @param \AppBundle\Entity\Profiel $profiel
+     * @param \AppBundle\Entity\Profile $profile
      *
      * @return Curriculumvitae
      */
-    public function setProfiel(\AppBundle\Entity\Profiel $profiel = null)
+    public function setProfile(\AppBundle\Entity\Profile $profile = null)
     {
-        $this->profiel = $profiel;
+        $this->profile = $profile;
 
         return $this;
     }
 
     /**
-     * Get profiel
+     * Get profile
      *
-     * @return \AppBundle\Entity\Profiel
+     * @return \AppBundle\Entity\Profile
      */
-    public function getProfiel()
+    public function getProfile()
     {
-        return $this->profiel;
+        return $this->profile;
     }
 
     /**
@@ -200,5 +250,107 @@ class Curriculumvitae
     public function getProjects()
     {
         return $this->projects;
+    }
+
+    /**
+     * Remove tag
+     *
+     * @param \AppBundle\Entity\Tag $tag
+     */
+    public function removeTag(\AppBundle\Entity\Tag $tag)
+    {
+        $this->tags->removeElement($tag);
+    }
+
+    /**
+     * Get tags
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * Add tag
+     *
+     * @param \AppBundle\Entity\Tag $tag
+     *
+     * @return Curriculumvitae
+     */
+    public function addTag(\AppBundle\Entity\Tag $tag)
+    {
+        $this->tags[] = $tag;
+
+        return $this;
+    }
+
+    /**
+     * Add education
+     *
+     * @param \AppBundle\Entity\Education $education
+     *
+     * @return Curriculumvitae
+     */
+    public function addEducation(\AppBundle\Entity\Education $education)
+    {
+        $this->education[] = $education;
+
+        return $this;
+    }
+
+    /**
+     * Remove education
+     *
+     * @param \AppBundle\Entity\Education $education
+     */
+    public function removeEducation(\AppBundle\Entity\Education $education)
+    {
+        $this->education->removeElement($education);
+    }
+
+    /**
+     * Get education
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEducation()
+    {
+        return $this->education;
+    }
+
+    /**
+     * Add certificate
+     *
+     * @param \AppBundle\Entity\Certificate $certificate
+     *
+     * @return Curriculumvitae
+     */
+    public function addCertificate(\AppBundle\Entity\Certificate $certificate)
+    {
+        $this->certificates[] = $certificate;
+
+        return $this;
+    }
+
+    /**
+     * Remove certificate
+     *
+     * @param \AppBundle\Entity\Certificate $certificate
+     */
+    public function removeCertificate(\AppBundle\Entity\Certificate $certificate)
+    {
+        $this->certificates->removeElement($certificate);
+    }
+
+    /**
+     * Get certificates
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCertificates()
+    {
+        return $this->certificates;
     }
 }

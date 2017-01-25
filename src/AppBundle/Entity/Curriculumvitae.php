@@ -51,6 +51,35 @@ class Curriculumvitae
      */
     private $education;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Certificate")
+     * @ORM\JoinTable(name="curriculumvitae_certificate",
+     *      joinColumns={@ORM\JoinColumn(name="cv_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="certificate_id", referencedColumnName="id")}
+     *      )
+     * @ORM\OrderBy({"obtainedDate" = "desc"})
+     */
+    private $certificates;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Extracurricular")
+     * @ORM\JoinTable(name="curriculumvitae_extracurricular",
+     *      joinColumns={@ORM\JoinColumn(name="cv_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="extracurricular_id", referencedColumnName="id")}
+     *      )
+     * @ORM\OrderBy({"endDate" = "desc", "startDate" = "desc"})
+     */
+    private $extracurricular;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Publication")
+     * @ORM\JoinTable(name="curriculumvitae_publication",
+     *      joinColumns={@ORM\JoinColumn(name="cv_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="publication_id", referencedColumnName="id")}
+     *      )
+     * @ORM\OrderBy({"publishedDate" = "desc"})
+     */
+    private $publications;
 
     /**
      * @ORM\Id
@@ -78,6 +107,8 @@ class Curriculumvitae
     {
         $this->updatedAt = new \DateTime();
         $this->projects = new ArrayCollection();
+        $this->education = new ArrayCollection();
+        $this->certificates = new ArrayCollection();
     }
 
     /**
@@ -287,5 +318,107 @@ class Curriculumvitae
     public function getEducation()
     {
         return $this->education;
+    }
+
+    /**
+     * Add certificate
+     *
+     * @param \AppBundle\Entity\Certificate $certificate
+     *
+     * @return Curriculumvitae
+     */
+    public function addCertificate(\AppBundle\Entity\Certificate $certificate)
+    {
+        $this->certificates[] = $certificate;
+
+        return $this;
+    }
+
+    /**
+     * Remove certificate
+     *
+     * @param \AppBundle\Entity\Certificate $certificate
+     */
+    public function removeCertificate(\AppBundle\Entity\Certificate $certificate)
+    {
+        $this->certificates->removeElement($certificate);
+    }
+
+    /**
+     * Get certificates
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCertificates()
+    {
+        return $this->certificates;
+    }
+
+    /**
+     * Add extracurricular
+     *
+     * @param \AppBundle\Entity\Extracurricular $extracurricular
+     *
+     * @return Curriculumvitae
+     */
+    public function addExtracurricular(\AppBundle\Entity\Extracurricular $extracurricular)
+    {
+        $this->extracurricular[] = $extracurricular;
+
+        return $this;
+    }
+
+    /**
+     * Remove extracurricular
+     *
+     * @param \AppBundle\Entity\Extracurricular $extracurricular
+     */
+    public function removeExtracurricular(\AppBundle\Entity\Extracurricular $extracurricular)
+    {
+        $this->extracurricular->removeElement($extracurricular);
+    }
+
+    /**
+     * Get extracurricular
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getExtracurricular()
+    {
+        return $this->extracurricular;
+    }
+
+    /**
+     * Add publication
+     *
+     * @param \AppBundle\Entity\Publication $publication
+     *
+     * @return Curriculumvitae
+     */
+    public function addPublication(\AppBundle\Entity\Publication $publication)
+    {
+        $this->publications[] = $publication;
+
+        return $this;
+    }
+
+    /**
+     * Remove publication
+     *
+     * @param \AppBundle\Entity\Publication $publication
+     */
+    public function removePublication(\AppBundle\Entity\Publication $publication)
+    {
+        $this->publications->removeElement($publication);
+    }
+
+    /**
+     * Get publications
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPublications()
+    {
+        return $this->publications;
     }
 }
