@@ -2,18 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="97c68838-9386-45e6-96c3-b74e2eb0fe8c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Resources/views/form/skill_form.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Resources/views/index/skill.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/SkillController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/Skill.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/AppBundle/Form/SkillType.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/base.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/base.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/form/curriculumvitae_form.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/form/curriculumvitae_form.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Entity/Curriculumvitae.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/Curriculumvitae.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Form/CurriculumvitaeType.php" afterPath="$PROJECT_DIR$/src/AppBundle/Form/CurriculumvitaeType.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/css/custom.css" afterPath="$PROJECT_DIR$/web/css/custom.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/js/init.js" afterPath="$PROJECT_DIR$/web/js/init.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/CurriculumvitaeExportController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/CurriculumvitaeExportController.php" />
     </list>
     <ignored path="$PROJECT_DIR$/var/cache/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -93,11 +82,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="curriculumvitae_form.html.twig" pinned="false" current-in-tab="true">
+      <file leaf-file-name="curriculumvitae_form.html.twig" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Resources/views/form/curriculumvitae_form.html.twig">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="658">
               <caret line="82" column="62" lean-forward="false" selection-start-line="82" selection-start-column="62" selection-end-line="82" selection-end-column="62" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CurriculumvitaeExportController.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/CurriculumvitaeExportController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="717">
+              <caret line="427" column="87" lean-forward="false" selection-start-line="427" selection-start-column="87" selection-end-line="427" selection-end-column="87" />
               <folding />
             </state>
           </provider>
@@ -211,7 +210,6 @@
         <option value="$PROJECT_DIR$/app/Resources/views/form/publication_form.html.twig" />
         <option value="$PROJECT_DIR$/app/Resources/views/show/publication_show.html.twig" />
         <option value="$PROJECT_DIR$/app/Resources/views/index/publication.html.twig" />
-        <option value="$PROJECT_DIR$/src/AppBundle/Controller/CurriculumvitaeExportController.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/Skills.php" />
         <option value="$PROJECT_DIR$/app/Resources/views/show/skill_show.html.twig" />
@@ -226,6 +224,7 @@
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/Curriculumvitae.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Form/CurriculumvitaeType.php" />
         <option value="$PROJECT_DIR$/app/Resources/views/form/curriculumvitae_form.html.twig" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Controller/CurriculumvitaeExportController.php" />
       </list>
     </option>
   </component>
@@ -766,12 +765,12 @@
       <workItem from="1485434068335" duration="61000" />
       <workItem from="1643200994974" duration="222000" />
       <workItem from="1485434849980" duration="28000" />
-      <workItem from="1485435200701" duration="7213000" />
+      <workItem from="1485435200701" duration="8865000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="67951000" />
+    <option name="totallyTimeSpent" value="69603000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1000,13 +999,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/CurriculumvitaeExportController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8778">
-          <caret line="399" column="33" lean-forward="true" selection-start-line="399" selection-start-column="33" selection-end-line="399" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Tag.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1190,6 +1182,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="658">
           <caret line="82" column="62" lean-forward="false" selection-start-line="82" selection-start-column="62" selection-end-line="82" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/CurriculumvitaeExportController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="717">
+          <caret line="427" column="87" lean-forward="false" selection-start-line="427" selection-start-column="87" selection-end-line="427" selection-end-column="87" />
           <folding />
         </state>
       </provider>

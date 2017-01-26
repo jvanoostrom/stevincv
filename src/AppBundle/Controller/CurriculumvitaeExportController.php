@@ -40,6 +40,7 @@ class CurriculumvitaeExportController extends Controller
         $certificates = $cv->getCertificates();
         $extracurricular = $cv->getExtracurricular();
         $publications = $cv->getPublications();
+        $skills = $cv->getSkills();
 
         $outputDirectory = $this->container->getParameter('curriculumvitae_output_directory');
         $profileImageDirectory = $this->container->getParameter('profile_image_directory');
@@ -375,12 +376,70 @@ CERTIFICATEN');
          * --------------------------
          */
 
+        // Add Skill Cloud
+        $oCloudHeader = $oSlide2->createRichTextShape()
+            ->setHeight(35)
+            ->setWidth(400)
+            ->setOffsetX($xOffsetRight)
+            ->setOffsetY(55);
+        $oCloudHeaderText = $oCloudHeader->createTextRun('COMPETENTIES');
+        $oCloudHeaderText->getFont()
+            ->setSize(10)
+            ->setName('Open Sans SemiBold')
+            ->setColor($red);
+
+        $oCloud = $oSlide2->createRichTextShape()
+            ->setHeight(35)
+            ->setWidth(450)
+            ->setOffsetX($xOffsetRight)
+            ->setOffsetY(80);
+        $oCloud->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_LEFT );
+
+        foreach($skills as $skill)
+        {
+            $weight = $skill->getSkillWeight();
+            if($weight < 3)
+            {
+                $fontSize = 8;
+            }
+            elseif($weight >=3 && $weight < 5)
+            {
+                $fontSize = 10;
+            }
+            elseif($weight >=5 && $weight < 7)
+            {
+                $fontSize = 12;
+            }
+            elseif($weight >=7 && $weight < 8)
+            {
+                $fontSize = 14;
+            }
+            elseif($weight >=8 && $weight < 10)
+            {
+                $fontSize = 16;
+            }
+            elseif($weight >=10)
+            {
+                $fontSize = 18;
+            }
+            else {
+                $fontSize = 10;
+            }
+            $oCloudText = $oCloud->createTextRun(strtolower($skill->getSkillText()).'  ');
+
+            $oCloudText->getFont()
+                ->setName('Open Sans')
+                ->setSize($fontSize)
+                ->setColor($darkGrey);
+        }
+
+
         // Add important Projects table
         $oTable = $oSlide2->createTableShape(1);
         $oTable->setHeight(200);
         $oTable->setWidth(430);
         $oTable->setOffsetX($xOffsetRight);
-        $oTable->setOffsetY(50);
+        $oTable->setOffsetY(200);
 
         $oRow = $oTable->createRow();
         $oRow->setHeight(12);
@@ -416,7 +475,7 @@ BELANGRIJKSTE PROJECTEN');
         $oTable->setHeight(200);
         $oTable->setWidth(430);
         $oTable->setOffsetX($xOffsetRight);
-        $oTable->setOffsetY(300);
+        $oTable->setOffsetY(400);
 
         $oRow = $oTable->createRow();
         $oRow->setHeight(12);
