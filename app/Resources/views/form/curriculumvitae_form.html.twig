@@ -78,6 +78,13 @@
                                     {{ form_widget(form.publications) }}
                                 </div>
                             </li>
+                            <li>
+                                <div class="collapsible-header">{{ form_label(form.skills, 'Competenties') }}<i class="material-icons">arrow_drop_down</i><i class="material-icons" style="display:none" id="tooltip_publication" title="Je kunt geen publicaties kiezen als je nevenactiviteiten hebt gekozen.">info_outline</i></div>
+                                <div class="collapsible-body">
+                                    {{ form_errors(form.skills) }}
+                                    {{ form_widget(form.skills) }}
+                                </div>
+                            </li>
                         </ul>
                     </div>
                 </div>

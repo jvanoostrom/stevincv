@@ -97,7 +97,6 @@ $( document ).ready(function() {
 
 
     // Limit number of projects in CV
-    // Limit number of education in CV
     var $checkBoxProjects = $("input[type=checkbox][id^=curriculumvitae_projects]");
     var maxBoxesProjects = 6;
     var countCheckedProjects = $checkBoxProjects.filter(":checked").length;
@@ -166,6 +165,7 @@ $( document ).ready(function() {
 
     // Limit number of extracurricular in CV
     var $checkBoxExtracurricular = $("input[type=checkbox][id^=curriculumvitae_extracurricular]");
+    var $checkBoxPublications = $("input[type=checkbox][id^=curriculumvitae_publications]");
     var maxBoxesExtracurricular = 3;
     var countCheckedExtracurricular = $checkBoxExtracurricular.filter(":checked").length;
     if (countCheckedExtracurricular >= 1)
@@ -201,7 +201,6 @@ $( document ).ready(function() {
     });
 
     // Limit number of publications in CV
-    var $checkBoxPublications = $("input[type=checkbox][id^=curriculumvitae_publications]");
     var maxBoxesPublications = 3;
     var countCheckedPublications = $checkBoxPublications.filter(":checked").length;
     if (countCheckedPublications >= 1)
@@ -240,7 +239,7 @@ $( document ).ready(function() {
     });
 
     // tooltip
-    $('[id^=tooltip').hover(function(){
+    $('[id^=tooltip]').hover(function(){
         // Hover over code
         var title = $(this).attr('title');
         $(this).data('tipText', title).removeAttr('title');
@@ -257,6 +256,40 @@ $( document ).ready(function() {
         var mousey = e.pageY + 10; //Get Y coordinates
         $('.tooltip')
             .css({ top: mousey, left: mousex })
+    });
+
+    $('#addSkillLink').click(function() {
+        $('#addSkill').toggle('slow');
+    });
+
+    var toggled = false;
+    $('[class^=editSkillLink-]').click( function() {
+
+        var classes = $(this).attr('class').split( '-' );
+        $('.edit-toggle-'+ classes[1]).toggle();
+        if(toggled)
+        {
+            $('[class^=edit-toggle-]').not('.edit-toggle-'+ classes[1]).toggle();
+        }
+        toggled = true;
+
+    });
+
+    $('[id^=editSkillTd-]').dblclick( function() {
+
+        var classes = $(this).attr('id').split( '-' );
+        $('.edit-toggle-'+ classes[1]).toggle();
+        if(toggled)
+        {
+            $('[class^=edit-toggle-]').not('.edit-toggle-'+ classes[1]).toggle();
+        }
+        toggled = true;
+
+    });
+
+    $('[class^=askillSubmitLink-]').click(function() {
+        var classes = $(this).attr('class').split( '-' );
+        $('#edit-skill-'+classes[1]).submit();
     });
 
 

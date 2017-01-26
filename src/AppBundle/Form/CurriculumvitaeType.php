@@ -90,11 +90,22 @@ class CurriculumvitaeType extends AbstractType
                     'expanded' => true,
                     'multiple' => true,
                     'class' => 'AppBundle:Publication',
-                    'choice_label' => 'PublicationTitle',
+                    'choice_label' => 'publicationTitle',
                     'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('u')
                             ->where('u.user = '.$this->userId)
                             ->orderBy('u.publishedDate', 'DESC');
+                    },
+                ))
+                ->add('skills', EntityType::class, array(
+                    'expanded' => true,
+                    'multiple' => true,
+                    'class' => 'AppBundle:Skill',
+                    'choice_label' => 'skillText',
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('u')
+                            ->where('u.user = '.$this->userId)
+                            ->orderBy('u.skillText', 'ASC');
                     },
                 ))
                 ->add('submit', SubmitType::class, array('label' => 'Opslaan'))

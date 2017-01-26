@@ -54,7 +54,7 @@
                             <li class="tab"><a target="_self" {% if app.request.attributes.get('_route') starts with 'cert' %}class="active"{% endif %} href="{{ url('cert_index', {'userId' : userId}) }}">Certificaten</a></li>
                             <li class="tab"><a target="_self" {% if app.request.attributes.get('_route') starts with 'extra' %}class="active"{% endif %} href="{{ url('extra_index', {'userId' : userId}) }}">Nevenactiviteiten</a></li>
                             <li class="tab"><a target="_self" {% if app.request.attributes.get('_route') starts with 'pub' %}class="active"{% endif %} href="{{ url('pub_index', {'userId' : userId}) }}">Publicaties</a></li>
-                            <li class="tab"><a target="_self" {% if app.request.attributes.get('_route') starts with 'comp' %}class="active"{% endif %} href="#test3">Competenties</a></li>
+                            <li class="tab"><a target="_self" {% if app.request.attributes.get('_route') starts with 'skill' %}class="active"{% endif %} href="{{ url('skill_index', {'userId' : userId}) }}">Competenties</a></li>
                         </ul>
                     </div>
                 </div>

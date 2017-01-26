@@ -67,7 +67,7 @@ class Curriculumvitae
      *      joinColumns={@ORM\JoinColumn(name="cv_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="extracurricular_id", referencedColumnName="id")}
      *      )
-     * @ORM\OrderBy({"obtainedDate" = "desc"})
+     * @ORM\OrderBy({"endDate" = "desc", "startDate" = "desc"})
      */
     private $extracurricular;
 
@@ -77,9 +77,19 @@ class Curriculumvitae
      *      joinColumns={@ORM\JoinColumn(name="cv_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="publication_id", referencedColumnName="id")}
      *      )
-     * @ORM\OrderBy({"obtainedDate" = "desc"})
+     * @ORM\OrderBy({"publishedDate" = "desc"})
      */
     private $publications;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Skill")
+     * @ORM\JoinTable(name="curriculumvitae_skill",
+     *      joinColumns={@ORM\JoinColumn(name="cv_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="skill_id", referencedColumnName="id")}
+     *      )
+     * @ORM\OrderBy({"skillText" = "asc"})
+     */
+    private $skills;
 
     /**
      * @ORM\Id
@@ -352,5 +362,73 @@ class Curriculumvitae
     public function getCertificates()
     {
         return $this->certificates;
+    }
+
+    /**
+     * Add extracurricular
+     *
+     * @param \AppBundle\Entity\Extracurricular $extracurricular
+     *
+     * @return Curriculumvitae
+     */
+    public function addExtracurricular(\AppBundle\Entity\Extracurricular $extracurricular)
+    {
+        $this->extracurricular[] = $extracurricular;
+
+        return $this;
+    }
+
+    /**
+     * Remove extracurricular
+     *
+     * @param \AppBundle\Entity\Extracurricular $extracurricular
+     */
+    public function removeExtracurricular(\AppBundle\Entity\Extracurricular $extracurricular)
+    {
+        $this->extracurricular->removeElement($extracurricular);
+    }
+
+    /**
+     * Get extracurricular
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getExtracurricular()
+    {
+        return $this->extracurricular;
+    }
+
+    /**
+     * Add publication
+     *
+     * @param \AppBundle\Entity\Publication $publication
+     *
+     * @return Curriculumvitae
+     */
+    public function addPublication(\AppBundle\Entity\Publication $publication)
+    {
+        $this->publications[] = $publication;
+
+        return $this;
+    }
+
+    /**
+     * Remove publication
+     *
+     * @param \AppBundle\Entity\Publication $publication
+     */
+    public function removePublication(\AppBundle\Entity\Publication $publication)
+    {
+        $this->publications->removeElement($publication);
+    }
+
+    /**
+     * Get publications
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPublications()
+    {
+        return $this->publications;
     }
 }
