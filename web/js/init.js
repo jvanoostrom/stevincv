@@ -23,6 +23,8 @@ $( document ).ready(function() {
 
 	$(".button-collapse").sideNav();
 
+    $('select').material_select();
+
     $(".succes-entity").delay(200).slideDown(300).delay(2000).slideUp(300);
 
     $(".delete-button").click(function() {

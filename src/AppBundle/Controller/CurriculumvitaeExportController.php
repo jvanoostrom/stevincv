@@ -395,30 +395,33 @@ CERTIFICATEN');
             ->setOffsetY(80);
         $oCloud->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_LEFT );
 
+//        $skill_range = range(0,count($skills));
+//        shuffle($skill_range);
         foreach($skills as $skill)
+        //for($i=0; $i<count($skills); $i++)
         {
             $weight = $skill->getSkillWeight();
-            if($weight < 3)
+            if($weight < 1)
             {
                 $fontSize = 8;
             }
-            elseif($weight >=3 && $weight < 5)
+            elseif($weight == 1)
             {
                 $fontSize = 10;
             }
-            elseif($weight >=5 && $weight < 7)
+            elseif($weight == 2)
             {
                 $fontSize = 12;
             }
-            elseif($weight >=7 && $weight < 8)
+            elseif($weight == 3)
             {
                 $fontSize = 14;
             }
-            elseif($weight >=8 && $weight < 10)
+            elseif($weight == 4)
             {
                 $fontSize = 16;
             }
-            elseif($weight >=10)
+            elseif($weight >= 5)
             {
                 $fontSize = 18;
             }

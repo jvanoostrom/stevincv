@@ -26,3 +26,8 @@ services:
           arguments: ["@doctrine.orm.entity_manager"]
           tags:
               - { name: form.type }
+
+  app.form.registration:
+          class: AppBundle\Form\Admin\UserType
+          tags:
+              - { name: form.type, alias: app_user_registration }

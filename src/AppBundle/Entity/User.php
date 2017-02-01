@@ -22,6 +22,11 @@ class User extends BaseUser
      */
     protected $id;
 
+    /**
+     * @ORM\OneToOne(targetEntity="Personalia", inversedBy="user", cascade={"persist"})
+     */
+    private $personalia;
+
     public function __construct()
     {
         parent::__construct();
@@ -35,5 +40,29 @@ class User extends BaseUser
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set personalia
+     *
+     * @param \AppBundle\Entity\Personalia $personalia
+     *
+     * @return User
+     */
+    public function setPersonalia(\AppBundle\Entity\Personalia $personalia = null)
+    {
+        $this->personalia = $personalia;
+
+        return $this;
+    }
+
+    /**
+     * Get personalia
+     *
+     * @return \AppBundle\Entity\Personalia
+     */
+    public function getPersonalia()
+    {
+        return $this->personalia;
     }
 }

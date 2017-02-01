@@ -23,155 +23,22 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     *
-     * @Assert\NotBlank(message="Vul je voornaam in.", groups={"Registration", "Profile"})
-     * @Assert\Length(
-     *     max=255,
-     *     maxMessage="De voornaam is te lang.",
-     *     groups={"Registration", "Profile"}
-     * )
+     * @ORM\OneToOne(targetEntity="Personalia", inversedBy="user")
      */
-    protected $firstName;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     *
-     * @Assert\NotBlank(message="Vul je achternaam in.", groups={"Registration", "Profile"})
-     * @Assert\Length(
-     *     max=255,
-     *     maxMessage="De achternaam is te lang.",
-     *     groups={"Registration", "Profile"}
-     * )
-     */
-    protected $lastName;
-
-    /**
-     * @ORM\Column(type="date")
-     *
-     * @Assert\NotBlank(message="Vul je geboortedatum in.", groups={"Registration", "Profile"})
-     */
-    protected $dateOfBirth;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     *
-     * @Assert\NotBlank(message="Vul je woonplaats in.", groups={"Registration", "Profile"})
-     * @Assert\Length(
-     *     max=255,
-     *     maxMessage="De naam van je woonplaats is te lang.",
-     *     groups={"Registration", "Profile"}
-     * )
-     */
-    protected $placeOfResidence;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     *
-     * @Assert\NotBlank(message="Voeg een profielfoto toe.", groups={"Registration", "Profile"})
-     * @Assert\File(mimeTypes={ "image/png", "image/jpeg" })
-     */
-    protected $profileImage;
+    private $personalia;
 
     public function __construct()
     {
         parent::__construct();
-        // your own logic
     }
 
     /**
-     * Set firstName
+     * Get ID
      *
-     * @param string $firstName
-     *
-     * @return User
+     * @return integer
      */
-    public function setFirstName($firstName)
+    public function getId()
     {
-        $this->firstName = $firstName;
-
-        return $this;
-    }
-
-    /**
-     * Get firstName
-     *
-     * @return string
-     */
-    public function getFirstName()
-    {
-        return $this->firstName;
-    }
-
-    /**
-     * Set lastName
-     *
-     * @param string $lastName
-     *
-     * @return User
-     */
-    public function setLastName($lastName)
-    {
-        $this->lastName = $lastName;
-
-        return $this;
-    }
-
-    /**
-     * Get lastName
-     *
-     * @return string
-     */
-    public function getLastName()
-    {
-        return $this->lastName;
-    }
-
-    /**
-     * Set dateOfBirth
-     *
-     * @param \DateTime $dateOfBirth
-     *
-     * @return User
-     */
-    public function setDateOfBirth($dateOfBirth)
-    {
-        $this->dateOfBirth = $dateOfBirth;
-
-        return $this;
-    }
-
-    /**
-     * Get dateOfBirth
-     *
-     * @return \DateTime
-     */
-    public function getDateOfBirth()
-    {
-        return $this->dateOfBirth;
-    }
-
-    /**
-     * Set placeOfResidence
-     *
-     * @param string $placeOfResidence
-     *
-     * @return User
-     */
-    public function setPlaceOfResidence($placeOfResidence)
-    {
-        $this->placeOfResidence = $placeOfResidence;
-
-        return $this;
-    }
-
-    /**
-     * Get placeOfResidence
-     *
-     * @return string
-     */
-    public function getPlaceOfResidence()
-    {
-        return $this->placeOfResidence;
+        return $this->id;
     }
 }

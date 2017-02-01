@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\File\File;
 class Personalia
 {
     /**
-     * @ORM\OneToOne(targetEntity="User")
+     * @ORM\OneToOne(targetEntity="User", cascade={"persist"})
      */
     private $user;
     /**
@@ -104,9 +104,10 @@ class Personalia
     {
         $this->firstName = "Bas";
         $this->lastName = "van Toor";
-        $this->dateOfBirth = new \DateTime(date_create_from_format("Y-d-m", "1935-17-09"));
+        $this->dateOfBirth = new \DateTime("1935-09-17");
         $this->placeOfResidence = "Vlaardingen";
-        $this->profileImage = "bassie.jpg";
+        $this->profileImageName = "bassie.jpg";
+        $this->profileAvatarName = "bassie_circ.jpg";
         $this->updatedAt = new \DateTime();
 
     }
