@@ -268,10 +268,12 @@ $( document ).ready(function() {
     $('[class^=editSkillLink-]').click( function() {
 
         var classes = $(this).attr('class').split( '-' );
-        $('.edit-toggle-'+ classes[1]).toggle();
+        $('.edit-toggle-off-'+ classes[1]).toggle();
+        $('.edit-toggle-on-'+ classes[1]).toggle();
         if(toggled)
         {
-            $('[class^=edit-toggle-]').not('.edit-toggle-'+ classes[1]).toggle();
+            $('[class^=edit-toggle-on]').not('.edit-toggle-on-'+ classes[1]).hide();
+            $('[class^=edit-toggle-off]').not('.edit-toggle-off-'+ classes[1]).show();
         }
         toggled = true;
 
@@ -280,10 +282,12 @@ $( document ).ready(function() {
     $('[id^=editSkillTd-]').dblclick( function() {
 
         var classes = $(this).attr('id').split( '-' );
-        $('.edit-toggle-'+ classes[1]).toggle();
+        $('.edit-toggle-off-'+ classes[1]).toggle();
+        $('.edit-toggle-on-'+ classes[1]).toggle();
         if(toggled)
         {
-            $('[class^=edit-toggle-]').not('.edit-toggle-'+ classes[1]).toggle();
+            $('[class^=edit-toggle-on]').not('.edit-toggle-on-'+ classes[1]).hide();
+            $('[class^=edit-toggle-off]').not('.edit-toggle-off-'+ classes[1]).show();
         }
         toggled = true;
 
@@ -296,34 +300,3 @@ $( document ).ready(function() {
 
 
 });
-
-(function( $ ) {
-
-    $.fn.limitBoxes = function ( maxBoxes ) {
-
-        var countchecked = $(this).filter(":checked").length;
-
-        if (countchecked >= maxBoxes)
-        {
-            $(this).not(":checked").attr("disabled", true);
-        }
-
-
-        $(this).change(function() {
-            var countchecked = $(this).filter(":checked").length;
-
-            if (countchecked >= maxBoxes)
-            {
-                $(this).not(":checked").attr("disabled", true);
-            }
-            else
-            {
-                $(this).attr("disabled", false);
-            }
-        });
-
-        return $(this);
-
-    }
-
-})(jQuery);

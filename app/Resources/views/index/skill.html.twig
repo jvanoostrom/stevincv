@@ -70,12 +70,12 @@
             <form method="POST" enctype="multipart/form-data" action="{{ path('skill_edit', {'userId' : userId, 'skillId' : skill.Id}) }}" id="edit-skill-{{ skill.Id }}">
             <td>
                 {% if isUser %}
-                    <span class="edit-toggle-{{ skill.Id }}">
+                    <span class="edit-toggle-off-{{ skill.Id }}">
                     <a href="#" class="editSkillLink-{{ skill.Id }}" alt="Bewerken">
                         <i class="material-icons">edit</i>
                     </a>
                     </span>
-                    <span class="edit-toggle-{{ skill.Id }}" style="display:none">
+                    <span class="edit-toggle-on-{{ skill.Id }}" style="display:none">
                     <a href="#" class="askillSubmitLink-{{ skill.Id }}" alt="Bewerken">
                         <i class="material-icons">done</i>
                     </a>
@@ -86,18 +86,18 @@
                 {% endif %}
             </td>
             <td class="input-field" id="editSkillTd-{{ skill.Id }}">
-                <div class="edit-toggle-{{ skill.Id }}" style="display:none">
+                <div class="edit-toggle-on-{{ skill.Id }}" style="display:none">
                     <input maxlength="20" type="text" id="skill_skillText" name="skill[skillText]" value="{{ skill.skillText }}" style="max-width: 200px;height: 2rem;margin: 0;"/>
                 </div>
-                <div class="edit-toggle-{{ skill.Id }}">
+                <div class="edit-toggle-off-{{ skill.Id }}">
                     {{ skill.skillText }}
                 </div>
             </td>
             <td class="range-field">
-                <div class="edit-toggle-{{ skill.Id }}" style="display:none">
+                <div class="edit-toggle-on-{{ skill.Id }}" style="display:none">
                     <input type="range"  id="skill_skillWeight" name="skill[skillWeight]" value="{{ skill.skillWeight }}" min="0" max="5" style="max-width: 300px"/>
                 </div>
-                <div class="edit-toggle-{{ skill.Id }}">
+                <div class="edit-toggle-off-{{ skill.Id }}">
                     <input type="range" value="{{ skill.skillWeight }}" disabled min="0" max="5" style="max-width: 300px"/>
                 </div>
             </td>
