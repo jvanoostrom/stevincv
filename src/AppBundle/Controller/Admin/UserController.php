@@ -21,11 +21,6 @@ class UserController extends Controller
         $users = $this->getDoctrine()->getRepository('AppBundle:User')->findAll(
         );
 
-        $this->addFlash(
-            'delete',
-            'Weet je zeker dat je deze consultant wilt verwijderen?'
-        );
-
         return $this->render('admin/user.html.twig', array(
             'users' => $users,
         ));
@@ -80,6 +75,32 @@ class UserController extends Controller
         return $this->render('admin/user_form.html.twig', array(
             'form' => $form->createView(),
         ));
+
+    }
+
+    /**
+     * @Route("/admin/user/delete/{userId}", name="admin_user_delete")
+     */
+    public function deleteAction(Request $request, $userId)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('AppBundle:User')->findOneBy(
+            array(
+                'id' => $userId
+            )
+        );
+
+
+        $em->remove($user);
+        $em->flush();
+
+        $this->addFlash(
+            'notice',
+            'De consultant is succesvol verwijderd.'
+        );
+
+        return $this->redirectToRoute('edu_index', array('userId' => $userId));
 
     }
 

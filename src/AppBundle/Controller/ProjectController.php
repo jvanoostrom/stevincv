@@ -24,11 +24,6 @@ class ProjectController extends Controller
             array('updatedAt' => 'DESC')
         );
 
-        $this->addFlash(
-            'delete',
-            'Weet je zeker dat je dit project wilt verwijderen?'
-        );
-
         return $this->render('index/project.html.twig', array(
             'projects' => $projects,
             'userId' => $userId

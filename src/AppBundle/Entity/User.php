@@ -23,7 +23,7 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="Personalia", inversedBy="user", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="Personalia", inversedBy="user", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $personalia;
 

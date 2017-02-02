@@ -46,7 +46,7 @@
                     <a href="{{ url('pub_edit',{'userId' : userId, 'publicationId' : publication.Id}) }}" alt="Bewerken">
                         <i class="material-icons">edit</i>
                     </a>
-                    <a href="#" class="delete-button" alt="Verwijderen">
+                    <a href="#" class="delete-button-{{ publication.id }}" alt="Verwijderen">
                         <i class="material-icons">delete</i>
                     </a>
                 {% else %}
@@ -59,16 +59,14 @@
             <td>{{ publication.publishedDate|date('d-m-Y') }}</td>
             <td>{{ publication.updatedAt|date('d-m-Y H:i:s') }}</td>
         </tr>
-        {% for flash_message in app.session.flashBag.get('delete') %}
-            <div id="card-alert" class="card red delete-entity" style="display:none">
+            <div id="card-alert" class="card red delete-entity-{{ publication.id }}" style="display:none">
                 <div class="card-content white-text valign-wrapper">
                     <i class="material-icons valign">warning</i>&nbsp;
-                    <span>{{ flash_message }}
-                        <strong><a class="white-text" href="{{ url('pub_delete',{'userId' : userId, 'publicationId' : publication.Id}) }}">Ja, verwijder.</a></strong>
+                    <span>Weet je zeker dat je {{ publication.publicationTitle }} wilt verwijderen?
+                        <strong><a class="white-text" href="{{ url('pub_delete',{'userId' : userId, 'publicationId' : publication.id}) }}">Ja, verwijder.</a></strong>
                     </span>
                 </div>
             </div>
-        {% endfor %}
     {% endfor %}
         </tbody>
     </table>

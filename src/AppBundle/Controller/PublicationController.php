@@ -24,11 +24,6 @@ class PublicationController extends Controller
             array('updatedAt' => 'DESC')
         );
 
-        $this->addFlash(
-            'delete',
-            'Weet je zeker dat je dit publicatie wilt verwijderen?'
-        );
-
         return $this->render('index/publication.html.twig', array(
             'publications' => $publications,
             'userId' => $userId

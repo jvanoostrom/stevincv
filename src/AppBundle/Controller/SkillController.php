@@ -24,11 +24,6 @@ class SkillController extends Controller
             array('skillText' => 'ASC')
         );
 
-        $this->addFlash(
-            'delete',
-            'Weet je zeker dat je deze competentie wilt verwijderen?'
-        );
-
         $skill = new Skill();
         $form = $this->createForm(SkillType::class, $skill);
 

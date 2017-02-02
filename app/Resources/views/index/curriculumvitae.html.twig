@@ -38,7 +38,7 @@
                     <a href="{{ url('cv_edit',{'userId' : userId, 'cvId' : cv.Id}) }}" alt="Bewerken">
                         <i class="material-icons">edit</i>
                     </a>
-                    <a href="#" class="delete-button" alt="Verwijderen">
+                    <a href="#" class="delete-button-{{ cv.id }}" alt="Verwijderen">
                         <i class="material-icons">delete</i>
                     </a>
                     <a href="{{ url('cv_export',{'userId' : userId, 'cvId' : cv.Id}) }}" alt="Exporteren">
@@ -57,16 +57,14 @@
             </td>
             <td>{{ cv.updatedAt|date('d-m-Y H:i:s') }}</td>
         </tr>
-        {% for flash_message in app.session.flashBag.get('delete') %}
-            <div id="card-alert" class="card red delete-entity" style="display:none">
+            <div id="card-alert" class="card red delete-entity-{{ cv.id }}" style="display:none">
                 <div class="card-content white-text valign-wrapper">
                     <i class="material-icons valign">warning</i>&nbsp;
-                    <span>{{ flash_message }}
-                        <strong><a class="white-text" href="{{ url('cv_delete',{'userId' : userId, 'cvId' : cv.Id}) }}">Ja, verwijder.</a></strong>
+                    <span>Weet je zeker dat je {{ cv.curriculumvitaeName }} wilt verwijderen?
+                        <strong><a class="white-text" href="{{ url('cv_delete',{'userId' : userId, 'cvId' : cv.id}) }}">Ja, verwijder.</a></strong>
                     </span>
                 </div>
             </div>
-        {% endfor %}
     {% endfor %}
         </tbody>
     </table>

@@ -47,7 +47,7 @@
                 <a href="{{ url('project_edit',{'userId' : userId, 'projectId' : project.Id}) }}" alt="Bewerken">
                     <i class="material-icons">edit</i>
                 </a>
-                <a href="#" class="delete-button" alt="Verwijderen">
+                <a href="#" class="delete-button-{{ project.id }}" alt="Verwijderen">
                     <i class="material-icons">delete</i>
                 </a>
                 {% else %}
@@ -64,16 +64,14 @@
             </td>
             <td>{{ project.updatedAt|date('d-m-Y H:i:s') }}</td>
         </tr>
-        {% for flash_message in app.session.flashBag.get('delete') %}
-            <div id="card-alert" class="card red delete-entity" style="display:none">
+            <div id="card-alert" class="card red delete-entity-{{ project.id }}" style="display:none">
                 <div class="card-content white-text valign-wrapper">
                     <i class="material-icons valign">warning</i>&nbsp;
-                    <span>{{ flash_message }}
-                        <strong><a class="white-text" href="{{ url('project_delete',{'userId' : userId, 'projectId' : project.Id}) }}">Ja, verwijder.</a></strong>
+                    <span>Weet je zeker dat je dit project wilt verwijderen?
+                        <strong><a class="white-text" href="{{ url('project_delete',{'userId' : userId, 'projectId' : project.id}) }}">Ja, verwijder.</a></strong>
                     </span>
                 </div>
             </div>
-        {% endfor %}
     {% endfor %}
         </tbody>
     </table>

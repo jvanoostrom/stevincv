@@ -27,8 +27,11 @@ $( document ).ready(function() {
 
     $(".succes-entity").delay(200).slideDown(300).delay(2000).slideUp(300);
 
-    $(".delete-button").click(function() {
-        $(".delete-entity").delay(200).slideDown(300);
+
+    $('[class^=delete-button-]').click(function() {
+        var classes = $(this).attr('class').split( '-' );
+
+        $('.delete-entity-' + classes[2]).delay(200).slideDown(300).delay(5000).slideUp(300);
     });
 
     $('ul.tabs').tabs();

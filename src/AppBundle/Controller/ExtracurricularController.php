@@ -24,11 +24,6 @@ class ExtracurricularController extends Controller
             array('updatedAt' => 'DESC')
         );
 
-        $this->addFlash(
-            'delete',
-            'Weet je zeker dat je deze nevenactiviteit wilt verwijderen?'
-        );
-
         return $this->render('index/extracurricular.html.twig', array(
             'extracurricular' => $extracurricular,
             'userId' => $userId

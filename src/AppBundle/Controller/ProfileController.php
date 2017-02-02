@@ -28,11 +28,6 @@ class ProfileController extends Controller
             array('updatedAt' => 'DESC')
         );
 
-        $this->addFlash(
-            'delete',
-            'Weet je zeker dat je dit profiel wilt verwijderen?'
-        );
-
         return $this->render('index/profile.html.twig', array(
             'profiles' => $profiles,
             'userId' => $userId

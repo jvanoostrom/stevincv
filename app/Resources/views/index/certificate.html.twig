@@ -47,7 +47,7 @@
                     <a href="{{ url('cert_edit',{'userId' : userId, 'certificateId' : certificate.Id}) }}" alt="Bewerken">
                         <i class="material-icons">edit</i>
                     </a>
-                    <a href="#" class="delete-button" alt="Verwijderen">
+                    <a href="#" class="delete-button-{{ certificate.id }}" alt="Verwijderen">
                         <i class="material-icons">delete</i>
                     </a>
                 {% else %}
@@ -61,16 +61,14 @@
             <td>{{ certificate.obtainedDate|date('d-m-Y') }}</td>
             <td>{{ certificate.updatedAt|date('d-m-Y H:i:s') }}</td>
         </tr>
-        {% for flash_message in app.session.flashBag.get('delete') %}
-            <div id="card-alert" class="card red delete-entity" style="display:none">
+            <div id="card-alert" class="card red delete-entity-{{ certificate.id }}" style="display:none">
                 <div class="card-content white-text valign-wrapper">
                     <i class="material-icons valign">warning</i>&nbsp;
-                    <span>{{ flash_message }}
-                        <strong><a class="white-text" href="{{ url('cert_delete',{'userId' : userId, 'certificateId' : certificate.Id}) }}">Ja, verwijder.</a></strong>
+                    <span>Weet je zeker dat je {{ certificate.certificateName }} wilt verwijderen?
+                        <strong><a class="white-text" href="{{ url('cert_delete',{'userId' : userId, 'certificateId' : certificate.id}) }}">Ja, verwijder.</a></strong>
                     </span>
                 </div>
             </div>
-        {% endfor %}
     {% endfor %}
         </tbody>
     </table>

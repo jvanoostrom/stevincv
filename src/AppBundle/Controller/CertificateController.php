@@ -24,11 +24,6 @@ class CertificateController extends Controller
             array('updatedAt' => 'DESC')
         );
 
-        $this->addFlash(
-            'delete',
-            'Weet je zeker dat je dit certificaat wilt verwijderen?'
-        );
-
         return $this->render('index/certificate.html.twig', array(
             'certificates' => $certificates,
             'userId' => $userId

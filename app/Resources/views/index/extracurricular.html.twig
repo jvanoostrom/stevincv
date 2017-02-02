@@ -47,7 +47,7 @@
                     <a href="{{ url('extra_edit',{'userId' : userId, 'extracurricularId' : extra.Id}) }}" alt="Bewerken">
                         <i class="material-icons">edit</i>
                     </a>
-                    <a href="#" class="delete-button" alt="Verwijderen">
+                    <a href="#" class="delete-button-{{ extra.id }}" alt="Verwijderen">
                         <i class="material-icons">delete</i>
                     </a>
                 {% else %}
@@ -67,22 +67,20 @@
             </td>
             <td>{{ extra.updatedAt|date('d-m-Y H:i:s') }}</td>
         </tr>
-        {% for flash_message in app.session.flashBag.get('delete') %}
-            <div id="card-alert" class="card red delete-entity" style="display:none">
+            <div id="card-alert" class="card red delete-entity-{{ extra.id }}" style="display:none">
                 <div class="card-content white-text valign-wrapper">
                     <i class="material-icons valign">warning</i>&nbsp;
-                    <span>{{ flash_message }}
-                        <strong><a class="white-text" href="{{ url('extra_delete',{'userId' : userId, 'extracurricularId' : extra.Id}) }}">Ja, verwijder.</a></strong>
+                    <span>Weet je zeker dat je deze nevenactiviteit wilt verwijderen?
+                        <strong><a class="white-text" href="{{ url('extra_delete',{'userId' : userId, 'extracurricularId' : extra.id}) }}">Ja, verwijder.</a></strong>
                     </span>
                 </div>
             </div>
-        {% endfor %}
     {% endfor %}
         </tbody>
     </table>
     {% else %}
         <div class="row">
-            <div class="col s12"><h3>Geen certificaten gevonden.</h3></div>
+            <div class="col s12"><h3>Geen nevenactiviteiten gevonden.</h3></div>
         </div>
     {% endif %}
 {% endblock %}

@@ -26,11 +26,6 @@ class CurriculumvitaeController extends Controller
             array('updatedAt' => 'DESC')
         );
 
-        $this->addFlash(
-            'delete',
-            'Weet je zeker dat je dit cv wilt verwijderen?'
-        );
-
         return $this->render('index/curriculumvitae.html.twig', array(
             'cvs' => $cvs,
             'userId' => $userId

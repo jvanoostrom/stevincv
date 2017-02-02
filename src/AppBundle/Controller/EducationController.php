@@ -24,11 +24,6 @@ class EducationController extends Controller
             array('updatedAt' => 'DESC')
         );
 
-        $this->addFlash(
-            'delete',
-            'Weet je zeker dat je deze opleiding wilt verwijderen?'
-        );
-
         return $this->render('index/education.html.twig', array(
             'education' => $education,
             'userId' => $userId
