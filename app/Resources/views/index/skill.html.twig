@@ -29,8 +29,8 @@
                         {{ form_errors(form.skillWeight) }}
                         {{ form_widget(form.skillWeight, {'attr': {
                             'class': 'range',
-                            'min': 0,
-                            'max': 10,
+                            'min': 1,
+                            'max': 5,
                             'style': 'max-width: 300px'
                         }}) }}
                     </td>
@@ -95,10 +95,10 @@
             </td>
             <td class="range-field">
                 <div class="edit-toggle-on-{{ skill.Id }}" style="display:none">
-                    <input type="range"  id="skill_skillWeight" name="skill[skillWeight]" value="{{ skill.skillWeight }}" min="0" max="5" style="max-width: 300px"/>
+                    <input type="range"  id="skill_skillWeight" name="skill[skillWeight]" value="{{ skill.skillWeight }}" min="1" max="5" style="max-width: 300px"/>
                 </div>
                 <div class="edit-toggle-off-{{ skill.Id }}">
-                    <input type="range" value="{{ skill.skillWeight }}" disabled min="0" max="5" style="max-width: 300px"/>
+                    <input type="range" value="{{ skill.skillWeight }}" disabled min="1" max="5" style="max-width: 300px"/>
                 </div>
             </td>
             </form>
