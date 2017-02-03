@@ -25,7 +25,7 @@ class Curriculumvitae
 
     /**
      * @ORM\ManyToMany(targetEntity="Tag")
-     * @ORM\JoinTable(name="cv_tag",
+     * @ORM\JoinTable(name="curriculumvitae_tag",
      *      joinColumns={@ORM\JoinColumn(name="cv_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
      *      )
@@ -33,13 +33,9 @@ class Curriculumvitae
     private $tags;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Project")
-     * @ORM\JoinTable(name="curriculumvitae_project",
-     *      joinColumns={@ORM\JoinColumn(name="cv_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="project_id", referencedColumnName="id")}
-     *      )
+     * @ORM\OneToMany(targetEntity="Curriculumvitae_Project", mappedBy="curriculumvitae")
      */
-    private $projects;
+    private $curriculumvitaeProjects;
 
     /**
      * @ORM\ManyToMany(targetEntity="Education")
@@ -119,6 +115,9 @@ class Curriculumvitae
         $this->projects = new ArrayCollection();
         $this->education = new ArrayCollection();
         $this->certificates = new ArrayCollection();
+        $this->publications = new ArrayCollection();
+        $this->extracurricular = new ArrayCollection();
+        $this->skills = new ArrayCollection();
     }
 
     /**
@@ -430,5 +429,39 @@ class Curriculumvitae
     public function getPublications()
     {
         return $this->publications;
+    }
+
+    /**
+     * Add skill
+     *
+     * @param \AppBundle\Entity\Skill $skill
+     *
+     * @return Curriculumvitae
+     */
+    public function addSkill(\AppBundle\Entity\Skill $skill)
+    {
+        $this->skills[] = $skill;
+
+        return $this;
+    }
+
+    /**
+     * Remove skill
+     *
+     * @param \AppBundle\Entity\Skill $skill
+     */
+    public function removeSkill(\AppBundle\Entity\Skill $skill)
+    {
+        $this->skills->removeElement($skill);
+    }
+
+    /**
+     * Get skills
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSkills()
+    {
+        return $this->skills;
     }
 }

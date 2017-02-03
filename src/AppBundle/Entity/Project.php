@@ -18,6 +18,11 @@ class Project
     private $user;
 
     /**
+     * @ORM\OneToMany(targetEntity="Curriculumvitae_Project", mappedBy="projects")
+     */
+    private $curriculumvitaeProjects;
+
+    /**
      * @ORM\ManyToMany(targetEntity="Tag")
      * @ORM\JoinTable(name="project_tag",
      *      joinColumns={@ORM\JoinColumn(name="project_id", referencedColumnName="id")},
@@ -358,5 +363,39 @@ class Project
         $this->tags[] = $tag;
 
         return $this;
+    }
+
+    /**
+     * Add curriculumvitaeProject
+     *
+     * @param \AppBundle\Entity\Curriculumvitae_Project $curriculumvitaeProject
+     *
+     * @return Project
+     */
+    public function addCurriculumvitaeProject(\AppBundle\Entity\Curriculumvitae_Project $curriculumvitaeProject)
+    {
+        $this->curriculumvitaeProjects[] = $curriculumvitaeProject;
+
+        return $this;
+    }
+
+    /**
+     * Remove curriculumvitaeProject
+     *
+     * @param \AppBundle\Entity\Curriculumvitae_Project $curriculumvitaeProject
+     */
+    public function removeCurriculumvitaeProject(\AppBundle\Entity\Curriculumvitae_Project $curriculumvitaeProject)
+    {
+        $this->curriculumvitaeProjects->removeElement($curriculumvitaeProject);
+    }
+
+    /**
+     * Get curriculumvitaeProjects
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCurriculumvitaeProjects()
+    {
+        return $this->curriculumvitaeProjects;
     }
 }

@@ -1,9 +1,9 @@
 {% extends 'base_admin.html.twig' %}
 
 {% block content %}
-        <div class="row">
+        <div class="row" style="margin-top:20px">
             <div class="col s12">
-                <a href="{# url('cert_add',{'userId' : userId}) #}" class="valign-wrapper"><i class="material-icons valign">add</i>Voeg een consultant toe</a>
+                <a href="{{  url('admin_user_add') }}" class="valign-wrapper"><i class="material-icons valign">add</i>Voeg een consultant toe</a>
             </div>
         </div>
     {% for flash_message in app.session.flashBag.get('notice') %}

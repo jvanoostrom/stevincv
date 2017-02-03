@@ -25,7 +25,7 @@ class Curriculumvitae
 
     /**
      * @ORM\ManyToMany(targetEntity="Tag")
-     * @ORM\JoinTable(name="cv_tag",
+     * @ORM\JoinTable(name="curriculumvitae_tag",
      *      joinColumns={@ORM\JoinColumn(name="cv_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
      *      )
@@ -33,13 +33,9 @@ class Curriculumvitae
     private $tags;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Project")
-     * @ORM\JoinTable(name="curriculumvitae_project",
-     *      joinColumns={@ORM\JoinColumn(name="cv_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="project_id", referencedColumnName="id")}
-     *      )
+     * @ORM\OneToMany(targetEntity="Curriculumvitae_Project", mappedBy="curriculumvitae")
      */
-    private $projects;
+    private $curriculumvitaeProjects;
 
     /**
      * @ORM\ManyToMany(targetEntity="Education")
@@ -116,7 +112,6 @@ class Curriculumvitae
     public function __construct()
     {
         $this->updatedAt = new \DateTime();
-        $this->projects = new ArrayCollection();
         $this->education = new ArrayCollection();
         $this->certificates = new ArrayCollection();
         $this->publications = new ArrayCollection();
@@ -229,40 +224,6 @@ class Curriculumvitae
     public function getCurriculumvitaeName()
     {
         return $this->curriculumvitaeName;
-    }
-
-    /**
-     * Add project
-     *
-     * @param \AppBundle\Entity\Project $project
-     *
-     * @return Curriculumvitae
-     */
-    public function addProject(\AppBundle\Entity\Project $project)
-    {
-        $this->projects[] = $project;
-
-        return $this;
-    }
-
-    /**
-     * Remove project
-     *
-     * @param \AppBundle\Entity\Project $project
-     */
-    public function removeProject(\AppBundle\Entity\Project $project)
-    {
-        $this->projects->removeElement($project);
-    }
-
-    /**
-     * Get projects
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getProjects()
-    {
-        return $this->projects;
     }
 
     /**
@@ -467,5 +428,39 @@ class Curriculumvitae
     public function getSkills()
     {
         return $this->skills;
+    }
+
+    /**
+     * Add curriculumvitaeProject
+     *
+     * @param \AppBundle\Entity\Curriculumvitae_Project $curriculumvitaeProject
+     *
+     * @return Curriculumvitae
+     */
+    public function addCurriculumvitaeProject(\AppBundle\Entity\Curriculumvitae_Project $curriculumvitaeProject)
+    {
+        $this->curriculumvitaeProjects[] = $curriculumvitaeProject;
+
+        return $this;
+    }
+
+    /**
+     * Remove curriculumvitaeProject
+     *
+     * @param \AppBundle\Entity\Curriculumvitae_Project $curriculumvitaeProject
+     */
+    public function removeCurriculumvitaeProject(\AppBundle\Entity\Curriculumvitae_Project $curriculumvitaeProject)
+    {
+        $this->curriculumvitaeProjects->removeElement($curriculumvitaeProject);
+    }
+
+    /**
+     * Get curriculumvitaeProjects
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCurriculumvitaeProjects()
+    {
+        return $this->curriculumvitaeProjects;
     }
 }

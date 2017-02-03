@@ -3,11 +3,17 @@
 
 namespace AppBundle\Form\Admin;
 
+use AppBundle\Entity\Personalia;
 use AppBundle\Entity\User;
+use AppBundle\Form\PersonaliaType;
 use FOS\UserBundle\Util\LegacyFormHelper;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -22,11 +28,11 @@ class UserType extends AbstractType
     {
         $builder
                 ->add('username', TextType::class)
-                ->add('plainPassword', LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\RepeatedType'), array(
-                    'type' => LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\PasswordType'),
+                ->add('plainPassword', RepeatedType::class, array(
+                    'type' => PasswordType::class,
                     'options' => array('translation_domain' => 'FOSUserBundle'),
-                    'first_options' => array('label' => 'form.password'),
-                    'second_options' => array('label' => 'form.password_confirmation'),
+                    'first_options' => array('label' => 'Wachtwoord'),
+                    'second_options' => array('label' => 'Herhaal wachtwoord'),
                     'invalid_message' => 'fos_user.password.mismatch',
                 ))
                 ->add('roles', ChoiceType::class,array(
@@ -36,15 +42,7 @@ class UserType extends AbstractType
                         'Manager' => 'ROLE_ADMIN',
                         'Beheerder' => 'ROLE_SUPER_ADMIN',
                 )))
-                ->add('firstName', TextType::class, array('mapped' => false))
-                ->add('lastName', TextType::class, array('mapped' => false))
-                ->add('placeOfResidence', TextType::class, array('mapped' => false))
-                ->add('dateOfBirth', DateType::class, array('widget' => 'single_text', 'format' => 'dd-MM-yyyy', 'mapped' => false))
-//                ->add('profileImageFile', FileType::class, array(
-//                    'block_name' => 'file_widget',
-//                    'label' => 'Foto',
-//                    'required' => false,
-//                    ))
+                ->add('personalia', PersonaliaType::class)
                 ->add('submit', SubmitType::class, array('label' => 'Opslaan'))
                 ->getForm();
     }
@@ -60,4 +58,5 @@ class UserType extends AbstractType
     {
         return 'app_user_registration';
     }
+
 }
