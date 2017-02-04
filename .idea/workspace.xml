@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="97c68838-9386-45e6-96c3-b74e2eb0fe8c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/Curriculumvitae_Project.php" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/img/profile/martijn-frijns-serieus-klein.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/img/profile/martijn-frijns-serieus-klein_circle.png" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/admin/user.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/admin/user.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/admin/user_form.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/admin/user_form.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/Admin/UserController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/Admin/UserController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Entity/Curriculumvitae.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/Curriculumvitae.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Entity/Project.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/Project.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Form/Admin/UserType.php" afterPath="$PROJECT_DIR$/src/AppBundle/Form/Admin/UserType.php" />
-    </list>
+    <list default="true" id="97c68838-9386-45e6-96c3-b74e2eb0fe8c" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/var/cache/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -839,12 +828,12 @@
       <workItem from="1486040304433" duration="855000" />
       <workItem from="1486042911670" duration="566000" />
       <workItem from="1486046950508" duration="599000" />
-      <workItem from="1486116446655" duration="10961000" />
+      <workItem from="1486116446655" duration="11142000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="103831000" />
+    <option name="totallyTimeSpent" value="104012000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -857,7 +846,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="0" width="1931" height="1047" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1618799" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
