@@ -8,6 +8,7 @@ use AppBundle\Form\DataTransformer\TagsDataTransformer;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -42,16 +43,20 @@ class CurriculumvitaeType extends AbstractType
                     },
                     'choice_attr' => array('class' => 'with-gap'),
                 ))
-                ->add('projects', EntityType::class, array(
-                    'expanded' => true,
-                    'multiple' => true,
-                    'class' => 'AppBundle:Project',
-                    'choice_label' => 'functionTitle',
-                    'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('u')
-                            ->where('u.user = '.$this->userId)
-                            ->orderBy('u.endDate', 'DESC');
-                    },
+//                ->add('projects', EntityType::class, array(
+//                    'expanded' => true,
+//                    'multiple' => true,
+//                    'class' => 'AppBundle:Project',
+//                    'choice_label' => 'functionTitle',
+//                    'query_builder' => function (EntityRepository $er) {
+//                        return $er->createQueryBuilder('u')
+//                            ->where('u.user = '.$this->userId)
+//                            ->orderBy('u.endDate', 'DESC');
+//                    },
+//                ))
+                ->add('curriculumvitaeProjects', CollectionType::class, array(
+                    'entry_type' => ProjectType::class
+
                 ))
                 ->add('education', EntityType::class, array(
                     'expanded' => true,

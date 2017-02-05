@@ -36,10 +36,6 @@ $( document ).ready(function() {
 
     $('ul.tabs').tabs();
 
-    $('#profiel-keywords').materialtags({
-        maxTags: 3
-    });
-
     $(".dropdown-button").dropdown({
         belowOrigin: true // Displays dropdown below the button
     });
