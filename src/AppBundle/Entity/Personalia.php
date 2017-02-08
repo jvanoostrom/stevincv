@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\File\File;
 class Personalia
 {
     /**
-     * @ORM\OneToOne(targetEntity="User", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="User", mappedBy="personalia", cascade={"persist"})
      */
     private $user;
     /**

@@ -18,9 +18,7 @@ class Builder implements ContainerAwareInterface
         $users = $repository->findAll();
 
         foreach($users as $user) {
-            $personalia = $this->container->get('doctrine')->getManager()
-                                ->getRepository('AppBundle:Personalia')
-                                ->findOneBy( array('user' => $user->getId()));
+            $personalia = $user->getPersonalia();
 
             $helper = $this->container->get('vich_uploader.templating.helper.uploader_helper');
             $path = $helper->asset($personalia, 'profileImageFile');

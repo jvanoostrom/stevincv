@@ -17,7 +17,6 @@ use PhpOffice\PhpPresentation\Style\Color;
 use PhpOffice\PhpPresentation\Style\Fill;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
-
 class CurriculumvitaeExportController extends Controller
 {
     /**
@@ -27,15 +26,18 @@ class CurriculumvitaeExportController extends Controller
     public function exportAction(Request $request, $userId, $cvId)
     {
 
+
         $em = $this->getDoctrine()->getManager();
         $cv = $em->getRepository('AppBundle:Curriculumvitae')
             ->findOneBy(array('id' => $cvId));
 
         $user = $cv->getUser();
-        $personalia = $em->getRepository('AppBundle:Personalia')
-            ->findOneBy(array('user' => $user));
+        $personalia = $user->getPersonalia();
         $profile = $cv->getProfile();
-        $projects = $cv->getProjects();
+        ///$projects = $cv->getCurriculumvitaeProjects()->getProjects();
+        $projects = $em->getRepository('AppBundle:Curriculumvitae_Project')
+            ->findBy(array('curriculumvitae' => $cvId));
+
         $education = $cv->getEducation();
         $certificates = $cv->getCertificates();
         $extracurricular = $cv->getExtracurricular();
@@ -395,8 +397,6 @@ CERTIFICATEN');
             ->setOffsetY(80);
         $oCloud->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_LEFT );
 
-//        $skill_range = range(0,count($skills));
-//        shuffle($skill_range);
         foreach($skills as $skill)
         //for($i=0; $i<count($skills); $i++)
         {
@@ -428,7 +428,7 @@ CERTIFICATEN');
             else {
                 $fontSize = 10;
             }
-            $oCloudText = $oCloud->createTextRun(strtolower($skill->getSkillText()).'  ');
+            $oCloudText = $oCloud->createTextRun(mb_strtolower($skill->getSkillText()).'  ');
 
             $oCloudText->getFont()
                 ->setName('Open Sans')
@@ -461,7 +461,7 @@ BELANGRIJKSTE PROJECTEN');
             $oRow = $oTable->createRow();
             $oRow->setHeight(10);
             $oCell = $oRow->nextCell();
-            $oCellText = $oCell->createTextRun($projects[$i]->getFunctionTitle());
+            $oCellText = $oCell->createTextRun($projects[$i]->getProjects()->getFunctionTitle());
             $oCellText->getFont()
                 ->setSize(10)
                 ->setName('Open Sans')
@@ -633,9 +633,9 @@ PUBLICATIES');
             $oDateRange->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_LEFT );
             $oDateRange->getActiveParagraph()->getAlignment()->setVertical( Alignment::VERTICAL_CENTER );
             $oDateRangeRun = $oDateRange->createTextRun(
-                    $this->getTranslatedMonth($project->getStartDate()).' '. date_format($project->getStartDate(),'y')
+                    $this->getTranslatedMonth($project->getProjects()->getStartDate()).' '. date_format($project->getProjects()->getStartDate(),'y')
                     .' - '.
-                    $this->getTranslatedMonth($project->getEndDate()).' '. date_format($project->getEndDate(),'y')
+                    $this->getTranslatedMonth($project->getProjects()->getEndDate()).' '. date_format($project->getProjects()->getEndDate(),'y')
                 );
             $oDateRangeRun->getFont()
                 ->setBold(true)
@@ -650,7 +650,7 @@ PUBLICATIES');
                 ->setOffsetX($offset)
                 ->setOffsetY(100);
             $oRoleText->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_LEFT );
-            $oRoleTextRun = $oRoleText->createTextRun(strtoupper($project->getFunctionTitle()));
+            $oRoleTextRun = $oRoleText->createTextRun(strtoupper($project->getProjects()->getFunctionTitle()));
             $oRoleTextRun->getFont()
                 ->setCharacterSpacing(0.5)
                 ->setBold(true)
@@ -665,7 +665,7 @@ PUBLICATIES');
                 ->setOffsetX($offset)
                 ->setOffsetY(125);
             $oCompanyText->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_LEFT );
-            $oCompanyTextRun = $oCompanyText->createTextRun($project->getCustomerName());
+            $oCompanyTextRun = $oCompanyText->createTextRun($project->getProjects()->getCustomerName());
             $oCompanyTextRun->getFont()
                 ->setName('Open Sans')
                 ->setSize(8)
@@ -693,7 +693,7 @@ PUBLICATIES');
                 ->setOffsetY(165);
             $oExecutiveTextBox->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_LEFT );
             $oExecutiveTextBox->getActiveParagraph()->setLineSpacing(120);
-            $oExecutiveTextBoxRun = $oExecutiveTextBox->createTextRun($project->getSituationText());
+            $oExecutiveTextBoxRun = $oExecutiveTextBox->createTextRun($project->getProjects()->getSituationText());
             $oExecutiveTextBoxRun->getFont()
                 ->setName('Open Sans SemiBold')
                 ->setCharacterSpacing(0.5)
@@ -722,7 +722,7 @@ PUBLICATIES');
                 ->setOffsetY(275);
             $oTaskTextBox->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_LEFT );
             $oTaskTextBox->getActiveParagraph()->setLineSpacing(120);
-            $oTaskTextBoxRun = $oTaskTextBox->createTextRun($project->getTaskText());
+            $oTaskTextBoxRun = $oTaskTextBox->createTextRun($project->getProjects()->getTaskText());
             $oTaskTextBoxRun->getFont()
                 ->setName('Open Sans SemiBold')
                 ->setCharacterSpacing(0.5)
@@ -751,7 +751,7 @@ PUBLICATIES');
                 ->setOffsetY(445);
             $oResultsTextBox->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_LEFT );
             $oResultsTextBox->getActiveParagraph()->setLineSpacing(120);
-            $oResultsTextBoxRun = $oResultsTextBox->createTextRun($project->getResultText());
+            $oResultsTextBoxRun = $oResultsTextBox->createTextRun($project->getProjects()->getResultText());
             $oResultsTextBoxRun->getFont()
                 ->setName('Open Sans SemiBold')
                 ->setCharacterSpacing(0.5)

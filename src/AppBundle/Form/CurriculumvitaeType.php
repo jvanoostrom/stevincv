@@ -8,8 +8,6 @@ use AppBundle\Form\DataTransformer\TagsDataTransformer;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -44,39 +42,39 @@ class CurriculumvitaeType extends AbstractType
                     },
                     'choice_attr' => array('class' => 'with-gap'),
                 ))
-//                ->add('projects', EntityType::class, array(
-//                    'expanded' => true,
-//                    'multiple' => true,
-//                    'class' => 'AppBundle:Project',
-//                    'choice_label' => 'functionTitle',
-//                    'query_builder' => function (EntityRepository $er) {
-//                        return $er->createQueryBuilder('u')
-//                            ->where('u.user = '.$this->userId)
-//                            ->orderBy('u.endDate', 'DESC');
-//                    },
-//                    'mapped' => false
-//                ))
+                ->add('projects', EntityType::class, array(
+                    'expanded' => true,
+                    'multiple' => true,
+                    'class' => 'AppBundle:Project',
+                    'choice_label' => 'functionTitle',
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('u')
+                            ->where('u.user = '.$this->userId)
+                            ->orderBy('u.endDate', 'DESC');
+                    },
+                    'mapped' => false
+                ))
 //                ->add('isImportantProject', EntityType::class, array(
 //                    'expanded' => true,
-//                    'multiple' => true,
+//                    'multiple' => false,
 //                    'class' => 'AppBundle:Curriculumvitae_Project',
 //                    'choice_label' => 'isImportantProject',
 ////                    'query_builder' => function (EntityRepository $er) {
 ////                        return $er->createQueryBuilder('u')
 ////                            ->where('u.project_id = '.$this->project_id);
 ////                    },
-//                    'mapped' => false
+//                    'mapped' => false,
+//                    'choices' => array(
+//                        'Ja' => true,
+//                        'Nee' => false
+//                    )
 //                ))
-                ->add(
-                    $builder->create('curriculumvitaeProjects', FormType::class, array('by_reference' => true))
-                        ->add('projects', ChoiceType::class)
-                        ->add('isImportantProject', ChoiceType::class)
-
-                )
-//                ->add('curriculumvitaeProjects', CollectionType::class, array(
-//                    'entry_type' => CurriculumvitaeProjectType::class
+//                ->add(
+//                    $builder->create('curriculumvitaeProjects', FormType::class, array('by_reference' => true))
+//                        ->add('projects', ChoiceType::class)
+//                        ->add('isImportantProject', ChoiceType::class)
 //
-//                ))
+//                )
                 ->add('education', EntityType::class, array(
                     'expanded' => true,
                     'multiple' => true,

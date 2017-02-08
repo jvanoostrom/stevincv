@@ -120,6 +120,7 @@ class Curriculumvitae
         $this->extracurricular = new ArrayCollection();
         $this->skills = new ArrayCollection();
         $this->projects = new ArrayCollection();
+        $this->curriculumvitaeProjects = new ArrayCollection();
     }
 
     /**
@@ -466,4 +467,5 @@ class Curriculumvitae
     {
         return $this->curriculumvitaeProjects;
     }
+
 }

@@ -24,8 +24,7 @@ class PersonaliaController extends Controller
         // Retrieve User object and pass it to Personalia for association
         $user = $em->getRepository('AppBundle:User')
             ->findOneBy(array('id' => $userId));
-        $personalia = $em->getRepository('AppBundle:Personalia')
-            ->findOneBy(array('user' => $user));
+        $personalia = $user->getPersonalia();
 
         $profileImageName = $this->container->get('vich_uploader.templating.helper.uploader_helper')->asset($personalia, 'profileImageFile');
 
