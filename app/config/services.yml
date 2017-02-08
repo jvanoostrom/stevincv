@@ -31,3 +31,9 @@ services:
           class: AppBundle\Form\Admin\UserType
           tags:
               - { name: form.type, alias: app_user_registration }
+
+  app.form.type.cvproject:
+          class: AppBundle\Form\CurriculumvitaeProjectType
+          arguments: ["@doctrine.orm.entity_manager"]
+          tags:
+              - { name: form.type }

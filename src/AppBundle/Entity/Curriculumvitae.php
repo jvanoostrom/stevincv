@@ -109,6 +109,8 @@ class Curriculumvitae
      */
     private $updatedAt;
 
+    protected $projects;
+
     public function __construct()
     {
         $this->updatedAt = new \DateTime();
@@ -117,6 +119,7 @@ class Curriculumvitae
         $this->publications = new ArrayCollection();
         $this->extracurricular = new ArrayCollection();
         $this->skills = new ArrayCollection();
+        $this->projects = new ArrayCollection();
     }
 
     /**
