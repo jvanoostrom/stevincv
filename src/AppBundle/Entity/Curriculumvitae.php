@@ -437,13 +437,13 @@ class Curriculumvitae
     /**
      * Add curriculumvitaeProject
      *
-     * @param \AppBundle\Entity\Curriculumvitae_Project $curriculumvitaeProject
+     * @param Curriculumvitae_Project $curriculumvitaeProject
      *
      * @return Curriculumvitae
      */
-    public function addCurriculumvitaeProject(\AppBundle\Entity\Curriculumvitae_Project $curriculumvitaeProject)
+    public function addCurriculumvitaeProject(Curriculumvitae_Project $curriculumvitaeProject)
     {
-        $this->curriculumvitaeProjects[] = $curriculumvitaeProject;
+        $this->curriculumvitaeProjects->add($curriculumvitaeProject);
 
         return $this;
     }
@@ -451,11 +451,14 @@ class Curriculumvitae
     /**
      * Remove curriculumvitaeProject
      *
-     * @param \AppBundle\Entity\Curriculumvitae_Project $curriculumvitaeProject
+     * @param Curriculumvitae_Project $curriculumvitaeProject
+     * @return $this
      */
-    public function removeCurriculumvitaeProject(\AppBundle\Entity\Curriculumvitae_Project $curriculumvitaeProject)
+    public function removeCurriculumvitaeProject(Curriculumvitae_Project $curriculumvitaeProject)
     {
         $this->curriculumvitaeProjects->removeElement($curriculumvitaeProject);
+
+        return $this;
     }
 
     /**

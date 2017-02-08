@@ -21,40 +21,40 @@ class Curriculumvitae_Project
 
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Project", inversedBy="curriculumvitaeProjects")
+     * @ORM\ManyToOne(targetEntity="Project")
      * @ORM\JoinColumn(name="project_id", referencedColumnName="id", nullable=false)
      */
-    protected $projects;
+    public $project;
 
     /**
      * @ORM\Column(type="boolean")
      *
      */
-    protected $isImportantProject;
+    protected $important;
 
 
     /**
-     * Set isImportantProject
+     * Set important
      *
-     * @param boolean $isImportantProject
+     * @param boolean $important
      *
      * @return Curriculumvitae_Project
      */
-    public function setIsImportantProject($isImportantProject)
+    public function setImportant($important)
     {
-        $this->isImportantProject = $isImportantProject;
+        $this->important = $important;
 
         return $this;
     }
 
     /**
-     * Get isImportantProject
+     * Get important
      *
      * @return boolean
      */
-    public function getIsImportantProject()
+    public function isImportant()
     {
-        return $this->isImportantProject;
+        return $this->important;
     }
 
     /**
@@ -82,26 +82,26 @@ class Curriculumvitae_Project
     }
 
     /**
-     * Set projects
+     * Set project
      *
-     * @param \AppBundle\Entity\Project $projects
+     * @param \AppBundle\Entity\Project $project
      *
      * @return Curriculumvitae_Project
      */
-    public function setProjects(\AppBundle\Entity\Project $projects)
+    public function setProject(\AppBundle\Entity\Project $project)
     {
-        $this->projects = $projects;
+        $this->project = $project;
 
         return $this;
     }
 
     /**
-     * Get projects
+     * Get project
      *
      * @return \AppBundle\Entity\Project
      */
-    public function getProjects()
+    public function getProject()
     {
-        return $this->projects;
+        return $this->project;
     }
 }

@@ -123,7 +123,7 @@ class CurriculumvitaeExportController extends Controller
             ->setOffsetX(450)
             ->setOffsetY(110);
         $oNameText->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_LEFT );
-        $oNameTextRun = $oNameText->createTextRun(strtoupper($personalia->getFirstName().' '. $personalia->getLastName()));
+        $oNameTextRun = $oNameText->createTextRun(mb_strtoupper($personalia->getFirstName().' '. $personalia->getLastName()));
         $oNameTextRun->getFont()
             ->setCharacterSpacing(3)
             ->setBold(true)
@@ -138,7 +138,7 @@ class CurriculumvitaeExportController extends Controller
             ->setOffsetX(450)
             ->setOffsetY(140);
         $oQuoteText->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_LEFT );
-        $oQuoteTextRun = $oQuoteText->createTextRun(strtoupper($profile->getQuoteLine()));
+        $oQuoteTextRun = $oQuoteText->createTextRun(mb_strtoupper($profile->getQuoteLine()));
         $oQuoteTextRun->getFont()
             ->setCharacterSpacing(2)
             ->setBold(true)
@@ -282,9 +282,9 @@ OPLEIDING');
             $oCell->getActiveParagraph()->setLineSpacing(120);
 
             if(
-                (strpos(strtolower($edu->getEducationName()), 'master') !== false)
+                (strpos(mb_strtolower($edu->getEducationName()), 'master') !== false)
                 ||
-                (strpos(strtolower($edu->getEducationName()), 'msc') !== false)
+                (strpos(mb_strtolower($edu->getEducationName()), 'msc') !== false)
             )
             {
                 $oCellText = $oCell->createTextRun($edu->getEducationName().',
@@ -650,7 +650,7 @@ PUBLICATIES');
                 ->setOffsetX($offset)
                 ->setOffsetY(100);
             $oRoleText->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_LEFT );
-            $oRoleTextRun = $oRoleText->createTextRun(strtoupper($project->getProjects()->getFunctionTitle()));
+            $oRoleTextRun = $oRoleText->createTextRun(mb_strtoupper($project->getProjects()->getFunctionTitle()));
             $oRoleTextRun->getFont()
                 ->setCharacterSpacing(0.5)
                 ->setBold(true)

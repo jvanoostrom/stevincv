@@ -9,6 +9,7 @@ use AppBundle\Form\PersonaliaType;
 use FOS\UserBundle\Util\LegacyFormHelper;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -34,6 +35,7 @@ class UserType extends AbstractType
                     'first_options' => array('label' => 'Wachtwoord'),
                     'second_options' => array('label' => 'Herhaal wachtwoord'),
                     'invalid_message' => 'fos_user.password.mismatch',
+                    'required' => false
                 ))
                 ->add('roles', ChoiceType::class,array(
                     'multiple' => true,
@@ -43,6 +45,7 @@ class UserType extends AbstractType
                         'Beheerder' => 'ROLE_SUPER_ADMIN',
                 )))
                 ->add('personalia', PersonaliaType::class)
+                ->add('enabled', CheckboxType::class)
                 ->add('submit', SubmitType::class, array('label' => 'Opslaan'))
                 ->getForm();
     }

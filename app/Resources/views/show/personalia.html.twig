@@ -56,7 +56,7 @@
                     </div>
                 </div>
                 <div class="row right">
-                    <a class="waves-effect waves-light btn" id="clicker">Bewerken</a>
+                    <a class="waves-effect waves-light btn" id="clicker" {% if not isUser %}disabled{% endif %}>Bewerken</a>
                     {{ form_widget(form.submit, {'attr': {'class': 'btn waves-effect waves-light', 'disabled' : 'disabled'}}) }}
                 </div>
             </div>

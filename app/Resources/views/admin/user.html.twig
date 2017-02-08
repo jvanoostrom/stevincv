@@ -52,7 +52,7 @@
                     </td>
                     <td>{% if user.enabled == 1 %}Actief{% else %}Inactief{% endif %}</td>
                     <td>
-                        <a href="{# url('cert_edit',{'userId' : userId, 'certificateId' : certificate.Id}) #}" alt="Bewerken">
+                        <a href="{{ url('admin_user_edit',{'userId' : user.id }) }}" alt="Bewerken">
                             <i class="material-icons">edit</i>
                         </a>
                         <a href="#" class="delete-button-{{ user.id }}" alt="Verwijderen">

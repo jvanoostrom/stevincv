@@ -2,6 +2,10 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
+    <script type="text/javascript">
+        // keep track of how many email fields have been rendered
+        var emailCount = '{{ form.curriculumvitaeProjects|length }}';
+    </script>
 
     <div class="row">
         <form class="col s12" method="POST" enctype="multipart/form-data">
@@ -44,10 +48,19 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="collapsible-header">{{ form_label(form.projects, 'Projecten (maximaal 6)') }}<i class="material-icons">arrow_drop_down</i></div>
+                                <div class="collapsible-header">{{ form_label(form.curriculumvitaeProjects, 'Projecten (maximaal 6)') }}<i class="material-icons">arrow_drop_down</i></div>
                                 <div class="collapsible-body">
-                                    {{ form_errors(form.projects) }}
-                                    {{ form_widget(form.projects) }}
+                                    <ul id="email-fields-list"
+                                        data-prototype="{{ form_widget(form.curriculumvitaeProjects.vars.prototype)|e }}">
+                                        {% for emailField in form.curriculumvitaeProjects %}
+                                            <li>
+                                                {{ form_errors(emailField) }}
+                                                {{ form_widget(emailField) }}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+
+                                    <a href="#" id="add-another-email">Add another email</a>
                                 </div>
                             </li>
                             <li>

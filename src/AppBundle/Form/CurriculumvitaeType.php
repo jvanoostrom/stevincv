@@ -8,6 +8,7 @@ use AppBundle\Form\DataTransformer\TagsDataTransformer;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -25,7 +26,7 @@ class CurriculumvitaeType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $this->userId = $options['userId'];
+        $userId = $options['userId'];
 
         $builder
                 ->add('curriculumvitaeName', TextType::class)
@@ -35,54 +36,31 @@ class CurriculumvitaeType extends AbstractType
                     'multiple' => false,
                     'class' => 'AppBundle:Profile',
                     'choice_label' => 'shortDescription',
-                    'query_builder' => function (EntityRepository $er) {
+                    'query_builder' => function (EntityRepository $er) use ($userId) {
                         return $er->createQueryBuilder('u')
-                            ->where('u.user = '.$this->userId)
+                            ->where('u.user = '.$userId)
                             ->orderBy('u.updatedAt', 'ASC');
                     },
                     'choice_attr' => array('class' => 'with-gap'),
                 ))
-                ->add('projects', EntityType::class, array(
-                    'expanded' => true,
-                    'multiple' => true,
-                    'class' => 'AppBundle:Project',
-                    'choice_label' => 'functionTitle',
-                    'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('u')
-                            ->where('u.user = '.$this->userId)
-                            ->orderBy('u.endDate', 'DESC');
-                    },
-                    'mapped' => false
+
+                ->add('curriculumvitaeProjects', CollectionType::class, array(
+                    'entry_type' => CurriculumvitaeProjectType::class,
+                    'entry_options' => [
+                        'userId' => $userId
+                    ],
+                    'allow_add' => true,
+                    'allow_delete' => true,
                 ))
-//                ->add('isImportantProject', EntityType::class, array(
-//                    'expanded' => true,
-//                    'multiple' => false,
-//                    'class' => 'AppBundle:Curriculumvitae_Project',
-//                    'choice_label' => 'isImportantProject',
-////                    'query_builder' => function (EntityRepository $er) {
-////                        return $er->createQueryBuilder('u')
-////                            ->where('u.project_id = '.$this->project_id);
-////                    },
-//                    'mapped' => false,
-//                    'choices' => array(
-//                        'Ja' => true,
-//                        'Nee' => false
-//                    )
-//                ))
-//                ->add(
-//                    $builder->create('curriculumvitaeProjects', FormType::class, array('by_reference' => true))
-//                        ->add('projects', ChoiceType::class)
-//                        ->add('isImportantProject', ChoiceType::class)
-//
-//                )
+
                 ->add('education', EntityType::class, array(
                     'expanded' => true,
                     'multiple' => true,
                     'class' => 'AppBundle:Education',
                     'choice_label' => 'educationName',
-                    'query_builder' => function (EntityRepository $er) {
+                    'query_builder' => function (EntityRepository $er) use ($userId) {
                         return $er->createQueryBuilder('u')
-                            ->where('u.user = '.$this->userId)
+                            ->where('u.user = '.$userId)
                             ->orderBy('u.endDate', 'DESC');
                     },
                 ))
@@ -91,9 +69,9 @@ class CurriculumvitaeType extends AbstractType
                     'multiple' => true,
                     'class' => 'AppBundle:Certificate',
                     'choice_label' => 'certificateName',
-                    'query_builder' => function (EntityRepository $er) {
+                    'query_builder' => function (EntityRepository $er) use ($userId) {
                         return $er->createQueryBuilder('u')
-                            ->where('u.user = '.$this->userId)
+                            ->where('u.user = '.$userId)
                             ->orderBy('u.obtainedDate', 'DESC');
                     },
                 ))
@@ -102,9 +80,9 @@ class CurriculumvitaeType extends AbstractType
                     'multiple' => true,
                     'class' => 'AppBundle:Extracurricular',
                     'choice_label' => 'extracurricularName',
-                    'query_builder' => function (EntityRepository $er) {
+                    'query_builder' => function (EntityRepository $er) use ($userId) {
                         return $er->createQueryBuilder('u')
-                            ->where('u.user = '.$this->userId)
+                            ->where('u.user = '.$userId)
                             ->orderBy('u.endDate', 'DESC');
                     },
                 ))
@@ -113,9 +91,9 @@ class CurriculumvitaeType extends AbstractType
                     'multiple' => true,
                     'class' => 'AppBundle:Publication',
                     'choice_label' => 'publicationTitle',
-                    'query_builder' => function (EntityRepository $er) {
+                    'query_builder' => function (EntityRepository $er) use ($userId) {
                         return $er->createQueryBuilder('u')
-                            ->where('u.user = '.$this->userId)
+                            ->where('u.user = '.$userId)
                             ->orderBy('u.publishedDate', 'DESC');
                     },
                 ))
@@ -124,14 +102,13 @@ class CurriculumvitaeType extends AbstractType
                     'multiple' => true,
                     'class' => 'AppBundle:Skill',
                     'choice_label' => 'skillText',
-                    'query_builder' => function (EntityRepository $er) {
+                    'query_builder' => function (EntityRepository $er) use ($userId) {
                         return $er->createQueryBuilder('u')
-                            ->where('u.user = '.$this->userId)
+                            ->where('u.user = '.$userId)
                             ->orderBy('u.skillText', 'ASC');
                     },
                 ))
-                ->add('submit', SubmitType::class, array('label' => 'Opslaan'))
-                ->getForm();
+                ->add('submit', SubmitType::class, array('label' => 'Opslaan'));
 
         $builder->get('tags')
             ->addModelTransformer(new TagsDataTransformer($this->em));
@@ -141,8 +118,8 @@ class CurriculumvitaeType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => Curriculumvitae::class,
-            'userId' => null
         ));
+        $resolver->setRequired('userId');
     }
 
 }

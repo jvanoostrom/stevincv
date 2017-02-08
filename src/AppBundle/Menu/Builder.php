@@ -14,9 +14,28 @@ class Builder implements ContainerAwareInterface
     {
         $menu = $factory->createItem('root');
         $em = $this->container->get('doctrine')->getManager();
-        $repository = $em->getRepository('AppBundle:User');
-        $users = $repository->findAll();
 
+
+        // Me
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $personalia = $user->getPersonalia();
+
+        $helper = $this->container->get('vich_uploader.templating.helper.uploader_helper');
+        $path = $helper->asset($personalia, 'profileImageFile');
+
+        $child = $personalia->getFirstName().' '.$personalia->getLastName();
+        $menu->addChild($child, array(
+            'uri' => $user->getId(),
+            'extras' => array(
+                'img' => $path,
+                'userId' => $user->getId()
+            ),
+        ));
+
+        $menu[$child]->setLinkAttribute('class', 'collection-item avatar');
+
+        // The rest
+        $users = $em->getRepository('AppBundle:User')->findBy(array('enabled' => true));
         foreach($users as $user) {
             $personalia = $user->getPersonalia();
 

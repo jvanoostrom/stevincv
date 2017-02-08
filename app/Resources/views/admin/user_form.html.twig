@@ -57,6 +57,16 @@
                         {{ form_label(form.roles, 'Rol') }}
                     </div>
                 </div>
+                <div class="row" style="margin-bottom: 0;">
+                    <div class="input-field col s12">
+                        <label for="{{ form.enabled.vars.id }}">Actief</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        {{ form_widget(form.enabled) }}
+                    </div>
+                </div>
             </div>
             <div class="col s12 m6">
                 <div class="row">

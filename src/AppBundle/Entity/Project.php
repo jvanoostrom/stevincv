@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -16,11 +17,6 @@ class Project
      * @ORM\ManyToOne(targetEntity="User")
      */
     private $user;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Curriculumvitae_Project", mappedBy="projects")
-     */
-    private $curriculumvitaeProjects;
 
     /**
      * @ORM\ManyToMany(targetEntity="Tag")
@@ -102,6 +98,7 @@ class Project
     public function __construct()
     {
         $this->updatedAt = new \DateTime();
+        $this->tags = new ArrayCollection();
     }
 
     /**
@@ -365,37 +362,4 @@ class Project
         return $this;
     }
 
-    /**
-     * Add curriculumvitaeProject
-     *
-     * @param \AppBundle\Entity\Curriculumvitae_Project $curriculumvitaeProject
-     *
-     * @return Project
-     */
-    public function addCurriculumvitaeProject(\AppBundle\Entity\Curriculumvitae_Project $curriculumvitaeProject)
-    {
-        $this->curriculumvitaeProjects[] = $curriculumvitaeProject;
-
-        return $this;
-    }
-
-    /**
-     * Remove curriculumvitaeProject
-     *
-     * @param \AppBundle\Entity\Curriculumvitae_Project $curriculumvitaeProject
-     */
-    public function removeCurriculumvitaeProject(\AppBundle\Entity\Curriculumvitae_Project $curriculumvitaeProject)
-    {
-        $this->curriculumvitaeProjects->removeElement($curriculumvitaeProject);
-    }
-
-    /**
-     * Get curriculumvitaeProjects
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getCurriculumvitaeProjects()
-    {
-        return $this->curriculumvitaeProjects;
-    }
 }
