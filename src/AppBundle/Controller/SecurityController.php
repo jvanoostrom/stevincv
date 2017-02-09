@@ -26,23 +26,4 @@ class SecurityController extends Controller
             'error'         => $error,
         ));
     }
-
-    /**
-     * @Route("password/", name="change_password")
-     */
-    public function passwordAction(Request $request) {
-        $authenticationUtils = $this->get('security.authentication_utils');
-
-        // get the login error if there is one
-        $error = $authenticationUtils->getLastAuthenticationError();
-
-        // last username entered by the user
-        $lastUsername = $authenticationUtils->getLastUsername();
-
-        return $this->render('security/password.html.twig', array(
-            'last_username' => $lastUsername,
-            'error'         => $error,
-        ));
-    }
-
 }

@@ -82,6 +82,10 @@ fos_user:
   registration:
     form:
       type: app_user_registration
+#  change_password:
+#    form:
+#      type: app_user_change_password
+#      name: app_user_change_password
 
 knp_menu:
     # use "twig: false" to disable the Twig extension and the TwigRenderer
