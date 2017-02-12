@@ -6,6 +6,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Curriculumvitae;
 use AppBundle\Entity\Curriculumvitae_Project;
 use AppBundle\Form\CurriculumvitaeType;
+use Doctrine\Common\Collections\ArrayCollection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -128,32 +129,33 @@ class CurriculumvitaeController extends Controller
         $cv = $em->getRepository('AppBundle:Curriculumvitae')
             ->findOneBy(array('id' => $cvId));
 
+        $originalProjects = new ArrayCollection();
+
+        // Create an ArrayCollection of the current CurriculumvitaeProject objects in the database
+        foreach ($cv->getCurriculumvitaeProjects() as $project) {
+            $originalProjects->add($project);
+        }
+
         $form = $this->createForm(CurriculumvitaeType::class, $cv, array('userId' => $userId));
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
             $cv = $form->getData();
 
-            //$findCvProjects = $cv->getCurriculumvitaeProjects();
-            $findCvProjects = $em->getRepository('AppBundle:Curriculumvitae_Project')
-                ->findBy(array('curriculumvitae' => $cvId));
-            foreach($findCvProjects as $project)
-            {
-                $em->remove($project);
-                $cv->removeCurriculumvitaeProject($project);
+            foreach ($originalProjects as $project) {
+                if (false === $cv->getCurriculumvitaeProjects()->contains($project)) {
+                    // Remove relation
+                    $project->setCurriculumvitae(null);
+                    $em->persist($project);
+
+                    // Delete CurriculumvitaeProject entry
+                    $em->remove($project);
+                }
             }
-            $em->persist($cv);
-            $em->flush();
 
-            foreach($form['projects']->getData() as $project)
+            foreach($cv->getCurriculumvitaeProjects() as $project)
             {
-                $cvProject = new Curriculumvitae_Project();
-                $cvProject->setCurriculumvitae($cv);
-                $cvProject->setProjects($project);
-                $cvProject->setIsImportantProject(false);
-                $em->persist($cvProject);
-                $cv->addCurriculumvitaeProject($cvProject);
-
+                $project->setCurriculumvitae($cv);
             }
 
             $em->persist($cv);

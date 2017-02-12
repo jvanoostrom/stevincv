@@ -1,10 +1,11 @@
 {% form_theme form 'form/materialize_layout.html.twig' %}
+
 {% extends 'base.html.twig' %}
 
 {% block content %}
     <script type="text/javascript">
         // keep track of how many email fields have been rendered
-        var emailCount = '{{ form.curriculumvitaeProjects|length }}';
+        var projectCount = '{{ form.curriculumvitaeProjects|length }}';
     </script>
 
     <div class="row">
@@ -49,18 +50,29 @@
                             </li>
                             <li>
                                 <div class="collapsible-header">{{ form_label(form.curriculumvitaeProjects, 'Projecten (maximaal 6)') }}<i class="material-icons">arrow_drop_down</i></div>
-                                <div class="collapsible-body">
-                                    <ul id="email-fields-list"
-                                        data-prototype="{{ form_widget(form.curriculumvitaeProjects.vars.prototype)|e }}">
-                                        {% for emailField in form.curriculumvitaeProjects %}
-                                            <li>
-                                                {{ form_errors(emailField) }}
-                                                {{ form_widget(emailField) }}
-                                            </li>
-                                        {% endfor %}
-                                    </ul>
+                                <div class="collapsible-body" id="project-fields-list" data-prototype="{{ form_widget(form.curriculumvitaeProjects.vars.prototype)|e }}">
+                                    <div id="project-div">
 
-                                    <a href="#" id="add-another-email">Add another email</a>
+                                    {% for project in form.curriculumvitaeProjects %}
+                                        <div class="row project">
+                                            <div class="col s1" style="padding-top:13px">
+                                                <a href="#" class="valign-wrapper delete-project"><i class="material-icons valign">delete</i></a>
+                                            </div>
+                                            <div class="col s10" style="padding-top:15px">
+                                                <input type="hidden" name="{{ project.project.vars.full_name }}" id="{{ project.project.vars.id }}" value="{{ project.project.vars.value }}">
+                                                {{ project.vars.value.project.functionTitle }}
+                                            </div>
+                                            <div class="col s1">
+                                                {{ form_widget(project.important) }}
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s12">
+                                            <a href="#" class="valign-wrapper" id="add-another-project"><i class="material-icons valign">add</i>Voeg project toe aan CV</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </li>
                             <li>
@@ -105,7 +117,7 @@
                     {{ form_widget(form.submit, {'attr': {'class': 'btn waves-effect waves-light'}}) }}
                 </div>
             </div>
-            {{ form_rest(form) }}
+            {#{{ form_rest(form) }}#}
         </form>
     </div>
 

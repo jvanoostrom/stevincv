@@ -33,7 +33,7 @@ class Curriculumvitae
     private $tags;
 
     /**
-     * @ORM\OneToMany(targetEntity="Curriculumvitae_Project", mappedBy="curriculumvitae")
+     * @ORM\OneToMany(targetEntity="Curriculumvitae_Project", mappedBy="curriculumvitae", cascade={"persist"})
      */
     private $curriculumvitaeProjects;
 
@@ -444,6 +444,7 @@ class Curriculumvitae
     public function addCurriculumvitaeProject(Curriculumvitae_Project $curriculumvitaeProject)
     {
         $this->curriculumvitaeProjects->add($curriculumvitaeProject);
+        $curriculumvitaeProject->setCurriculumvitae($this);
 
         return $this;
     }

@@ -21,27 +21,38 @@ $( document ).ready(function() {
     //         }]
     // });
 
-    $('#add-another-email').click(function(e) {
+    $('select').material_select();
+
+    $('#add-another-project').click(function(e) {
         e.preventDefault();
 
-        var emailList = $('#email-fields-list');
+        var projectList = $('#project-fields-list');
+        var projectListDiv = $('#project-div');
 
         // grab the prototype template
-        var newWidget = emailList.attr('data-prototype');
+        var newWidget = projectList.attr('data-prototype');
         // replace the "__name__" used in the id and name of the prototype
-        // with a number that's unique to your emails
+        // with a number that's unique to your projects
         // end name attribute looks like name="contact[emails][2]"
-        newWidget = newWidget.replace(/__name__/g, emailCount);
-        emailCount++;
+        newWidget = newWidget.replace(/__name__/g, projectCount);
+        projectCount++;
 
         // create a new list element and add it to the list
-        var newLi = $('<li></li>').html(newWidget);
-        newLi.appendTo(emailList);
+
+        var newDiv = $('<div class="row project"></div>').html(newWidget);
+        newDiv.appendTo(projectListDiv);
+        $('select').material_select();
+    });
+
+    $('.delete-project').click(function(e) {
+        e.preventDefault();
+
+        $(this).closest('.project').remove();
+
+        return false;
     });
 
 	$(".button-collapse").sideNav();
-
-    $('select').material_select();
 
     $(".succes-entity").delay(200).slideDown(300).delay(2000).slideUp(300);
 

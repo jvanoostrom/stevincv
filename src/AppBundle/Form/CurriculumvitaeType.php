@@ -46,9 +46,9 @@ class CurriculumvitaeType extends AbstractType
 
                 ->add('curriculumvitaeProjects', CollectionType::class, array(
                     'entry_type' => CurriculumvitaeProjectType::class,
-                    'entry_options' => [
+                    'entry_options' => array(
                         'userId' => $userId
-                    ],
+                    ),
                     'allow_add' => true,
                     'allow_delete' => true,
                 ))

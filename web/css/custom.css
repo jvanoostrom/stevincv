@@ -88,3 +88,7 @@ header, main, footer {
 .menu-admin {
     font-size: 16px;
 }
+
+.select-wrapper input.select-dropdown {
+    height:2rem;
+}

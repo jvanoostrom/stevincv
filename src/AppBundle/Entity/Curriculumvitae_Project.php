@@ -14,7 +14,7 @@ class Curriculumvitae_Project
 {
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Curriculumvitae", inversedBy="curriculumvitaeProjects")
+     * @ORM\ManyToOne(targetEntity="Curriculumvitae", inversedBy="curriculumvitaeProjects", cascade={"persist"})
      * @ORM\JoinColumn(name="cv_id", referencedColumnName="id", nullable=false)
      */
     protected $curriculumvitae;
@@ -24,7 +24,7 @@ class Curriculumvitae_Project
      * @ORM\ManyToOne(targetEntity="Project")
      * @ORM\JoinColumn(name="project_id", referencedColumnName="id", nullable=false)
      */
-    public $project;
+    protected $project;
 
     /**
      * @ORM\Column(type="boolean")
@@ -64,7 +64,7 @@ class Curriculumvitae_Project
      *
      * @return Curriculumvitae_Project
      */
-    public function setCurriculumvitae(\AppBundle\Entity\Curriculumvitae $curriculumvitae)
+    public function setCurriculumvitae(\AppBundle\Entity\Curriculumvitae $curriculumvitae = null)
     {
         $this->curriculumvitae = $curriculumvitae;
 

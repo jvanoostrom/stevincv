@@ -149,37 +149,6 @@
     </p>
 {%- endblock checkbox_widget %}
 
-{% block project_widget -%}
-    {% set attr = attr|merge({class: (attr.class|default(''))|trim}) %}
-    <p>
-    <div class="col s11">
-        <input class="filled-in" type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
-        <label for="{{ id }}"{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
-        {{ label }}
-        </label>
-    </div>
-    <div class="col s1">
-        <div class="switch">
-            <label>
-                <input type="checkbox">
-                <span class="lever"></span>
-            </label>
-        </div>
-    </div>
-    </p>
-{%- endblock project_widget %}
-
-{#{% block radio_widget -%}
-    {%- set parent_label_class = parent_label_class|default(label_attr.class|default('')) -%}
-    {% if 'radio-inline' in parent_label_class %}
-        {{- form_label(form, null, { widget: parent() }) -}}
-    {% else -%}
-        <p>
-            {{- form_label(form, null, { widget: parent() }) -}}
-        </p>
-    {%- endif %}
-{%- endblock radio_widget %}#}
-
 {# Labels #}
 
 {% block form_label -%}
@@ -291,6 +260,48 @@
     {%- endif %}
 {%- endblock form_errors %}
 
-{% block _curriculumvitae_curriculumvitaeProjects_entry_widget %}
-    asdfasdf
+{% block cv_project_widget %}
+    {% set attr = attr|merge({class: (attr.class|default(''))|trim}) %}
+        <div class="col s1 valign-wrapper"><a href="#" class="valign"><i class="material-icons">delete</i></a></div>
+        <div class="input-field col s9">
+        <select {{ block('widget_attributes') }}>
+            <option value="" disabled selected>Kies een project</option>
+            {%- for curriculumvitaeProject in curriculumvitaeProjects -%}
+                <option>{{ curriculumvitaeProject.label }}</option>
+            {%- endfor -%}
+        </select>
+        </div>
+        <div class="col s2">
+            <div class="switch">
+                <label>
+                    <input type="checkbox">
+                    <span class="lever"></span>
+                </label>
+            </div>
+        </div>
 {% endblock %}
+
+{% block _curriculumvitae_curriculumvitaeProjects_entry_widget %}
+    {{ dump(form) }}
+    <div class="col s1 valign-wrapper">
+        <a href="#" class="valign delete-project"><i class="material-icons">delete</i></a>
+    </div>
+    <div class="input-field col s10" style="margin-top:0">
+        {% set choices = form.project.vars.choices %}
+        <select id="curriculumvitae_curriculumvitaeProjects___name___project" name="curriculumvitae[curriculumvitaeProjects][__name__][project]">
+            <option value="" disabled selected>Kies een project</option>
+            {%- for choice in choices -%}
+                <option value="{{ choice.value }}">{{ choice.label }}</option>
+            {%- endfor -%}
+        </select>
+    </div>
+    <div class="col s1">
+        <div class="col s11">
+        <p style="margin-top:0">
+            <input class="filled-in" type="checkbox" id="curriculumvitae_curriculumvitaeProjects___name___important" name="curriculumvitae[curriculumvitaeProjects][__name__][important]" value="1">
+            <label for="curriculumvitae_curriculumvitaeProjects___name___important"></label>
+        </p>
+    </div>
+    </div>
+{% endblock _curriculumvitae_curriculumvitaeProjects_entry_widget %}
+

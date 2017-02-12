@@ -35,8 +35,11 @@ class CurriculumvitaeProjectType extends AbstractType
                             ->where('u.user = '.$userId)
                             ->orderBy('u.endDate', 'DESC');
                     },
+
                 ))
-                ->add('important', CheckboxType::class);
+                ->add('important', CheckboxType::class, array(
+                    'required' => false
+                ));
     }
 
     public function configureOptions(OptionsResolver $resolver)
