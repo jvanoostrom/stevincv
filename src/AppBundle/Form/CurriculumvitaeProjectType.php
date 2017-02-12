@@ -3,8 +3,7 @@
 
 namespace AppBundle\Form;
 
-use AppBundle\Entity\Curriculumvitae_Project;
-use AppBundle\Form\DataTransformer\TagsDataTransformer;
+use AppBundle\Entity\CurriculumvitaeProject;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -45,7 +44,7 @@ class CurriculumvitaeProjectType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => Curriculumvitae_Project::class,
+            'data_class' => CurriculumvitaeProject::class,
         ));
         $resolver->setRequired('userId');
     }

@@ -25,10 +25,10 @@
                         <li><a class="dropdown-button" data-beloworigin="true" href="#!" data-activates="dropdown-top">&nbsp;<i class="material-icons right">perm_identity</i></a></li>
                     </ul>
                     <ul id="dropdown-top" class="dropdown-content">
-                        <li><a href="{{ url('admin_home') }}">Administratiepaneel</a></li>
                         {% if is_granted('ROLE_ADMIN') %}
-                        <li><a href="{{ url('change_password') }}">Wachtwoord wijzigen</a></li>
+                        <li><a href="{{ url('admin_home') }}">Administratiepaneel</a></li>
                         {% endif %}
+                        <li><a href="{{ url('change_password') }}">Wachtwoord wijzigen</a></li>
                         <li><a href="{{ url('user_logout') }}">Uitloggen</a></li>
                     </ul>
 

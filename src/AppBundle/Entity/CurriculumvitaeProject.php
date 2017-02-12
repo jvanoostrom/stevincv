@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity
  * @ORM\Table(name="curriculumvitae_project")
  */
-class Curriculumvitae_Project
+class CurriculumvitaeProject
 {
     /**
      * @ORM\Id
@@ -38,7 +38,7 @@ class Curriculumvitae_Project
      *
      * @param boolean $important
      *
-     * @return Curriculumvitae_Project
+     * @return CurriculumvitaeProject
      */
     public function setImportant($important)
     {
@@ -62,7 +62,7 @@ class Curriculumvitae_Project
      *
      * @param \AppBundle\Entity\Curriculumvitae $curriculumvitae
      *
-     * @return Curriculumvitae_Project
+     * @return CurriculumvitaeProject
      */
     public function setCurriculumvitae(\AppBundle\Entity\Curriculumvitae $curriculumvitae = null)
     {
@@ -86,7 +86,7 @@ class Curriculumvitae_Project
      *
      * @param \AppBundle\Entity\Project $project
      *
-     * @return Curriculumvitae_Project
+     * @return CurriculumvitaeProject
      */
     public function setProject(\AppBundle\Entity\Project $project = null)
     {

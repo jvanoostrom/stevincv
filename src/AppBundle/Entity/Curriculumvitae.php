@@ -33,7 +33,7 @@ class Curriculumvitae
     private $tags;
 
     /**
-     * @ORM\OneToMany(targetEntity="Curriculumvitae_Project", mappedBy="curriculumvitae", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="CurriculumvitaeProject", mappedBy="curriculumvitae", cascade={"persist"})
      */
     private $curriculumvitaeProjects;
 
@@ -437,11 +437,11 @@ class Curriculumvitae
     /**
      * Add curriculumvitaeProject
      *
-     * @param Curriculumvitae_Project $curriculumvitaeProject
+     * @param CurriculumvitaeProject $curriculumvitaeProject
      *
      * @return Curriculumvitae
      */
-    public function addCurriculumvitaeProject(Curriculumvitae_Project $curriculumvitaeProject)
+    public function addCurriculumvitaeProject(CurriculumvitaeProject $curriculumvitaeProject)
     {
         $this->curriculumvitaeProjects->add($curriculumvitaeProject);
         $curriculumvitaeProject->setCurriculumvitae($this);
@@ -452,10 +452,10 @@ class Curriculumvitae
     /**
      * Remove curriculumvitaeProject
      *
-     * @param Curriculumvitae_Project $curriculumvitaeProject
+     * @param CurriculumvitaeProject $curriculumvitaeProject
      * @return $this
      */
-    public function removeCurriculumvitaeProject(Curriculumvitae_Project $curriculumvitaeProject)
+    public function removeCurriculumvitaeProject(CurriculumvitaeProject $curriculumvitaeProject)
     {
         $this->curriculumvitaeProjects->removeElement($curriculumvitaeProject);
 
