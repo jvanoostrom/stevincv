@@ -164,8 +164,23 @@ class SkillController extends Controller
             )
         );
 
-        $em->remove($skill);
-        $em->flush();
+        try
+        {
+            $em->remove($skill);
+            $em->flush();
+        }
+        catch(\Doctrine\DBAL\DBALException $e) {
+            if ($e->getErrorCode() != 1451) {
+                throw $e;
+            }
+
+            $this->addFlash(
+                'error',
+                'Deze competentie is geassocieerd met een CV. Verwijder de competentie eerst van het CV.'
+            );
+
+            return $this->redirectToRoute('skill_index', array('userId' => $userId));
+        }
 
         $this->addFlash(
             'notice',

@@ -184,8 +184,23 @@ class PublicationController extends Controller
             )
         );
 
-        $em->remove($publication);
-        $em->flush();
+        try
+        {
+            $em->remove($publication);
+            $em->flush();
+        }
+        catch(\Doctrine\DBAL\DBALException $e) {
+            if ($e->getErrorCode() != 1451) {
+                throw $e;
+            }
+
+            $this->addFlash(
+                'error',
+                'De publicatie is geassocieerd met een CV. Verwijder de publicatie eerst van het CV.'
+            );
+
+            return $this->redirectToRoute('pub_index', array('userId' => $userId));
+        }
 
         $this->addFlash(
             'notice',

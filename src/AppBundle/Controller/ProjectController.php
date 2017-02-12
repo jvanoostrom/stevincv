@@ -183,9 +183,25 @@ class ProjectController extends Controller
                 'id' => $projectId
             )
         );
-
+        try
+        {
         $em->remove($project);
         $em->flush();
+        }
+        catch(\Doctrine\DBAL\DBALException $e)
+        {
+            if($e->getErrorCode() != 1451) {
+                throw $e;
+            }
+
+            $this->addFlash(
+                'error',
+                'Het project is geassocieerd met een CV. Verwijder het project eerst van het CV.'
+            );
+
+            return $this->redirectToRoute('project_index', array('userId' => $userId));
+
+        }
 
         $this->addFlash(
             'notice',

@@ -11,10 +11,10 @@
     <div class="row">
         <form class="col s12" method="POST" enctype="multipart/form-data">
 
-            {% for flash_message in app.session.flashBag.get('notice') %}
-                <div id="card-alert" class="card green" style="display:none">
+            {% for flash_message in app.session.flashBag.get('error') %}
+                <div id="card-alert" class="card red error-entity" style="display:none">
                     <div class="card-content white-text valign-wrapper">
-                        <i class="material-icons valign">done</i>&nbsp;<span>{{ flash_message }}</span>
+                        <i class="material-icons valign">warning</i>&nbsp;<span>{{ flash_message }}</span>
                     </div>
                 </div>
             {% endfor %}
@@ -60,7 +60,7 @@
                                             </div>
                                             <div class="col s10" style="padding-top:15px">
                                                 <input type="hidden" name="{{ project.project.vars.full_name }}" id="{{ project.project.vars.id }}" value="{{ project.project.vars.value }}">
-                                                {{ project.vars.value.project.functionTitle }}
+                                                <label style="font-size:1rem; color:black" for="{{ project.project.vars.id }}">{{ project.vars.value.project.functionTitle }}</label>
                                             </div>
                                             <div class="col s1">
                                                 {{ form_widget(project.important) }}
@@ -68,7 +68,7 @@
                                         </div>
                                     {% endfor %}
                                     </div>
-                                    <div class="row">
+                                    <div class="row" id="add-another-project-div" {% if form.curriculumvitaeProjects|length > 5 %}style="display:none"{% endif %}>
                                         <div class="col s12">
                                             <a href="#" class="valign-wrapper" id="add-another-project"><i class="material-icons valign">add</i>Voeg project toe aan CV</a>
                                         </div>

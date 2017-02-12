@@ -92,3 +92,18 @@ header, main, footer {
 .select-wrapper input.select-dropdown {
     height:2rem;
 }
+
+nav {
+    background-color: #CE2C43;
+}
+
+.tabs .indicator {
+    background-color: #CE2C43;
+}
+.tabs .tab a:hover, .tabs .tab a.active {
+    color:#CE2C43;
+}
+
+.tabs .tab a {
+      color:#808080;
+  }

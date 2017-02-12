@@ -183,9 +183,23 @@ class CertificateController extends Controller
                 'id' => $certificateId
             )
         );
+        try
+        {
+            $em->remove($certificate);
+            $em->flush();
+        }
+        catch(\Doctrine\DBAL\DBALException $e) {
+            if ($e->getErrorCode() != 1451) {
+                throw $e;
+            }
 
-        $em->remove($certificate);
-        $em->flush();
+            $this->addFlash(
+                'error',
+                'Het certificaat is geassocieerd met een CV. Verwijder het certificaat eerst van het CV.'
+            );
+
+            return $this->redirectToRoute('cert_index', array('userId' => $userId));
+        }
 
         $this->addFlash(
             'notice',

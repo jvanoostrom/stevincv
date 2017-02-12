@@ -7,6 +7,7 @@ use AppBundle\Entity\Curriculumvitae;
 use AppBundle\Entity\Curriculumvitae_Project;
 use AppBundle\Form\CurriculumvitaeType;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -69,17 +70,11 @@ class CurriculumvitaeController extends Controller
         if ($form->isSubmitted()) {
             $cv = $form->getData();
 
-            // Set User Object Association
-
             $cv->setUser($user);
-            foreach($form['projects']->getData() as $project)
+
+            foreach($cv->getCurriculumvitaeProjects() as $project)
             {
-                $cvProject = new Curriculumvitae_Project();
-                $cvProject->setCurriculumvitae($cv);
-                $cvProject->setProjects($project);
-                $cvProject->setIsImportantProject(false);
-                $em->persist($cvProject);
-                $cv->addCurriculumvitaeProject($cvProject);
+                $project->setCurriculumvitae($cv);
             }
 
 
@@ -158,8 +153,19 @@ class CurriculumvitaeController extends Controller
                 $project->setCurriculumvitae($cv);
             }
 
+            try
+            {
             $em->persist($cv);
             $em->flush();
+            }
+            catch(UniqueConstraintViolationException $e) {
+                $this->addFlash(
+                    'error',
+                    'Je kan een project maar één keer toevoegen.'
+                );
+
+                return $this->redirectToRoute('cv_edit', array('userId' => $userId, 'cvId' => $cvId));
+            }
 
             $this->addFlash(
                 'notice',
@@ -204,7 +210,47 @@ class CurriculumvitaeController extends Controller
                 'id' => $cvId
             )
         );
+        $projects = $cv->getCurriculumvitaeProjects();
+        $certificates = $cv->getCertificates();
+        $extracurricular = $cv->getExtracurricular();
+        $publications = $cv->getPublications();
+        $education = $cv->getEducation();
+        $tags = $cv->getTags();
 
+        foreach($projects as $project)
+        {
+            $cv->removeCurriculumvitaeProject($project);
+            $project->setCurriculumvitae(null);
+            $project->setProject(null);
+            $em->remove($project);
+        }
+
+        foreach($certificates as $certificate)
+        {
+            $cv->removeCertificate($certificate);
+        }
+
+        foreach($extracurricular as $extra)
+        {
+            $cv->removeExtracurricular($extra);
+        }
+
+        foreach($publications as $publication)
+        {
+            $cv->removePublication($publication);
+        }
+
+        foreach($education as $edu)
+        {
+            $cv->removeEducation($edu);
+        }
+
+        foreach($tags as $tag)
+        {
+            $cv->removeTag($tag);
+        }
+
+        $cv->setProfile(null);
         $em->remove($cv);
         $em->flush();
 

@@ -88,7 +88,7 @@ class Curriculumvitae_Project
      *
      * @return Curriculumvitae_Project
      */
-    public function setProject(\AppBundle\Entity\Project $project)
+    public function setProject(\AppBundle\Entity\Project $project = null)
     {
         $this->project = $project;
 

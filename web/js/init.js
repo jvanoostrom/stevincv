@@ -21,47 +21,10 @@ $( document ).ready(function() {
     //         }]
     // });
 
-    $('select').material_select();
 
-    $('#add-another-project').click(function(e) {
-        e.preventDefault();
+    // Materialize initialisation
 
-        var projectList = $('#project-fields-list');
-        var projectListDiv = $('#project-div');
-
-        // grab the prototype template
-        var newWidget = projectList.attr('data-prototype');
-        // replace the "__name__" used in the id and name of the prototype
-        // with a number that's unique to your projects
-        // end name attribute looks like name="contact[emails][2]"
-        newWidget = newWidget.replace(/__name__/g, projectCount);
-        projectCount++;
-
-        // create a new list element and add it to the list
-
-        var newDiv = $('<div class="row project"></div>').html(newWidget);
-        newDiv.appendTo(projectListDiv);
-        $('select').material_select();
-    });
-
-    $('.delete-project').click(function(e) {
-        e.preventDefault();
-
-        $(this).closest('.project').remove();
-
-        return false;
-    });
-
-	$(".button-collapse").sideNav();
-
-    $(".succes-entity").delay(200).slideDown(300).delay(2000).slideUp(300);
-
-
-    $('[class^=delete-button-]').click(function() {
-        var classes = $(this).attr('class').split( '-' );
-
-        $('.delete-entity-' + classes[2]).delay(200).slideDown(300).delay(5000).slideUp(300);
-    });
+    $(".button-collapse").sideNav();
 
     $('ul.tabs').tabs();
 
@@ -84,11 +47,26 @@ $( document ).ready(function() {
         labelMonthSelect: 'Selecteer maand',
         labelYearSelect: 'Selecteer jaar',
         formatSubmit: 'yyyy-mm-dd',
-		format: 'yyyy-mm-dd',
+        format: 'yyyy-mm-dd',
         closeOnSelect: true,
         closeOnClear: true
     });
 
+    $('.collapsible').collapsible();
+
+    $('select').material_select();
+
+    // Notification slides
+    $(".succes-entity").delay(200).slideDown(300).delay(2000).slideUp(300);
+    $(".error-entity").delay(200).slideDown(300).delay(5000).slideUp(300);
+
+    $('[class^=delete-button-]').click(function() {
+        var classes = $(this).attr('class').split( '-' );
+
+        $('.delete-entity-' + classes[2]).delay(200).slideDown(300).delay(5000).slideUp(300);
+    });
+
+    // Personalia page
     $('#clicker').click(function() {
         $('input').each(function() {
             if ($(this).attr('disabled')) {
@@ -123,21 +101,86 @@ $( document ).ready(function() {
         });
     });
 
-    $('.collapsible').collapsible();
-
-
-    // Limit number of projects in CV
-    var $checkBoxProjects = $("input[type=checkbox][id^=curriculumvitae_projects]");
-    var maxBoxesProjects = 6;
+    // Curriculumvitae page
+    // CurriculumvitaeProjects
+    var actualProjectCount = $('.project').length;
+    var $checkBoxProjects = $("input[type=checkbox][id^=curriculumvitae_curriculumvitaeProjects]");
     var countCheckedProjects = $checkBoxProjects.filter(":checked").length;
+    var maxBoxesProjects = 3;
+
+    $('#add-another-project').click(function(e) {
+        e.preventDefault();
+
+        var projectList = $('#project-fields-list');
+        var projectListDiv = $('#project-div');
+
+        // grab the prototype template
+        var newWidget = projectList.attr('data-prototype');
+        // replace the "__name__" used in the id and name of the prototype
+        // with a number that's unique to your projects
+        newWidget = newWidget.replace(/__name__/g, projectCount);
+
+
+        // create a new list element and add it to the list
+
+        var newDiv = $('<div class="row project"></div>').html(newWidget);
+        newDiv.appendTo(projectListDiv);
+        actualProjectCount++;
+
+        $('input[id$="_project"]').each(function(){
+            var val = $(this).val();
+            $('option[value=' + val + ']').remove();
+        });
+
+        $('select').material_select();
+        $checkBoxProjects = $("input[type=checkbox][id^=curriculumvitae_curriculumvitaeProjects]");
+        countCheckedProjects = $checkBoxProjects.filter(":checked").length;
+
+        if(countCheckedProjects > 2) {
+            $('input[type=checkbox][id="curriculumvitae_curriculumvitaeProjects_'+projectCount+'_important"]').attr('disabled',true);
+        }
+        if(actualProjectCount > 5) {
+            $('#add-another-project-div').hide();
+        }
+        projectCount++;
+    });
+
+    $('#project-div').on('click', 'a.delete-project', function(e){
+        e.preventDefault();
+        var $element = $(this).closest('div.project').find('input[id$="_project"]');
+        var valRemoved = $element.val();
+        var labelRemoved = $('label[for="'+$element.attr('id')+'"]').text();
+
+        $('select.initialized').append($('<option>', {
+            value: valRemoved,
+            text: labelRemoved
+        }));
+        $('.select-dropdown').append('<li><span>'+labelRemoved+'</span></li>');
+
+        $(this).closest('.project').remove();
+
+        actualProjectCount--;
+        $checkBoxProjects = $("input[type=checkbox][id^=curriculumvitae_curriculumvitaeProjects]");
+        countCheckedProjects = $checkBoxProjects.filter(":checked").length;
+        if (countCheckedProjects < maxBoxesProjects)
+        {
+            $checkBoxProjects.not(":checked").attr("disabled", false);
+        }
+        if(actualProjectCount < 6) {
+            $('#add-another-project-div').show();
+        }
+    });
+
+
+    // Limit number of important projects in CV
     if (countCheckedProjects >= maxBoxesProjects)
     {
         $checkBoxProjects.not(":checked").attr("disabled", true);
     }
 
-    $checkBoxProjects.change(function() {
-        var countCheckedProjects = $checkBoxProjects.filter(":checked").length;
+    $(document).on('change', 'input[type=checkbox][id^=curriculumvitae_curriculumvitaeProjects]', function(){
 
+        countCheckedProjects = $checkBoxProjects.filter(":checked").length;
         if (countCheckedProjects >= maxBoxesProjects)
         {
             $checkBoxProjects.not(":checked").attr("disabled", true);

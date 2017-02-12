@@ -260,29 +260,7 @@
     {%- endif %}
 {%- endblock form_errors %}
 
-{% block cv_project_widget %}
-    {% set attr = attr|merge({class: (attr.class|default(''))|trim}) %}
-        <div class="col s1 valign-wrapper"><a href="#" class="valign"><i class="material-icons">delete</i></a></div>
-        <div class="input-field col s9">
-        <select {{ block('widget_attributes') }}>
-            <option value="" disabled selected>Kies een project</option>
-            {%- for curriculumvitaeProject in curriculumvitaeProjects -%}
-                <option>{{ curriculumvitaeProject.label }}</option>
-            {%- endfor -%}
-        </select>
-        </div>
-        <div class="col s2">
-            <div class="switch">
-                <label>
-                    <input type="checkbox">
-                    <span class="lever"></span>
-                </label>
-            </div>
-        </div>
-{% endblock %}
-
 {% block _curriculumvitae_curriculumvitaeProjects_entry_widget %}
-    {{ dump(form) }}
     <div class="col s1 valign-wrapper">
         <a href="#" class="valign delete-project"><i class="material-icons">delete</i></a>
     </div>

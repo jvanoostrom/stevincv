@@ -183,9 +183,23 @@ class ExtracurricularController extends Controller
                 'id' => $extracurricularId
             )
         );
+        try
+        {
+            $em->remove($extracurricular);
+            $em->flush();
+        }
+        catch(\Doctrine\DBAL\DBALException $e) {
+            if ($e->getErrorCode() != 1451) {
+                throw $e;
+            }
 
-        $em->remove($extracurricular);
-        $em->flush();
+            $this->addFlash(
+                'error',
+                'De nevenactiviteit is geassocieerd met een CV. Verwijder de nevenactiviteit eerst van het CV.'
+            );
+
+            return $this->redirectToRoute('extra_index', array('userId' => $userId));
+        }
 
         $this->addFlash(
             'notice',

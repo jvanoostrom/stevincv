@@ -187,8 +187,22 @@ class ProfileController extends Controller
             )
         );
 
-        $em->remove($profile);
-        $em->flush();
+        try{
+            $em->remove($profile);
+            $em->flush();
+        }
+        catch(\Doctrine\DBAL\DBALException $e) {
+            if ($e->getErrorCode() != 1451) {
+                throw $e;
+            }
+
+            $this->addFlash(
+                'error',
+                'Dit profiel is geassocieerd met een CV. Verwijder dit profiel eerst van het CV.'
+            );
+
+            return $this->redirectToRoute('profile_index', array('userId' => $userId));
+        }
 
         $this->addFlash(
             'notice',

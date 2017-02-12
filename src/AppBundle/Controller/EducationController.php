@@ -184,8 +184,25 @@ class EducationController extends Controller
             )
         );
 
-        $em->remove($education);
-        $em->flush();
+        try
+        {
+            $em->remove($education);
+            $em->flush();
+        }
+        catch(\Doctrine\DBAL\DBALException $e) {
+            if ($e->getErrorCode() != 1451) {
+                throw $e;
+            }
+
+            $this->addFlash(
+                'error',
+                'De opleiding is geassocieerd met een CV. Verwijder de opleiding eerst van het CV.'
+            );
+
+            return $this->redirectToRoute('edu_index', array('userId' => $userId));
+        }
+
+
 
         $this->addFlash(
             'notice',

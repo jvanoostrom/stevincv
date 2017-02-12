@@ -34,9 +34,14 @@ class CurriculumvitaeExportController extends Controller
         $user = $cv->getUser();
         $personalia = $user->getPersonalia();
         $profile = $cv->getProfile();
-        ///$projects = $cv->getCurriculumvitaeProjects()->getProjects();
-        $projects = $em->getRepository('AppBundle:Curriculumvitae_Project')
-            ->findBy(array('curriculumvitae' => $cvId));
+
+        $query = "SELECT * FROM 
+                  (SELECT * FROM curriculumvitae_project WHERE curriculumvitae_project.cv_id = ".$cvId.") 
+                  as cv_project INNER JOIN project ON cv_project.project_id=project.id 
+                  ORDER BY cv_project.important DESC, project.end_date DESC, project.start_date DESC";
+        $test = $em->getConnection()->prepare($query);
+        $test->execute();
+        $projects = $test->fetchAll();
 
         $education = $cv->getEducation();
         $certificates = $cv->getCertificates();
@@ -456,17 +461,20 @@ BELANGRIJKSTE PROJECTEN');
             ->setColor($red);
         $this->setBorderStyle($oCell, 0);
 
-        for($i = 0; $i<3; $i++)
+        for($i = 0; $i< count($projects); $i++)
         {
-            $oRow = $oTable->createRow();
-            $oRow->setHeight(10);
-            $oCell = $oRow->nextCell();
-            $oCellText = $oCell->createTextRun($projects[$i]->getProjects()->getFunctionTitle());
-            $oCellText->getFont()
-                ->setSize(10)
-                ->setName('Open Sans')
-                ->setColor($darkGrey);
-            $this->setBorderStyle($oCell, 0);
+            if($projects[$i]['important'] == 1)
+            {
+                $oRow = $oTable->createRow();
+                $oRow->setHeight(10);
+                $oCell = $oRow->nextCell();
+                $oCellText = $oCell->createTextRun($projects[$i]['function_title']);
+                $oCellText->getFont()
+                    ->setSize(10)
+                    ->setName('Open Sans')
+                    ->setColor($darkGrey);
+                $this->setBorderStyle($oCell, 0);
+            }
         }
 
 
@@ -595,6 +603,9 @@ PUBLICATIES');
         $project_i = 1;
         foreach($projects as $project)
         {
+            $projectStartDate = date_create($project['start_date']);
+            $projectEndDate = date_create($project['end_date']);
+
             if($project_i % 2 == 0)
             {
                 $offset = $xOffsetRight;
@@ -633,10 +644,11 @@ PUBLICATIES');
             $oDateRange->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_LEFT );
             $oDateRange->getActiveParagraph()->getAlignment()->setVertical( Alignment::VERTICAL_CENTER );
             $oDateRangeRun = $oDateRange->createTextRun(
-                    $this->getTranslatedMonth($project->getProjects()->getStartDate()).' '. date_format($project->getProjects()->getStartDate(),'y')
+                    $this->getTranslatedMonth($projectStartDate).' '. date_format($projectStartDate,'y')
                     .' - '.
-                    $this->getTranslatedMonth($project->getProjects()->getEndDate()).' '. date_format($project->getProjects()->getEndDate(),'y')
+                    $this->getTranslatedMonth($projectEndDate).' '. date_format($projectEndDate,'y')
                 );
+
             $oDateRangeRun->getFont()
                 ->setBold(true)
                 ->setName('Open Sans SemiBold')
@@ -650,7 +662,7 @@ PUBLICATIES');
                 ->setOffsetX($offset)
                 ->setOffsetY(100);
             $oRoleText->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_LEFT );
-            $oRoleTextRun = $oRoleText->createTextRun(mb_strtoupper($project->getProjects()->getFunctionTitle()));
+            $oRoleTextRun = $oRoleText->createTextRun(mb_strtoupper($project['function_title']));
             $oRoleTextRun->getFont()
                 ->setCharacterSpacing(0.5)
                 ->setBold(true)
@@ -665,7 +677,7 @@ PUBLICATIES');
                 ->setOffsetX($offset)
                 ->setOffsetY(125);
             $oCompanyText->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_LEFT );
-            $oCompanyTextRun = $oCompanyText->createTextRun($project->getProjects()->getCustomerName());
+            $oCompanyTextRun = $oCompanyText->createTextRun($project['customer_name']);
             $oCompanyTextRun->getFont()
                 ->setName('Open Sans')
                 ->setSize(8)
@@ -693,7 +705,7 @@ PUBLICATIES');
                 ->setOffsetY(165);
             $oExecutiveTextBox->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_LEFT );
             $oExecutiveTextBox->getActiveParagraph()->setLineSpacing(120);
-            $oExecutiveTextBoxRun = $oExecutiveTextBox->createTextRun($project->getProjects()->getSituationText());
+            $oExecutiveTextBoxRun = $oExecutiveTextBox->createTextRun($project['situation_text']);
             $oExecutiveTextBoxRun->getFont()
                 ->setName('Open Sans SemiBold')
                 ->setCharacterSpacing(0.5)
@@ -722,7 +734,7 @@ PUBLICATIES');
                 ->setOffsetY(275);
             $oTaskTextBox->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_LEFT );
             $oTaskTextBox->getActiveParagraph()->setLineSpacing(120);
-            $oTaskTextBoxRun = $oTaskTextBox->createTextRun($project->getProjects()->getTaskText());
+            $oTaskTextBoxRun = $oTaskTextBox->createTextRun($project['task_text']);
             $oTaskTextBoxRun->getFont()
                 ->setName('Open Sans SemiBold')
                 ->setCharacterSpacing(0.5)
@@ -751,7 +763,7 @@ PUBLICATIES');
                 ->setOffsetY(445);
             $oResultsTextBox->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_LEFT );
             $oResultsTextBox->getActiveParagraph()->setLineSpacing(120);
-            $oResultsTextBoxRun = $oResultsTextBox->createTextRun($project->getProjects()->getResultText());
+            $oResultsTextBoxRun = $oResultsTextBox->createTextRun($project['result_text']);
             $oResultsTextBoxRun->getFont()
                 ->setName('Open Sans SemiBold')
                 ->setCharacterSpacing(0.5)
@@ -789,7 +801,7 @@ PUBLICATIES');
         $cell->getBorders()->getBottom()->setLineWidth($lineWidth);
     }
 
-    public function getTranslatedMonth(\Datetime $datetime)
+    public function getTranslatedMonth(\DateTime $datetime)
     {
         $month = date_format($datetime,'M');
 
