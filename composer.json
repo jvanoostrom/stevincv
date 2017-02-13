@@ -66,5 +66,11 @@
             "file": "app/config/parameters.yml"
         },
         "branch-alias": null
+    },
+    "config": {
+        "preferred-install": "dist",
+        "platform": {
+            "php": "5.6.30"
+        }
     }
 }
