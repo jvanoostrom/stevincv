@@ -2,11 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="97c68838-9386-45e6-96c3-b74e2eb0fe8c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/stevincv.iml" afterPath="$PROJECT_DIR$/.idea/stevincv.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/config.yml" afterPath="$PROJECT_DIR$/app/config/config.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/composer.json" afterPath="$PROJECT_DIR$/composer.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/composer.lock" afterPath="$PROJECT_DIR$/composer.lock" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/test.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/test/example.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/test/home.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/test/image.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/test/img/cv/cvBackgroundEinde.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/test/img/cv/cvBackgroundExperience.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/test/img/cv/cvBackgroundWaarden.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/test/img/cv/cvbackground.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/test/img/cv/logostevin.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/test/img/cv/placeholder.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/test/img/cv/profielFotoJeffreyVanOostrom.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/test/img/cv/voorpaginaJeffreyVanOostrom.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/test/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/test/index.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/test/out/CVJVO.odp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/test/out/CVJVO.pptx" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/test/pptWriter.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/test/test.html" afterPath="" />
     </list>
     <ignored path="$PROJECT_DIR$/var/cache/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -741,12 +754,12 @@
       <workItem from="1486734137290" duration="6860000" />
       <workItem from="1486842871897" duration="31726000" />
       <workItem from="1486972301750" duration="158000" />
-      <workItem from="1486972491566" duration="710000" />
+      <workItem from="1486972491566" duration="1928000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="195810000" />
+    <option name="totallyTimeSpent" value="197028000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -800,13 +813,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/Resources/views/form/certificate_form.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="1" column="12" lean-forward="true" selection-start-line="1" selection-start-column="12" selection-end-line="1" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/friendsofsymfony/user-bundle/Model/UserManagerInterface.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="346">
@@ -1155,6 +1161,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="486">
           <caret line="60" column="33" lean-forward="false" selection-start-line="60" selection-start-column="33" selection-end-line="60" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
