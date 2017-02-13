@@ -23,7 +23,6 @@ $( document ).ready(function() {
 
 
     // Materialize initialisation
-
     $(".button-collapse").sideNav();
 
     $('ul.tabs').tabs();

@@ -36,7 +36,7 @@
             <tbody>
             {% for user in users %}
                 <tr>
-                    <td><img src="{{ asset('img/profile/' ~ user.personalia.profileAvatarName) }}" alt="" class="circle responsive-img"></td>
+                    <td><img src="{{ asset('img/profile/' ~ user.personalia.profileAvatarName) }}" alt="" class="circle" style="max-width:55px"></td>
                     <td>{{ user.personalia.firstName }} {{ user.personalia.lastName }}<br/><em>{{ user.personalia.placeOfResidence }}</em></td>
                     <td>{% set userRole = false %}
                         {% for role in user.roles %}

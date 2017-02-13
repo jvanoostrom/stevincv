@@ -1,6 +1,7 @@
 .top-nav {
     box-shadow: none;
 }
+
 header, main, footer {
     padding-left: 300px;
 }
@@ -10,7 +11,6 @@ header, main, footer {
         padding-left: 0;
     }
 }
-
 
 .collection a.collection-item {
     display: block;
@@ -105,5 +105,5 @@ nav {
 }
 
 .tabs .tab a {
-      color:#808080;
-  }
+    color:#808080;
+}
