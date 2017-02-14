@@ -45,7 +45,7 @@ class UserType extends AbstractType
                         'Beheerder' => 'ROLE_SUPER_ADMIN',
                 )))
                 ->add('personalia', PersonaliaType::class)
-                ->add('enabled', CheckboxType::class)
+                ->add('enabled', CheckboxType::class, array('required' => false, 'data' => false))
                 ->add('submit', SubmitType::class, array('label' => 'Opslaan'))
                 ->getForm();
     }

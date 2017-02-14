@@ -2,8 +2,6 @@
 
 namespace AppBundle\Controller;
 
-
-use AppBundle\Form\ChangePasswordType;
 use FOS\UserBundle\Form\Factory\FactoryInterface;
 use FOS\UserBundle\Model\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
