@@ -16,12 +16,16 @@ class LoginListener {
     private $router;
     private $dispatcher;
 
+
     public function __construct(AuthorizationCheckerInterface $securityAuthorization, Router $router, EventDispatcherInterface $dispatcher) {
         $this->securityAuthorization = $securityAuthorization;
         $this->router = $router;
         $this->dispatcher = $dispatcher;
     }
 
+    /**
+     * @param InteractiveLoginEvent $event
+     */
     public function onSecurityInteractiveLogin(InteractiveLoginEvent $event) {
         if ($this->securityAuthorization->isGranted( 'IS_AUTHENTICATED_FULLY' )) {
             $user = $event->getAuthenticationToken()->getUser ();
