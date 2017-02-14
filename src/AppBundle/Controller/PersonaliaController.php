@@ -75,12 +75,21 @@ class PersonaliaController extends Controller
         // Check filetype
         $profile_dir = $this->container->getParameter('profile_image_directory');
         $picture_url = $profile_dir.'/'.$picture_url;
-        if(exif_imagetype($picture_url) == IMAGETYPE_JPEG)
+
+        $allowed_types = array ('image/jpeg', 'image/png' );
+        $fileInfo = finfo_open(FILEINFO_MIME_TYPE);
+        $detected_type = finfo_file( $fileInfo, $picture_url );
+        if ( !in_array($detected_type, $allowed_types) ) {
+            die ( 'Please upload a pdf or an image ' );
+        }
+        finfo_close( $fileInfo );
+
+        if($detected_type == 'image/jpeg')
         {
             $picture = imagecreatefromjpeg($picture_url);
             $basename = basename($picture_url, '.jpg');
         }
-        elseif(exif_imagetype($picture_url) == IMAGETYPE_PNG)
+        elseif($detected_type == 'image/png')
         {
             $picture = imagecreatefrompng($picture_url);
             $basename = basename($picture_url, '.png');
