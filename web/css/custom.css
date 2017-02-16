@@ -107,3 +107,13 @@ nav {
 .tabs .tab a {
     color:#808080;
 }
+
+.datepicker::-webkit-calendar-picker-indicator {
+    display: none;
+}
+
+.datepicker-field {
+    position: relative;
+    line-height: 0.85;
+    margin-top: 0.2rem;
+}

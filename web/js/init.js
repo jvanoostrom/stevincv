@@ -31,25 +31,25 @@ $( document ).ready(function() {
         belowOrigin: true // Displays dropdown below the button
     });
 
-    $('.datepicker').pickadate({
-        selectMonths: true, // Creates a dropdown to control month
-        selectYears: 200, // Creates a dropdown of 15 years to control year
-        monthsFull: ['Januari', 'Februari', 'Maart', 'April', 'Mei', 'Juni', 'Juli', 'Augustus', 'September', 'Oktober', 'November', 'December'],
-        monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'],
-        weekdaysFull: ['Zondag', 'Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag', 'Zaterdag'],
-        weekdaysShort: ['Zo', 'Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za'],
-        today: 'Nu',
-        clear: 'Leeg',
-        close: 'Sluit',
-        labelMonthNext: 'Volgende maand',
-        labelMonthPrev: 'Vorige maand',
-        labelMonthSelect: 'Selecteer maand',
-        labelYearSelect: 'Selecteer jaar',
-        formatSubmit: 'yyyy-mm-dd',
-        format: 'yyyy-mm-dd',
-        closeOnSelect: true,
-        closeOnClear: true
-    });
+    // $('.datepicker').pickadate({
+    //     selectMonths: true, // Creates a dropdown to control month
+    //     selectYears: 200, // Creates a dropdown of 15 years to control year
+    //     monthsFull: ['Januari', 'Februari', 'Maart', 'April', 'Mei', 'Juni', 'Juli', 'Augustus', 'September', 'Oktober', 'November', 'December'],
+    //     monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'],
+    //     weekdaysFull: ['Zondag', 'Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag', 'Zaterdag'],
+    //     weekdaysShort: ['Zo', 'Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za'],
+    //     today: 'Nu',
+    //     clear: 'Leeg',
+    //     close: 'Sluit',
+    //     labelMonthNext: 'Volgende maand',
+    //     labelMonthPrev: 'Vorige maand',
+    //     labelMonthSelect: 'Selecteer maand',
+    //     labelYearSelect: 'Selecteer jaar',
+    //     formatSubmit: 'yyyy-mm-dd',
+    //     format: 'yyyy-mm-dd',
+    //     closeOnSelect: true,
+    //     closeOnClear: true
+    // });
 
     $('.collapsible').collapsible();
 
@@ -87,7 +87,7 @@ $( document ).ready(function() {
                 });
             }
         });
-        $('div .btn').each(function() {
+        $('div.btn').each(function() {
             if ($(this).hasClass('disabled')) {
                 $(this).removeClass('disabled');
             }
@@ -95,8 +95,7 @@ $( document ).ready(function() {
                 $(this).addClass('disabled');
             }
 
-        })
-
+        });
         $('#clicker').each(function() {
             if ($(this).attr('disabled')) {
                 $(this).removeAttr('disabled');

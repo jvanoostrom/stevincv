@@ -16,14 +16,14 @@
 
             <div class="col s12">
                 <div class="row">
-                    <div class="input-field col s12 m2">
+                    <div class="datepicker-field col s12 m2">
                         {{ form_label(form.startDate, 'Startdatum') }}
                         {{ form_errors(form.startDate) }}
                         {{ form_widget(form.startDate, {'attr': {
                             'class': 'datepicker',
                         }}) }}
                     </div>
-                    <div class="input-field col s12 m2">
+                    <div class="datepicker-field col s12 m2">
                         {{ form_label(form.endDate, 'Einddatum') }}
                         {{ form_errors(form.endDate) }}
                         {{ form_widget(form.endDate, {'attr': {
