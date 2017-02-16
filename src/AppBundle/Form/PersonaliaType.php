@@ -21,7 +21,7 @@ class PersonaliaType extends AbstractType
                 ->add('firstName', TextType::class)
                 ->add('lastName', TextType::class)
                 ->add('placeOfResidence', TextType::class)
-                ->add('dateOfBirth', DateType::class, array('widget' => 'single_text', 'format' => 'dd-MM-yyyy'))
+                ->add('dateOfBirth', DateType::class, array('widget' => 'single_text'))
                 ->add('profileImageFile', FileType::class, array(
                     'block_name' => 'file_widget',
                     'label' => 'Foto',

@@ -3,19 +3,24 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-
-
     <div class="row">
-        <form class="col s12" method="POST" enctype="multipart/form-data">
 
-            {% for flash_message in app.session.flashBag.get('notice') %}
-                <div id="card-alert" class="card green succes-entity" style="display:none">
-                    <div class="card-content white-text valign-wrapper">
-                        <i class="material-icons valign">done</i>&nbsp;<span>{{ flash_message }}</span>
-                    </div>
+        {% for flash_message in app.session.flashBag.get('notice') %}
+            <div id="card-alert" class="card green succes-entity" style="display:none">
+                <div class="card-content white-text valign-wrapper">
+                    <i class="material-icons valign">done</i> <span>{{ flash_message }}</span>
                 </div>
-            {% endfor %}
+            </div>
+        {% endfor %}
+        {% for flash_message in app.session.flashBag.get('error') %}
+            <div id="card-alert" class="card red error-entity" style="display:none">
+                <div class="card-content white-text valign-wrapper">
+                    <i class="material-icons valign">warning</i>&nbsp;<span>{{ flash_message }}</span>
+                </div>
+            </div>
+        {% endfor %}
 
+        <form class="col s12" method="POST" enctype="multipart/form-data">
             <div class="col s12 m3 center-align">
                 <img src="{{ asset(profileImage) }}" alt="" class="avatar" width="200">
             </div>
@@ -25,9 +30,6 @@
                         {{ form_label(form.firstName, 'Voornaam') }}
                         {{ form_errors(form.firstName) }}
                         {{ form_widget(form.firstName, {'attr': {'class': 'validate', 'disabled' : 'disabled'}}) }}
-
-                        <!-- <input id="first_name" type="text" class="validate" value="" disabled>
-                        <label for="first_name">Voornaam</label> -->
                     </div>
                     <div class="input-field col s12 m6">
                         {{ form_label(form.lastName, 'Achternaam') }}

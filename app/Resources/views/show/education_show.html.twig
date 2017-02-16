@@ -9,7 +9,11 @@
         </div>
         <div class="col s12 m2">
             <label>Einddatum</label><br/>
-            {{ education.endDate|date('d-m-Y') }}
+            {% if education.endDate %}
+                {{ education.endDate|date('d-m-Y') }}
+            {% else %}
+                Heden
+            {% endif %}
         </div>
     </div>
     <div class="row">

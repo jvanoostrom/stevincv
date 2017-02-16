@@ -87,6 +87,15 @@ $( document ).ready(function() {
                 });
             }
         });
+        $('div .btn').each(function() {
+            if ($(this).hasClass('disabled')) {
+                $(this).removeClass('disabled');
+            }
+            else {
+                $(this).addClass('disabled');
+            }
+
+        })
 
         $('#clicker').each(function() {
             if ($(this).attr('disabled')) {

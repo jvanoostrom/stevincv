@@ -20,7 +20,7 @@ class Tag
     protected $id;
 
     /**
-     * @ORM\Column(type="string", length=10, unique=true)
+     * @ORM\Column(type="string", length=30, unique=true)
      *
      * @Assert\NotBlank(message="Vul een tag in.", groups={"Tag"})
      *

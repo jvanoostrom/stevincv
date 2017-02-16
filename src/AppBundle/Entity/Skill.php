@@ -25,7 +25,7 @@ class Skill
     protected $id;
 
     /**
-     * @ORM\Column(type="string", length=20, unique=true)
+     * @ORM\Column(type="string", length=30)
      *
      * @Assert\NotBlank(message="Vul een competentie in.", groups={"Skill"})
      *

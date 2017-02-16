@@ -36,7 +36,7 @@ class Personalia
      *     groups={"Registration", "Personalia"}
      * )
      */
-    protected $firstName;
+    protected $firstName = 'Bas';
 
     /**
      * @ORM\Column(type="string", length=255, options={"default":"van Toor"})
@@ -48,14 +48,14 @@ class Personalia
      *     groups={"Registration", "Personalia"}
      * )
      */
-    protected $lastName;
+    protected $lastName = 'van Toorn';
 
     /**
      * @ORM\Column(type="date", options={"default":"1935-09-17"})
      *
      * @Assert\NotBlank(message="Vul je geboortedatum in.", groups={"Registration", "Personalia"})
      */
-    protected $dateOfBirth;
+    protected $dateOfBirth = '1935-09-17';
 
     /**
      * @ORM\Column(type="string", length=255, options={"default":"Vlaardingen"})
@@ -67,7 +67,7 @@ class Personalia
      *     groups={"Registration", "Personalia"}
      * )
      */
-    protected $placeOfResidence;
+    protected $placeOfResidence = 'Vlaardingen';
 
     /**
      * @ORM\Column(type="string", length=255, options={"default":"bassie.jpg"})
@@ -75,7 +75,7 @@ class Personalia
      * @Assert\NotBlank(message="Voeg een profielfoto toe.", groups={"Registration", "Personalia"})
      * @Assert\File(mimeTypes={ "image/png", "image/jpeg" })
      */
-    protected $profileImageName;
+    protected $profileImageName = 'bassie.jpg';
 
     /**
      * @ORM\Column(type="string", length=255, options={"default":"bassie_circle.jpg"})
@@ -83,7 +83,7 @@ class Personalia
      * @Assert\NotBlank(message="Voeg een profielfoto toe.", groups={"Registration", "Personalia"})
      * @Assert\File(mimeTypes={ "image/png", "image/jpeg" })
      */
-    protected $profileAvatarName;
+    protected $profileAvatarName = 'bassie_circle.jpg';
 
     /**
      *
@@ -91,7 +91,7 @@ class Personalia
      *
      * @var File
      */
-    private $profileImageFile;
+    private $profileImageFile = null;
 
     /**
      * @ORM\Column(type="datetime")

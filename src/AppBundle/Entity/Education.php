@@ -54,11 +54,11 @@ class Education
     protected $startDate;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      *
      * @Assert\NotBlank(message="Vul de einddatum in.", groups={"Education"})
      */
-    protected $endDate;
+    protected $endDate = null;
 
     /**
      * @ORM\Column(type="datetime")

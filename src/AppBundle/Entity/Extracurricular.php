@@ -43,7 +43,7 @@ class Extracurricular
      * @ORM\Column(type="date", nullable=true)
      *
      */
-    protected $endDate;
+    protected $endDate = null;
 
     /**
      * @ORM\Column(type="datetime")
