@@ -151,7 +151,7 @@ class PersonaliaController extends Controller
     public function resizeImage($filename, $filetype)
     {
         $filesize = filesize($filename) / 1000000;
-        
+
         while($filesize > 3.) {
             $percent = 0.5;
 
