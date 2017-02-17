@@ -76,7 +76,7 @@ class ProjectController extends Controller
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $project = $form->getData();
 
             $em = $this->getDoctrine()->getManager();
@@ -134,7 +134,7 @@ class ProjectController extends Controller
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $project = $form->getData();
 
             $em->persist($project);

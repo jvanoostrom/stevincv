@@ -76,7 +76,7 @@ class EducationController extends Controller
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $education = $form->getData();
 
             $em = $this->getDoctrine()->getManager();
@@ -134,7 +134,7 @@ class EducationController extends Controller
         $form = $this->createForm(EducationType::class, $education);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $education = $form->getData();
 
             $em->persist($education);

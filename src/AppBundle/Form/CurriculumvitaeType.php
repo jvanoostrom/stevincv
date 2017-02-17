@@ -85,6 +85,7 @@ class CurriculumvitaeType extends AbstractType
                             ->where('u.user = '.$userId)
                             ->orderBy('u.endDate', 'DESC');
                     },
+                    'required' => false
                 ))
                 ->add('publications', EntityType::class, array(
                     'expanded' => true,
@@ -96,6 +97,7 @@ class CurriculumvitaeType extends AbstractType
                             ->where('u.user = '.$userId)
                             ->orderBy('u.publishedDate', 'DESC');
                     },
+                    'required' => false
                 ))
                 ->add('skills', EntityType::class, array(
                     'expanded' => true,

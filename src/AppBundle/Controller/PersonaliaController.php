@@ -31,7 +31,7 @@ class PersonaliaController extends Controller
         $form = $this->createForm(PersonaliaType::class, $personalia);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
 
             $personalia = $form->getData();
 

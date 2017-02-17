@@ -27,7 +27,7 @@ class Education
     /**
      * @ORM\Column(type="string")
      *
-     * @Assert\NotBlank(message="Vul de naam van de opleiding in.", groups={"Education"})
+     * @Assert\NotBlank(message="Vul de naam van de opleiding in.")
      *
      */
     protected $educationName;
@@ -36,12 +36,12 @@ class Education
      * @ORM\Column(type="string")
      *
      */
-    protected $educationSpecialisation;
+    protected $educationSpecialisation = null;
 
     /**
      * @ORM\Column(type="string")
      *
-     * @Assert\NotBlank(message="Vul het opleidingsinstituut in.", groups={"Education"})
+     * @Assert\NotBlank(message="Vul het opleidingsinstituut in.")
      *
      */
     protected $educationInstitute;
@@ -49,14 +49,15 @@ class Education
     /**
      * @ORM\Column(type="date")
      *
-     * @Assert\NotBlank(message="Vul de startdatum in.", groups={"Education"})
+     * @Assert\DateTime()
+     * @Assert\NotBlank(message="Vul de startdatum in.")
      */
     protected $startDate;
 
     /**
      * @ORM\Column(type="date", nullable=true)
      *
-     * @Assert\NotBlank(message="Vul de einddatum in.", groups={"Education"})
+     * @Assert\DateTime()
      */
     protected $endDate = null;
 
@@ -161,7 +162,7 @@ class Education
      *
      * @return Education
      */
-    public function setStartDate(\DateTime $startDate)
+    public function setStartDate(\DateTime $startDate = null)
     {
         $this->startDate = $startDate;
 
@@ -185,7 +186,7 @@ class Education
      *
      * @return Education
      */
-    public function setEndDate(\DateTime $endDate)
+    public function setEndDate(\DateTime $endDate = null)
     {
         $this->endDate = $endDate;
 

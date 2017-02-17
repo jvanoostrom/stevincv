@@ -20,7 +20,7 @@
             </div>
         {% endfor %}
 
-        <form class="col s12" method="POST" enctype="multipart/form-data">
+        <form class="col s12" method="POST" enctype="multipart/form-data" novalidate>
             <div class="col s12 m3 center-align">
                 <img src="{{ asset(profileImage) }}" alt="" class="avatar" width="200">
             </div>
@@ -28,32 +28,32 @@
                 <div class="row">
                     <div class="input-field col s12 m6">
                         {{ form_label(form.firstName, 'Voornaam') }}
-                        {{ form_errors(form.firstName) }}
                         {{ form_widget(form.firstName, {'attr': {'class': 'validate', 'disabled' : 'disabled'}}) }}
+                        {{ form_errors(form.firstName) }}
                     </div>
                     <div class="input-field col s12 m6">
                         {{ form_label(form.lastName, 'Achternaam') }}
-                        {{ form_errors(form.lastName) }}
                         {{ form_widget(form.lastName, {'attr': {'class': 'validate', 'disabled' : 'disabled'}}) }}
+                        {{ form_errors(form.lastName) }}
                     </div>
                 </div>
                 <div class="row">
                     <div class="datepicker-field col s12 m6">
                         {{ form_label(form.dateOfBirth, 'Geboortedatum') }}
-                        {{ form_errors(form.dateOfBirth) }}
                         {{ form_widget(form.dateOfBirth, {'attr': {'class': 'datepicker', 'disabled' : 'disabled'}}) }}
+                        {{ form_errors(form.dateOfBirth) }}
                     </div>
                     <div class="input-field col s12 m6">
                         {{ form_label(form.placeOfResidence, 'Woonplaats') }}
-                        {{ form_errors(form.placeOfResidence) }}
                         {{ form_widget(form.placeOfResidence, {'attr': {'class': 'validate', 'disabled' : 'disabled'}}) }}
+                        {{ form_errors(form.placeOfResidence) }}
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12 m12">
                         <div class="file-field input-field">
-                            {{ form_errors(form.profileImageFile) }}
                             {{ form_widget(form.profileImageFile, {'attr': {'disabled' : 'disabled'}}) }}
+                            {{ form_errors(form.profileImageFile) }}
                         </div>
                     </div>
                 </div>

@@ -27,7 +27,7 @@ class Publication
     /**
      * @ORM\Column(type="string")
      *
-     * @Assert\NotBlank(message="Vul de titel van de publicatie in.", groups={"Publication"})
+     * @Assert\NotBlank(message="Vul de titel van de publicatie in.")
      *
      */
     protected $publicationTitle;
@@ -35,7 +35,7 @@ class Publication
     /**
      * @ORM\Column(type="string")
      *
-     * @Assert\NotBlank(message="Vul het publicatiemedium in.", groups={"Publication"})
+     * @Assert\NotBlank(message="Vul het publicatiemedium in.")
      *
      */
     protected $publicationJournal;
@@ -43,7 +43,8 @@ class Publication
     /**
      * @ORM\Column(type="date")
      *
-     * @Assert\NotBlank(message="Vul de datum van de publicatie in.", groups={"Publication"})
+     * @Assert\DateTime()
+     * @Assert\NotBlank(message="Vul de publicatiedatum in.")
      */
     protected $publishedDate;
 
@@ -124,7 +125,7 @@ class Publication
      *
      * @return Publication
      */
-    public function setPublishedDate(\DateTime $publishedDate)
+    public function setPublishedDate(\DateTime $publishedDate = null)
     {
         $this->publishedDate = $publishedDate;
 

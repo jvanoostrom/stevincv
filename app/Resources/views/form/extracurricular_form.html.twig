@@ -4,7 +4,7 @@
 {% block content %}
 
     <div class="row">
-        <form class="col s12" method="POST" enctype="multipart/form-data">
+        <form class="col s12" method="POST" enctype="multipart/form-data" novalidate>
 
             {% for flash_message in app.session.flashBag.get('notice') %}
                 <div id="card-alert" class="card green" style="display:none">
@@ -18,27 +18,27 @@
                 <div class="row">
                     <div class="datepicker-field col s12 m2">
                         {{ form_label(form.startDate, 'Startdatum') }}
-                        {{ form_errors(form.startDate) }}
                         {{ form_widget(form.startDate, {'attr': {
                             'class': 'datepicker',
                         }}) }}
+                        {{ form_errors(form.startDate) }}
                     </div>
                     <div class="datepicker-field col s12 m2">
                         {{ form_label(form.endDate, 'Einddatum') }}
-                        {{ form_errors(form.endDate) }}
                         {{ form_widget(form.endDate, {'attr': {
                             'class': 'datepicker',
                         }}) }}
+                        {{ form_errors(form.endDate) }}
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12 m6">
                         {{ form_label(form.extracurricularName, 'Nevenactiviteit') }}
-                        {{ form_errors(form.extracurricularName) }}
                         {{ form_widget(form.extracurricularName, {'attr': {
                             'class': 'validate',
                             'maxlength': 100,
                         }}) }}
+                        {{ form_errors(form.extracurricularName) }}
                     </div>
                 </div>
                 <div class="row right">

@@ -4,7 +4,7 @@
 {% block content %}
 
     <div class="row">
-        <form class="col s12" method="POST" enctype="multipart/form-data">
+        <form class="col s12" method="POST" enctype="multipart/form-data" novalidate>
 
             {% for flash_message in app.session.flashBag.get('notice') %}
                 <div id="card-alert" class="card green" style="display:none">
@@ -18,47 +18,48 @@
                 <div class="row">
                     <div class="datepicker-field col s12 m2">
                         {{ form_label(form.startDate, 'Startdatum') }}
-                        {{ form_errors(form.startDate) }}
                         {{ form_widget(form.startDate, {'attr': {
                             'class': 'datepicker',
                         }}) }}
+                        {{ form_errors(form.startDate) }}
                     </div>
                     <div class="datepicker-field col s12 m2">
                         {{ form_label(form.endDate, 'Einddatum') }}
-                        {{ form_errors(form.endDate) }}
                         {{ form_widget(form.endDate, {'attr': {
                             'class': 'datepicker',
                         }}) }}
+                        {{ form_errors(form.endDate) }}
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12 m6">
                         {{ form_label(form.educationName, 'Opleiding') }}
-                        {{ form_errors(form.educationName) }}
                         {{ form_widget(form.educationName, {'attr': {
                             'class': 'validate',
                             'maxlength': 100,
                         }}) }}
+                        {{ form_errors(form.educationName) }}
                     </div>
                 </div>
                 <div class="row">
-                    <div class="input-field col s12 m6">
+                    <div class="input-field col s11 m6">
                         {{ form_label(form.educationSpecialisation, 'Specialisatie') }}
-                        {{ form_errors(form.educationSpecialisation) }}
                         {{ form_widget(form.educationSpecialisation, {'attr': {
                             'class': 'validate',
                             'maxlength': 100,
                         }}) }}
+                        {{ form_errors(form.educationSpecialisation) }}
                     </div>
+                    <div class="col s1 m1" style="padding-top:30px"><i class="material-icons" id="tooltip" title="Je hoeft alleen een specialisatie in te vullen bij een Masteropleiding.">info_outline</i></div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12 m6">
                         {{ form_label(form.educationInstitute, 'Instituut') }}
-                        {{ form_errors(form.educationInstitute) }}
                         {{ form_widget(form.educationInstitute, {'attr': {
                             'class': 'validate',
                             'maxlength': 100,
                         }}) }}
+                        {{ form_errors(form.educationInstitute) }}
                     </div>
                 </div>
                 <div class="row right">

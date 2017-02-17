@@ -29,50 +29,38 @@ class Personalia
     /**
      * @ORM\Column(type="string", length=255, options={"default":"Bas"})
      *
-     * @Assert\NotBlank(message="Vul je voornaam in.", groups={"Registration", "Personalia"})
-     * @Assert\Length(
-     *     max=255,
-     *     maxMessage="De voornaam is te lang.",
-     *     groups={"Registration", "Personalia"}
-     * )
+     * @Assert\NotBlank(message="Vul je voornaam in.")
+     * @Assert\Length(max=255, maxMessage="De voornaam is te lang.")
      */
     protected $firstName = 'Bas';
 
     /**
      * @ORM\Column(type="string", length=255, options={"default":"van Toor"})
      *
-     * @Assert\NotBlank(message="Vul je achternaam in.", groups={"Registration", "Personalia"})
-     * @Assert\Length(
-     *     max=255,
-     *     maxMessage="De achternaam is te lang.",
-     *     groups={"Registration", "Personalia"}
-     * )
+     * @Assert\NotBlank(message="Vul je achternaam in.")
+     * @Assert\Length(max=255, maxMessage="De achternaam is te lang.")
      */
-    protected $lastName = 'van Toorn';
+    protected $lastName = 'van Toor';
 
     /**
      * @ORM\Column(type="date", options={"default":"1935-09-17"})
      *
-     * @Assert\NotBlank(message="Vul je geboortedatum in.", groups={"Registration", "Personalia"})
+     * @Assert\NotBlank(message="Vul je geboortedatum in.")
      */
     protected $dateOfBirth = '1935-09-17';
 
     /**
      * @ORM\Column(type="string", length=255, options={"default":"Vlaardingen"})
      *
-     * @Assert\NotBlank(message="Vul je woonplaats in.", groups={"Registration", "Personalia"})
-     * @Assert\Length(
-     *     max=255,
-     *     maxMessage="De naam van je woonplaats is te lang.",
-     *     groups={"Registration", "Personalia"}
-     * )
+     * @Assert\NotBlank(message="Vul je woonplaats in.")
+     * @Assert\Length(max=255, maxMessage="De naam van je woonplaats is te lang.")
      */
     protected $placeOfResidence = 'Vlaardingen';
 
     /**
      * @ORM\Column(type="string", length=255, options={"default":"bassie.jpg"})
      *
-     * @Assert\NotBlank(message="Voeg een profielfoto toe.", groups={"Registration", "Personalia"})
+     * @Assert\NotBlank(message="Voeg een profielfoto toe.")
      * @Assert\File(mimeTypes={ "image/png", "image/jpeg" })
      */
     protected $profileImageName = 'bassie.jpg';
@@ -80,7 +68,7 @@ class Personalia
     /**
      * @ORM\Column(type="string", length=255, options={"default":"bassie_circle.jpg"})
      *
-     * @Assert\NotBlank(message="Voeg een profielfoto toe.", groups={"Registration", "Personalia"})
+     * @Assert\NotBlank(message="Voeg een profielfoto toe.")
      * @Assert\File(mimeTypes={ "image/png", "image/jpeg" })
      */
     protected $profileAvatarName = 'bassie_circle.jpg';

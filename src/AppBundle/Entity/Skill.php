@@ -27,7 +27,7 @@ class Skill
     /**
      * @ORM\Column(type="string", length=30)
      *
-     * @Assert\NotBlank(message="Vul een competentie in.", groups={"Skill"})
+     * @Assert\NotBlank(message="Vul een competentie in.")
      *
      */
     protected $skillText;
@@ -35,7 +35,7 @@ class Skill
     /**
      * @ORM\Column(type="integer")
      *
-     * @Assert\NotBlank(message="Vul een gewicht in.", groups={"Skill"})
+     * @Assert\NotBlank(message="Vul een gewicht in.")
      *
      */
     protected $skillWeight;

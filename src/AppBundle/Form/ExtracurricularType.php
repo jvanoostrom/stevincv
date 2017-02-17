@@ -17,12 +17,13 @@ class ExtracurricularType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('extracurricularName', TextType::class, array('required' => false))
+                ->add('extracurricularName', TextType::class)
                 ->add('startDate', DateType::class, array(
                     'widget' => 'single_text',
                     ))
                 ->add('endDate', DateType::class, array(
                     'widget' => 'single_text',
+                    'required' => 'false'
                     ))
                 ->add('submit', SubmitType::class, array('label' => 'Opslaan'))
                 ->getForm();

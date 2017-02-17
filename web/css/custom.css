@@ -117,3 +117,8 @@ nav {
     line-height: 0.85;
     margin-top: 0.2rem;
 }
+
+label.required:after {
+    content: "* ";
+    color:red;
+}

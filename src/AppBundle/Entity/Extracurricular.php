@@ -27,21 +27,21 @@ class Extracurricular
     /**
      * @ORM\Column(type="string")
      *
-     * @Assert\NotBlank(message="Vul de titel van de nevenactiviteit in.", groups={"Extracurricular"})
+     * @Assert\NotBlank(message="Vul de titel van de nevenactiviteit in.")
      *
      */
     protected $extracurricularName;
 
     /**
      * @ORM\Column(type="date")
-     *
-     * @Assert\NotBlank(message="Vul de startdatum van de nevenactiviteit in.", groups={"Extracurricular"})
+     * @Assert\DateTime()
+     * @Assert\NotBlank(message="Vul de startdatum in.")
      */
     protected $startDate;
 
     /**
      * @ORM\Column(type="date", nullable=true)
-     *
+     * @Assert\DateTime()
      */
     protected $endDate = null;
 

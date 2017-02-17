@@ -248,15 +248,23 @@
 
 {# Errors #}
 
+{#{% block form_errors -%}#}
+    {#{% if errors|length > 0 -%}#}
+        {#{% if form.parent %}<span class="help-block">{% else %}<div class="alert alert-danger">{% endif %}#}
+        {#<ul class="list-unstyled">#}
+        {#{%- for error in errors -%}#}
+            {#<li><span class="glyphicon glyphicon-exclamation-sign"></span> {{ error.message }}</li>#}
+        {#{%- endfor -%}#}
+    {#</ul>#}
+        {#{% if form.parent %}</span>{% else %}</div>{% endif %}#}
+    {#{%- endif %}#}
+{#{%- endblock form_errors %}#}
+
 {% block form_errors -%}
     {% if errors|length > 0 -%}
-        {% if form.parent %}<span class="help-block">{% else %}<div class="alert alert-danger">{% endif %}
-        <ul class="list-unstyled">
         {%- for error in errors -%}
-            <li><span class="glyphicon glyphicon-exclamation-sign"></span> {{ error.message }}</li>
+        <span class="valign-wrapper red-text"><i class="material-icons valign">error</i> {{ error.message }}</span>
         {%- endfor -%}
-    </ul>
-        {% if form.parent %}</span>{% else %}</div>{% endif %}
     {%- endif %}
 {%- endblock form_errors %}
 

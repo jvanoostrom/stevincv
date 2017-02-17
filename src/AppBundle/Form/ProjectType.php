@@ -38,6 +38,7 @@ class ProjectType extends AbstractType
                     ))
                 ->add('endDate', DateType::class, array(
                     'widget' => 'single_text',
+                    'required' => false
                     ))
                 ->add('submit', SubmitType::class, array('label' => 'Opslaan'))
                 ->getForm();

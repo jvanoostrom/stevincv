@@ -24,6 +24,8 @@ class Project
      *      joinColumns={@ORM\JoinColumn(name="project_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
      *      )
+     *
+     * @Assert\Count(min=3, minMessage="Voeg minimaal {{ limit }} tags toe.")
      */
     private $tags;
 
@@ -37,7 +39,7 @@ class Project
     /**
      * @ORM\Column(type="string")
      *
-     * @Assert\NotBlank(message="Vul de klantnaam in.", groups={"Project"})
+     * @Assert\NotBlank(message="Vul de klantnaam in.")
      *
      */
     protected $customerName;
@@ -45,7 +47,7 @@ class Project
     /**
      * @ORM\Column(type="string")
      *
-     * @Assert\NotBlank(message="Vul de functietitel in.", groups={"Project"})
+     * @Assert\NotBlank(message="Vul de functietitel in.")
      *
      */
     protected $functionTitle;
@@ -53,7 +55,7 @@ class Project
     /**
      * @ORM\Column(type="text")
      *
-     * @Assert\NotBlank(message="Vul de tekst voor de situatie in.", groups={"Project"})
+     * @Assert\NotBlank(message="Vul de tekst voor de situatie in.")
      *
      */
     protected $situationText;
@@ -61,7 +63,7 @@ class Project
     /**
      * @ORM\Column(type="text")
      *
-     * @Assert\NotBlank(message="Vul de tekst voor de werkzaamheden in.", groups={"Project"})
+     * @Assert\NotBlank(message="Vul de tekst voor de werkzaamheden in.")
      *
      */
     protected $taskText;
@@ -69,7 +71,7 @@ class Project
     /**
      * @ORM\Column(type="text")
      *
-     * @Assert\NotBlank(message="Vul de tekst voor het resultaat in.", groups={"Project"})
+     * @Assert\NotBlank(message="Vul de tekst voor het resultaat in.")
      *
      */
     protected $resultText;
@@ -77,16 +79,16 @@ class Project
     /**
      * @ORM\Column(type="date")
      *
-     * @Assert\NotBlank(message="Vul de startdatum in.", groups={"Project"})
+     * @Assert\NotBlank(message="Vul de startdatum in.")
      */
     protected $startDate;
 
     /**
      * @ORM\Column(type="date")
      *
-     * @Assert\NotBlank(message="Vul de einddatum in.", groups={"Project"})
+     * @Assert\DateTime()
      */
-    protected $endDate;
+    protected $endDate = null;
 
     /**
      * @ORM\Column(type="datetime")
@@ -239,7 +241,7 @@ class Project
      *
      * @return Project
      */
-    public function setStartDate(\DateTime $startDate)
+    public function setStartDate(\DateTime $startDate = null)
     {
         $this->startDate = $startDate;
 
@@ -263,7 +265,7 @@ class Project
      *
      * @return Project
      */
-    public function setEndDate(\DateTime $endDate)
+    public function setEndDate(\DateTime $endDate = null)
     {
         $this->endDate = $endDate;
 

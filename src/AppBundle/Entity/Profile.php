@@ -23,6 +23,8 @@ class Profile
      *      joinColumns={@ORM\JoinColumn(name="profile_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
      *      )
+     *
+     * @Assert\Count(min=3, minMessage="Voeg minimaal {{ limit }} tags toe.")
      */
     private $tags;
 
@@ -36,7 +38,7 @@ class Profile
     /**
      * @ORM\Column(type="string")
      *
-     * @Assert\NotBlank(message="Vul de korte beschrijving in.", groups={"Profile"})
+     * @Assert\NotBlank(message="Vul de korte beschrijving in.")
      *
      */
     protected $shortDescription;
@@ -44,7 +46,7 @@ class Profile
     /**
      * @ORM\Column(type="string",)
      *
-     * @Assert\NotBlank(message="Vul de quote in.", groups={"Profile"})
+     * @Assert\NotBlank(message="Vul de quote in.")
      *
      */
     protected $quoteLine;
@@ -52,7 +54,7 @@ class Profile
     /**
      * @ORM\Column(type="text")
      *
-     * @Assert\NotBlank(message="Vul de profieltekst in.", groups={"Profile"})
+     * @Assert\NotBlank(message="Vul de profieltekst in.")
      *
      */
     protected $profileText;

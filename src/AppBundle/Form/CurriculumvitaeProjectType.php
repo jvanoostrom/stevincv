@@ -37,7 +37,8 @@ class CurriculumvitaeProjectType extends AbstractType
 
                 ))
                 ->add('important', CheckboxType::class, array(
-                    'required' => false
+                    'required' => false,
+                    'data' => false
                 ));
     }
 

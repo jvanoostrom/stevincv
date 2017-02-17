@@ -83,7 +83,7 @@ class ProfileController extends Controller
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $profile = $form->getData();
 
             $profile->setUser($user);
@@ -137,7 +137,7 @@ class ProfileController extends Controller
         $form = $this->createForm(ProfileType::class, $profile);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $profile = $form->getData();
 
             $em->persist($profile);

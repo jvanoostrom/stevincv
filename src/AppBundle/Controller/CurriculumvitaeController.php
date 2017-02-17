@@ -67,7 +67,7 @@ class CurriculumvitaeController extends Controller
         $form->handleRequest($request);
 
 
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $cv = $form->getData();
 
             $cv->setUser($user);
@@ -134,7 +134,7 @@ class CurriculumvitaeController extends Controller
         $form = $this->createForm(CurriculumvitaeType::class, $cv, array('userId' => $userId));
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $cv = $form->getData();
 
             foreach ($originalProjects as $project) {
