@@ -43,7 +43,7 @@
                     <div class="col s12 l6">
                         <ul class="collapsible" data-collapsible="expandable">
                             <li>
-                                <div class="collapsible-header">
+                                <div class="collapsible-header row" style="margin-bottom:0">
                                     <div class="col s6" style="padding-left:0">{{ form_label(form.profile, 'Profiel') }}</div>
                                     <div class="col s5">{{ form_errors(form.profile) }}</div>
                                     <div class="col s1" style="padding-right:0"><i class="material-icons">arrow_drop_down</i></div>
@@ -53,10 +53,13 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="collapsible-header">{{ form_label(form.curriculumvitaeProjects, 'Projecten (maximaal 6)') }}<i class="material-icons">arrow_drop_down</i></div>
+                                <div class="collapsible-header row" style="margin-bottom:0">
+                                    <div class="col s6" style="padding-left:0">{{ form_label(form.curriculumvitaeProjects, 'Projecten (maximaal 6)') }}</div>
+                                    <div class="col s5">{{ form_errors(form) }}</div>
+                                    <div class="col s1" style="padding-right:0"><i class="material-icons">arrow_drop_down</i></div>
+                                </div>
                                 <div class="collapsible-body" id="project-fields-list" data-prototype="{{ form_widget(form.curriculumvitaeProjects.vars.prototype)|e }}">
                                     <div id="project-div">
-                                    {{ form_errors(form.curriculumvitaeProjects) }}
                                     {% for project in form.curriculumvitaeProjects %}
                                         <div class="row project">
                                             <div class="col s1" style="padding-top:13px">
@@ -80,7 +83,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="collapsible-header">
+                                <div class="collapsible-header row" style="margin-bottom:0">
                                     <div class="col s6" style="padding-left:0">{{ form_label(form.education, 'Opleidingen (maximaal 4)') }}</div>
                                     <div class="col s5">{{ form_errors(form.education) }}</div>
                                     <div class="col s1" style="padding-right:0"><i class="material-icons">arrow_drop_down</i></div>
@@ -90,7 +93,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="collapsible-header">
+                                <div class="collapsible-header row" style="margin-bottom:0">
                                     <div class="col s6" style="padding-left:0">{{ form_label(form.certificates, 'Certificaten (maximaal 6)') }}</div>
                                     <div class="col s5">{{ form_errors(form.certificates) }}</div>
                                     <div class="col s1" style="padding-right:0"><i class="material-icons">arrow_drop_down</i></div>
@@ -100,30 +103,30 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="collapsible-header">
+                                <div class="collapsible-header row" style="margin-bottom:0">
                                     <div class="col s6" style="padding-left:0">{{ form_label(form.skills, 'Competenties (maximaal 25)') }}</div>
                                     <div class="col s5">{{ form_errors(form.skills) }}</div>
-                                    <div class="col s1" style="padding-right:0"><i class="material-icons">arrow_drop_down</i><i class="material-icons" style="display:none" id="tooltip_publication" title="Je kunt geen publicaties kiezen als je nevenactiviteiten hebt gekozen.">info_outline</i></div>
+                                    <div class="col s1" style="padding-right:0"><i class="material-icons">arrow_drop_down</i></div>
                                 </div>
                                 <div class="collapsible-body">
                                     {{ form_widget(form.skills) }}
                                 </div>
                             </li>
                             <li>
-                                <div class="collapsible-header">
-                                    <div class="col s6" style="padding-left:0">{{ form_label(form.extracurricular, 'Nevenactiviteiten (maximaal 3)') }}</div>
+                                <div class="collapsible-header row" style="margin-bottom:0">
+                                    <div class="col s5" style="padding-left:0">{{ form_label(form.extracurricular, 'Nevenactiviteiten (maximaal 3)') }}</div>
                                     <div class="col s5">{{ form_errors(form.extracurricular) }}</div>
-                                    <div class="col s1" style="padding-right:0"><i class="material-icons">arrow_drop_down</i><i class="material-icons" style="display:none" id="tooltip_extracurricular" title="Je kunt geen nevenactiviteiten kiezen als je publicaties hebt gekozen.">info_outline</i></div>
+                                    <div class="col s2" style="padding-right:0"><i class="material-icons">arrow_drop_down</i><i class="material-icons" style="display:none" id="tooltip_extracurricular" title="Je kunt geen nevenactiviteiten kiezen als je publicaties hebt gekozen.">info_outline</i></div>
                                 </div>
                                 <div class="collapsible-body">
                                     {{ form_widget(form.extracurricular) }}
                                 </div>
                             </li>
                             <li>
-                                <div class="collapsible-header">
-                                    <div class="col s6" style="padding-left:0">{{ form_label(form.publications, 'Publicaties (maximaal 3)') }}</div>
+                                <div class="collapsible-header row" style="margin-bottom:0">
+                                    <div class="col s5" style="padding-left:0">{{ form_label(form.publications, 'Publicaties (maximaal 3)') }}</div>
                                     <div class="col s5">{{ form_errors(form.publications) }}</div>
-                                    <div class="col s1" style="padding-right:0"><i class="material-icons">arrow_drop_down</i><i class="material-icons" style="display:none" id="tooltip_publication" title="Je kunt geen publicaties kiezen als je nevenactiviteiten hebt gekozen.">info_outline</i></div>
+                                    <div class="col s2" style="padding-right:0"><i class="material-icons">arrow_drop_down</i><i class="material-icons" style="display:none" id="tooltip_publication" title="Je kunt geen publicaties kiezen als je nevenactiviteiten hebt gekozen.">info_outline</i></div>
                                 </div>
                                 <div class="collapsible-body">
                                     {{ form_widget(form.publications) }}
@@ -134,6 +137,7 @@
                 </div>
                 <div class="row right">
                     {{ form_widget(form.submit, {'attr': {'class': 'btn waves-effect waves-light'}}) }}
+                    {{ form_widget(form._token) }}
                 </div>
             </div>
         </form>

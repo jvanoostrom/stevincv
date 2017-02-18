@@ -58,9 +58,7 @@ class CurriculumvitaeController extends Controller
 
         $cv = new Curriculumvitae();
 
-        $em = $this->getDoctrine()->getManager();
-        $user = $em->getRepository('AppBundle:User')
-            ->findOneBy(array('id' => $userId));
+
 
         $form = $this->createForm(CurriculumvitaeType::class, $cv, array('userId' => $userId));
 
@@ -69,6 +67,10 @@ class CurriculumvitaeController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $cv = $form->getData();
+
+            $em = $this->getDoctrine()->getManager();
+            $user = $em->getRepository('AppBundle:User')
+                ->findOneBy(array('id' => $userId));
 
             $cv->setUser($user);
 

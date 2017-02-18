@@ -38,7 +38,7 @@ class Curriculumvitae
 
     /**
      * @ORM\OneToMany(targetEntity="CurriculumvitaeProject", mappedBy="curriculumvitae", cascade={"persist"})
-     *
+     * @Assert\Valid
      * @Assert\Count(min=2, minMessage="Voeg minimaal {{ limit }} projecten toe.",
      *               max=6, maxMessage="Voeg maximaal {{ limit }} projecten toe.")
      */
@@ -138,6 +138,7 @@ class Curriculumvitae
         $this->skills = new ArrayCollection();
         $this->projects = new ArrayCollection();
         $this->curriculumvitaeProjects = new ArrayCollection();
+        $this->tags = new ArrayCollection();
     }
 
     /**

@@ -106,3 +106,8 @@ vich_uploader:
             profile_image:
                 uri_prefix:         /img/profile
                 upload_destination: '%kernel.root_dir%/../web/img/profile'
+
+web_profiler:
+    toolbar: true
+    intercept_redirects: false
+    position: bottom
