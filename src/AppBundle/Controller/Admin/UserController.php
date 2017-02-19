@@ -35,7 +35,6 @@ class UserController extends Controller
     {
 
         $user = new User();
-        //$personalia = new Personalia();
 
         $form = $this->createForm(UserType::class, $user);
 

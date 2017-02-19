@@ -23,38 +23,38 @@
                 <div class="row">
                     <div class="input-field col s12">
                         {{ form_label(form.username, 'Gebruikersnaam') }}
-                        {{ form_errors(form.username) }}
                         {{ form_widget(form.username, {'attr': {
                             'class': 'validate',
                             'maxlength': 100,
                         }}) }}
+                        {{ form_errors(form.username) }}
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
                         {{ form_label(form.plainPassword.first) }}
-                        {{ form_errors(form.plainPassword.first) }}
                         {{ form_widget(form.plainPassword.first, {'attr': {
                             'class': 'validate',
                             'maxlength': 100,
                         }}) }}
+                        {{ form_errors(form.plainPassword.first) }}
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
                         {{ form_label(form.plainPassword.second) }}
-                        {{ form_errors(form.plainPassword.second) }}
                         {{ form_widget(form.plainPassword.second, {'attr': {
                             'class': 'validate',
                             'maxlength': 100,
                         }}) }}
+                        {{ form_errors(form.plainPassword.second) }}
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        {{ form_errors(form.roles) }}
                         {{ form_widget(form.roles) }}
                         {{ form_label(form.roles, 'Rol') }}
+                        {{ form_errors(form.roles) }}
                     </div>
                 </div>
                 <div class="row" style="margin-bottom: 0;">
@@ -77,42 +77,43 @@
                 <div class="row">
                     <div class="input-field col s12">
                         {{ form_label(form.personalia.firstName, 'Voornaam') }}
-                        {{ form_errors(form.personalia.firstName) }}
                         {{ form_widget(form.personalia.firstName, {'attr': {
                             'class': 'validate',
                             'maxlength': 100,
                         }}) }}
+                        {{ form_errors(form.personalia.firstName) }}
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
                         {{ form_label(form.personalia.lastName, 'Achternaam') }}
-                        {{ form_errors(form.personalia.lastName) }}
                         {{ form_widget(form.personalia.lastName, {'attr': {
                             'class': 'validate',
                             'maxlength': 100,
                         }}) }}
+                        {{ form_errors(form.personalia.lastName) }}
                     </div>
                 </div>
                 <div class="row">
                     <div class="datepicker-field col s12">
                         {{ form_label(form.personalia.dateOfBirth, 'Geboortedatum') }}
-                        {{ form_errors(form.personalia.dateOfBirth) }}
                         {{ form_widget(form.personalia.dateOfBirth, {'attr': {'class': 'datepicker'}}) }}
+                        {{ form_errors(form.personalia.dateOfBirth) }}
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
                         {{ form_label(form.personalia.placeOfResidence, 'Woonplaats') }}
-                        {{ form_errors(form.personalia.placeOfResidence) }}
                         {{ form_widget(form.personalia.placeOfResidence, {'attr': {'class': 'validate'}}) }}
+                        {{ form_errors(form.personalia.placeOfResidence) }}
                     </div>
                 </div>
             </div>
             <div class="row right">
                 {{ form_widget(form.submit, {'attr': {'class': 'btn waves-effect waves-light'}}) }}
             </div>
-            {# spot for token #}
+            {{ form_errors(form) }}
+            {{ form_widget(form._token) }}
         </form>
     </div>
 

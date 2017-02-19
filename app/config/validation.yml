@@ -1,0 +1,58 @@
+#AppBundle\Entity\User:
+#    properties:
+#        email:
+#            - Length:
+#                min: 5
+#                minMessage: "Your email must have at least {{ limit }} characters."
+#                max: 255
+#                maxMessage: "Your email is too long."
+#            - NotBlank:
+#                message: "Please enter an email"
+#        username:
+#            - Length:
+#                min: 6
+#                minMessage: "Your username must have at least {{ limit }} characters."
+#                max: 255
+#                maxMessage: "Your username is too long."
+#            - NotBlank:
+#                message: "Please enter an username"
+#        plainPassword:
+#            - Length:
+#                min: 8
+#                minMessage: "Your password must have at least {{ limit }} characters."
+#                max: 255
+#                maxMessage: "Your password is too long."
+#            - NotBlank:
+#                message: "Please enter a password"
+#        personalia:
+#            - Valid: ~
+#
+#AppBundle\Entity\Personalia:
+#    properties:
+#        firstName:
+#            - NotBlank:
+#              message: "Vul de voornaam in."
+#            - Length:
+#              max: 255
+#              maxMessage: "De voornaam is te lang."
+#        lastName:
+#            - NotBlank:
+#              message: "Vul de achternaam in."
+#            - Length:
+#              max: 255
+#              maxMessage: "De achternaam is te lang."
+#        dateOfBirth:
+#            - NotBlank:
+#              message: "Vul de geboortedatum in."
+#        placeOfResidence:
+#            - NotBlank:
+#              message: "Vul de woonplaats in."
+#            - Length:
+#              max: 255
+#              maxMessage: "De woonplaats is te lang."
+#        profileImageName:
+#            - NotBlank:
+#              message: "Voeg een profielfoto toe."
+#        profileAvatarName:
+#            - NotBlank:
+#              message: "Voeg een profielfoto toe."

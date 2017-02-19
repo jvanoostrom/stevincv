@@ -24,6 +24,8 @@ class User extends BaseUser
 
     /**
      * @ORM\OneToOne(targetEntity="Personalia", inversedBy="user", cascade={"persist", "remove"}, orphanRemoval=true)
+     *
+     * @Assert\Valid()
      */
     private $personalia;
 

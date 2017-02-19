@@ -60,7 +60,6 @@ class Personalia
     /**
      * @ORM\Column(type="string", length=255, options={"default":"bassie.jpg"})
      *
-     * @Assert\NotBlank(message="Voeg een profielfoto toe.")
      * @Assert\File(mimeTypes={ "image/png", "image/jpeg" })
      */
     protected $profileImageName = 'bassie.jpg';
@@ -68,7 +67,6 @@ class Personalia
     /**
      * @ORM\Column(type="string", length=255, options={"default":"bassie_circle.jpg"})
      *
-     * @Assert\NotBlank(message="Voeg een profielfoto toe.")
      * @Assert\File(mimeTypes={ "image/png", "image/jpeg" })
      */
     protected $profileAvatarName = 'bassie_circle.jpg';
@@ -165,7 +163,7 @@ class Personalia
      *
      * @return Personalia
      */
-    public function setDateOfBirth(\DateTime $dateOfBirth)
+    public function setDateOfBirth(\DateTime $dateOfBirth = null)
     {
         $this->dateOfBirth = $dateOfBirth;
 
@@ -213,7 +211,7 @@ class Personalia
      *
      * @return Personalia
      */
-    public function setProfileImageName($profileImageName)
+    public function setProfileImageName($profileImageName = null)
     {
         $this->profileImageName = $profileImageName;
 
@@ -237,7 +235,7 @@ class Personalia
      *
      * @return Personalia
      */
-    public function setProfileAvatarName($profileAvatarName)
+    public function setProfileAvatarName($profileAvatarName = null)
     {
         $this->profileAvatarName = $profileAvatarName;
 
