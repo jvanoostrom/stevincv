@@ -1,0 +1,38 @@
+Changelog
+======
+Deze GitHub Repo bevat de broncode van de Stevin CV Tool, van Stevin Technology Consultants. Met deze repo kan worden samengewerkt aan de tool.
+
+v0.2
+-----
+**Bugfixes**:
+- Personalia: Fotoknop is uitgeschakeld als de knop "Bewerken" nog niet is ingedrukt
+- Personalia: Geboortedatum kan nu aangepast worden
+- Personalia: Foto uploadlimiet verhoogd. Ook wordt de foto nu automatisch naar ongeveer 3MB geschaald
+- Tags: Tags kunnen meer karakters aan
+- Skills: Skills kunnen meer karakters aan
+- Skills: Skills zijn uniek per persoon
+- Datum: Alle datepickers zijn verwijderd. Het formaat is nu dd-mm-jjjj
+- HTTP 500: Deze fout komt veelvuldig voor. Er is server-side validatie toegepast op alle velden, waardoor deze foutmelding niet meer zou moeten voorkomen
+
+
+
+
+v0.1
+-----
+Eerste versie SteeVee met de volgende functionaliteit:
+- Inloggen
+- Aanmaken/wijzigen/verwijderen van Projecten
+- Aanmaken/wijzigen/verwijderen van Profielen
+- Aanmaken/wijzigen/verwijderen van Opleidingen
+- Aanmaken/wijzigen/verwijderen van Nevenactiviteitein
+- Aanmaken/wijzigen/verwijderen van Publicaties
+- Aanmaken/wijzigen/verwijderen van Competenties
+- Aanmaken/wijzigen/verwijderen van Certificaten
+- Aanmaken/wijzigen/verwijderen van CV's
+- Wijzigen van Personalia
+- Aanmaken/wijzigen/verwijderen van gebruikers (admin)
+- Wijzigen wachtwoord
+- Weergeven gegevens andere consultants
+- Wijzigen gegevens andere consultants (admin)
+- Uitdraaien Powerpoint CV
+- Uitloggen
