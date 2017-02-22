@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 
 
@@ -269,12 +270,6 @@ class CurriculumvitaeController extends Controller
 
     public function serializeTags()
     {
-        // Initialize encoder, normaliser and serializer
-        $encoder = new JsonEncoder();
-        $normalizer = new ObjectNormalizer();
-        $normalizer->setIgnoredAttributes(array('id'));
-        $serializer = new Serializer(array($normalizer), array($encoder));
-
         // Obtain Tags
         $em = $this->getDoctrine()->getManager();
         $tags = $em->getRepository('AppBundle:Tag')->findAll();
@@ -290,7 +285,6 @@ class CurriculumvitaeController extends Controller
             }
         }
         $content .= ']';
-        $jsonContent = $serializer->serialize($tags, 'json');
         $fs = new Filesystem();
         $fs->dumpFile('json/tags.json', $content);
 
