@@ -1,27 +1,5 @@
 $( document ).ready(function() {
 
-    // var tags = new Bloodhound({
-    //     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('text'),
-    //     queryTokenizer: Bloodhound.tokenizers.whitespace,
-    //     prefetch: '/json/tags.json'
-    // });
-    //
-    // tags.initialize();
-    //
-    // $('.typeahead-input').materialtags({
-    //     trimValue: true,
-    //     typeaheadjs: [{
-    //         highlight   : true
-    //     },
-    //         {
-    //             name: 'tags',
-    //             displayKey: 'name',
-    //             valueKey: 'name',
-    //             source: tags.ttAdapter()
-    //         }]
-    // });
-
-
     // Materialize initialisation
     $(".button-collapse").sideNav();
 
@@ -360,6 +338,27 @@ $( document ).ready(function() {
         var classes = $(this).attr('class').split( '-' );
         $('#edit-skill-'+classes[1]).submit();
     });
+
+    // Typeahead
+
+    var tags = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.whitespace,
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        prefetch: '/json/tags.json'
+    });
+
+    $('.n-tag').typeahead(
+
+        {
+            hint: true,
+            highlight: true,
+        },
+        {
+            name: 'tags',
+            source: tags
+        }
+    );
+
 
 
 });
