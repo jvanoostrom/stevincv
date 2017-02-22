@@ -66,8 +66,9 @@
                         {{ form_label(form.situationText, 'Situatie') }}
                         {{ form_widget(form.situationText, {'attr': {
                             'class': 'validate materialize-textarea',
-                            'length': 1250,
-                            'maxlength': 1250,
+                            'spellcheck': true,
+                            'length': 325,
+                            'maxlength': 325,
                         }}) }}
                         {{ form_errors(form.situationText) }}
                     </div>
@@ -77,8 +78,9 @@
                         {{ form_label(form.taskText, 'Werkzaamheden') }}
                         {{ form_widget(form.taskText, {'attr': {
                             'class': 'validate materialize-textarea',
-                            'length': 1250,
-                            'maxlength': 1250,
+                            'spellcheck': true,
+                            'length': 525,
+                            'maxlength': 525,
                         }}) }}
                         {{ form_errors(form.taskText) }}
                     </div>
@@ -88,14 +90,16 @@
                         {{ form_label(form.resultText, 'Resultaat') }}
                         {{ form_widget(form.resultText, {'attr': {
                             'class': 'validate materialize-textarea',
-                            'length': 1250,
-                            'maxlength': 1250,
+                            'spellcheck': true,
+                            'length': 725,
+                            'maxlength': 725,
                         }}) }}
                         {{ form_errors(form.resultText) }}
                     </div>
                 </div>
                 <div class="row right">
                     {{ form_widget(form.submit, {'attr': {'class': 'btn waves-effect waves-light'}}) }}
+                    <a id="back" class="grey waves-effect waves-light btn">Annuleren</a>
                 </div>
             </div>
             {{ form_rest(form) }}

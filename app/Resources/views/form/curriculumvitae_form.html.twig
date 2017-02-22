@@ -104,7 +104,7 @@
                             </li>
                             <li>
                                 <div class="collapsible-header row" style="margin-bottom:0">
-                                    <div class="col s6" style="padding-left:0">{{ form_label(form.skills, 'Competenties (maximaal 25)') }}</div>
+                                    <div class="col s6" style="padding-left:0">{{ form_label(form.skills, 'Competenties (maximaal 15)') }}</div>
                                     <div class="col s5">{{ form_errors(form.skills) }}</div>
                                     <div class="col s1" style="padding-right:0"><i class="material-icons">arrow_drop_down</i></div>
                                 </div>
@@ -137,6 +137,7 @@
                 </div>
                 <div class="row right">
                     {{ form_widget(form.submit, {'attr': {'class': 'btn waves-effect waves-light'}}) }}
+                    <a id="back" class="grey waves-effect waves-light btn">Annuleren</a>
                     {{ form_widget(form._token) }}
                 </div>
             </div>

@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 
 /**
@@ -56,6 +57,7 @@ class Project
      * @ORM\Column(type="text")
      *
      * @Assert\NotBlank(message="Vul de tekst voor de situatie in.")
+     * @Assert\Length(max=325, maxMessage="De tekst kan maximaal {{ limit }} tekens bevatten.")
      *
      */
     protected $situationText;
@@ -64,6 +66,7 @@ class Project
      * @ORM\Column(type="text")
      *
      * @Assert\NotBlank(message="Vul de tekst voor de werkzaamheden in.")
+     * @Assert\Length(max=525, maxMessage="De tekst kan maximaal {{ limit }} tekens bevatten.")
      *
      */
     protected $taskText;
@@ -72,6 +75,7 @@ class Project
      * @ORM\Column(type="text")
      *
      * @Assert\NotBlank(message="Vul de tekst voor het resultaat in.")
+     * @Assert\Length(max=725, maxMessage="De tekst kan maximaal {{ limit }} tekens bevatten.")
      *
      */
     protected $resultText;
@@ -362,6 +366,22 @@ class Project
         $this->tags[] = $tag;
 
         return $this;
+    }
+
+    /**
+     * @Assert\Callback
+     */
+    public function validateEndDate(ExecutionContextInterface $context, $payload)
+    {
+        if ($this->getEndDate() != null)
+        {
+            if($this->getEndDate() < $this->getStartDate())
+            {
+                $context->buildViolation('De einddatum moet na de startdatum liggen.')
+                    ->atPath('endDate')
+                    ->addViolation();
+            }
+        }
     }
 
 }

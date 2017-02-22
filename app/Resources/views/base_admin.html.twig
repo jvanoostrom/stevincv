@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}SteeVee | Admin Panel{% endblock %}</title>
+        <title>{% block title %}SteVee | Admin Panel{% endblock %}</title>
         {% block stylesheets %}
             <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
             <link type="text/css" rel="stylesheet" href="{{ asset('css/materialize.css') }}" media="screen,projection"/>
@@ -25,7 +25,7 @@
                         <li><a class="dropdown-button" data-beloworigin="true" href="#!" data-activates="dropdown-top">&nbsp;<img src="{{ asset('img/ic_perm_identity_white_48dp_1x.png') }}" height="24px"></a></li>
                     </ul>
                     <ul id="dropdown-top" class="dropdown-content">
-                        <li><a href="{{ url('base') }}">Terug naar SteeVee</a></li>
+                        <li><a href="{{ url('base') }}">Terug naar SteVee</a></li>
                         <li><a href="{{ url('change_password') }}">Wachtwoord wijzigen</a></li>
                         <li><a href="{{ url('user_logout') }}">Uitloggen</a></li>
                     </ul>

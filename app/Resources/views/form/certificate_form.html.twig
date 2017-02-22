@@ -2,7 +2,6 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-{{ route }}
     <div class="row">
         <form class="col s12" method="POST" enctype="multipart/form-data" novalidate>
 
@@ -46,6 +45,7 @@
                 </div>
                 <div class="row right">
                     {{ form_widget(form.submit, {'attr': {'class': 'btn waves-effect waves-light'}}) }}
+                    <a id="back" class="grey waves-effect waves-light btn">Annuleren</a>
                 </div>
             </div>
             {{ form_rest(form) }}

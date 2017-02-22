@@ -4,6 +4,7 @@
 namespace AppBundle\Controller;
 
 use PhpOffice\PhpPresentation\Shape\Table\Cell;
+use PhpOffice\PhpPresentation\Style\Bullet;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -158,7 +159,7 @@ class CurriculumvitaeExportController extends Controller
             ->setHeight(500)
             ->setOffsetX(450)
             ->setOffsetY(210);
-        $oProfileText->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_LEFT );
+        $oProfileText->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_JUSTIFY );
         $oProfileTextRun = $oProfileText->createTextRun($profile->getProfileText());
         $oProfileTextRun->getFont()
             ->setCharacterSpacing(0.5)
@@ -703,7 +704,7 @@ PUBLICATIES');
                 ->setHeight(90)
                 ->setOffsetX($offset)
                 ->setOffsetY(165);
-            $oExecutiveTextBox->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_LEFT );
+            $oExecutiveTextBox->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_JUSTIFY );
             $oExecutiveTextBox->getActiveParagraph()->setLineSpacing(120);
             $oExecutiveTextBoxRun = $oExecutiveTextBox->createTextRun($project['situation_text']);
             $oExecutiveTextBoxRun->getFont()
@@ -732,7 +733,7 @@ PUBLICATIES');
                 ->setHeight(150)
                 ->setOffsetX($offset)
                 ->setOffsetY(275);
-            $oTaskTextBox->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_LEFT );
+            $oTaskTextBox->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_JUSTIFY );
             $oTaskTextBox->getActiveParagraph()->setLineSpacing(120);
             $oTaskTextBoxRun = $oTaskTextBox->createTextRun($project['task_text']);
             $oTaskTextBoxRun->getFont()
@@ -761,7 +762,7 @@ PUBLICATIES');
                 ->setHeight(150)
                 ->setOffsetX($offset)
                 ->setOffsetY(445);
-            $oResultsTextBox->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_LEFT );
+            $oResultsTextBox->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_JUSTIFY );
             $oResultsTextBox->getActiveParagraph()->setLineSpacing(120);
             $oResultsTextBoxRun = $oResultsTextBox->createTextRun($project['result_text']);
             $oResultsTextBoxRun->getFont()

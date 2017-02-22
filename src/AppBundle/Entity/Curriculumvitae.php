@@ -100,7 +100,7 @@ class Curriculumvitae
      * @ORM\OrderBy({"skillText" = "asc"})
      *
      * @Assert\Count(min=5, minMessage="Voeg minimaal {{ limit }} competenties toe.",
-     *               max=25, maxMessage="Voeg maximaal {{ limit }} competenties toe.")
+     *               max=15, maxMessage="Voeg maximaal {{ limit }} competenties toe.")
      */
     private $skills;
 

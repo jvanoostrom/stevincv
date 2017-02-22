@@ -28,7 +28,9 @@ class CurriculumvitaeProjectType extends AbstractType
         $builder
                 ->add('project', EntityType::class, array(
                     'class' => 'AppBundle:Project',
-                    'choice_label' => 'functionTitle',
+                    'choice_label' => function ($project) {
+                        return $project->getFunctionTitle()." - ".$project->getCustomerName();
+                    },
                     'query_builder' => function (EntityRepository $er) use ($userId) {
                         return $er->createQueryBuilder('u')
                             ->where('u.user = '.$userId)

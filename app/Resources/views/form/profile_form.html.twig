@@ -52,6 +52,7 @@
                         {{ form_label(form.profileText, 'Profiel') }}
                         {{ form_widget(form.profileText, {'attr': {
                             'class': 'validate materialize-textarea',
+                            'spellcheck': true,
                             'length': 1250,
                             'maxlength': 1250,
                             'rows': 10
@@ -61,6 +62,7 @@
                 </div>
                 <div class="row right">
                     {{ form_widget(form.submit, {'attr': {'class': 'btn waves-effect waves-light'}}) }}
+                    <a id="back" class="grey waves-effect waves-light btn">Annuleren</a>
                 </div>
             </div>
             {{ form_rest(form) }}

@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 
 /**
@@ -249,6 +250,22 @@ class Education
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * @Assert\Callback
+     */
+    public function validateEndDate(ExecutionContextInterface $context, $payload)
+    {
+        if ($this->getEndDate() != null)
+        {
+            if($this->getEndDate() < $this->getStartDate())
+            {
+                $context->buildViolation('De einddatum moet na de startdatum liggen.')
+                    ->atPath('endDate')
+                    ->addViolation();
+            }
+        }
     }
 
 }
