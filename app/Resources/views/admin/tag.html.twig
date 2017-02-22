@@ -1,0 +1,75 @@
+{% form_theme form 'form/materialize_layout.html.twig' %}
+{% extends 'base_admin.html.twig' %}
+
+{% block content %}
+    {% for flash_message in app.session.flashBag.get('notice') %}
+        <div id="card-alert" class="card green succes-entity" style="display:none">
+            <div class="card-content white-text valign-wrapper">
+                <i class="material-icons valign">done</i>&nbsp;<span>{{ flash_message }}</span>
+            </div>
+        </div>
+    {% endfor %}
+    {% for flash_message in app.session.flashBag.get('error') %}
+        <div id="card-alert" class="card red error-entity" style="display:none">
+            <div class="card-content white-text valign-wrapper">
+                <i class="material-icons valign">warning</i>&nbsp;<span>{{ flash_message }}</span>
+            </div>
+        </div>
+    {% endfor %}
+
+    {% if tags %}
+    <table class="highlight responsive-table">
+        <thead>
+        <tr>
+            <th data-field="id" width="65"></th>
+            <th data-field="tagText">Tag</th>
+        </tr>
+        </thead>
+
+        <tbody>
+    {% for tag in tags %}
+        <tr>
+            <form method="POST" enctype="multipart/form-data" action="{{ path('admin_tag_edit', {'tagId' : tag.Id}) }}" id="edit-skill-{{ tag.Id }}">
+            <td>
+                    <span class="edit-toggle-off-{{ tag.Id }}">
+                    <a href="#" class="editSkillLink-{{ tag.Id }}" alt="Bewerken">
+                        <i class="material-icons">edit</i>
+                    </a>
+                    </span>
+                    <span class="edit-toggle-on-{{ tag.Id }}" style="display:none">
+                    <a href="#" class="askillSubmitLink-{{ tag.Id }}" alt="Bewerken">
+                        <i class="material-icons">done</i>
+                    </a>
+                    </span>
+                    <a href="#" class="delete-button-{{ tag.id }}" alt="Verwijderen">
+                        <i class="material-icons">delete</i>
+                    </a>
+            </td>
+            <td class="input-field" id="editSkillTd-{{ tag.Id }}">
+                <div class="edit-toggle-on-{{ tag.Id }}" style="display:none">
+                    <input maxlength="20" type="text" id="tag_tagText" name="tag[tagText]" value="{{ tag.tagText }}" style="max-width: 200px;height: 2rem;margin: 0;" required/>
+                </div>
+                <div class="edit-toggle-off-{{ tag.Id }}">
+                    {{ tag.tagText }}<br/>
+                </div>
+            </td>
+                {{ form_widget(form._token) }}
+            </form>
+        </tr>
+            <div id="card-alert" class="card red delete-entity-{{ tag.id }}" style="display:none">
+                <div class="card-content white-text valign-wrapper">
+                    <i class="material-icons valign">warning</i>&nbsp;
+                    <span>Weet je zeker dat je {{ tag.tagText }} wilt verwijderen?
+                        <strong><a class="white-text" href="{{ url('admin_tag_delete',{'tagId' : tag.id}) }}">Ja, verwijder.</a></strong>
+                    </span>
+                </div>
+            </div>
+    {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <div class="row">
+            <div class="col s12"><h3>Geen tags gevonden.</h3></div>
+        </div>
+    {% endif %}
+{% endblock %}
