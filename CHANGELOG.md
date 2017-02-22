@@ -1,6 +1,5 @@
 Changelog
 ======
-Deze GitHub Repo bevat de broncode van de Stevin CV Tool, van Stevin Technology Consultants. Met deze repo kan worden samengewerkt aan de tool.
 
 v0.6
 -----
