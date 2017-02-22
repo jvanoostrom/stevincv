@@ -73,6 +73,8 @@ class ProfileController extends Controller
             }
         }
 
+        $this->serializeTags();
+
         $profile = new Profile();
 
         $em = $this->getDoctrine()->getManager();
@@ -128,6 +130,7 @@ class ProfileController extends Controller
                 return $this->redirectToRoute('profile_index', array('userId' => $userId));
             }
         }
+        $this->serializeTags();
 
         $em = $this->getDoctrine()->getManager();
 
@@ -213,53 +216,32 @@ class ProfileController extends Controller
 
     }
 
-//    public function serializeTags()
-//    {
-//        // Initialize encoder, normaliser and serializer
-//        $encoder = new JsonEncoder();
-//        $normalizer = new ObjectNormalizer();
-//        $normalizer->setIgnoredAttributes(array('id'));
-//        $serializer = new Serializer(array($normalizer), array($encoder));
-//
-//        // Obtain Tags
-//        $em = $this->getDoctrine()->getManager();
-//        $tags = $em->getRepository('AppBundle:Tag')->findAll();
-//        $count = count($tags);
-//        $i=0;
-//        $content = '[';
-//        $content .= "\r\n";
-//        foreach($tags as $tag)
-//        {
-//            $content .= "  ";
-//            $content .= '"'.$tag->getTagText() .'"';
-//            if(++$i != $count)
-//            {
-//                $content .=',';
-//            }
-//            $content .= "\r\n";
-//        }
-//        $content .= ']';
-//        $jsonContent = $serializer->serialize($tags, 'json');
-//        $fs = new Filesystem();
-//        //$fs->dumpFile('json/tags.json', $content);
-//
-//    }
-//
-//    public function checkUser($msg, $route, $userId)
-//    {
-//        // If not correct user
-//        $roles = $this->getUser()->getRoles();
-//        if($userId != $this->getUser()->getId())
-//        {
-//            if (!in_array('ROLE_ADMIN', $roles)) {
-//                $this->addFlash(
-//                    'error',
-//                    $msg
-//                );
-//
-//                return $this->redirectToRoute($route, array('userId' => $userId));
-//            }
-//        }
-//    }
+    public function serializeTags()
+    {
+        // Initialize encoder, normaliser and serializer
+        $encoder = new JsonEncoder();
+        $normalizer = new ObjectNormalizer();
+        $normalizer->setIgnoredAttributes(array('id'));
+        $serializer = new Serializer(array($normalizer), array($encoder));
 
+        // Obtain Tags
+        $em = $this->getDoctrine()->getManager();
+        $tags = $em->getRepository('AppBundle:Tag')->findAll();
+        $count = count($tags);
+        $i=0;
+        $content = '[';
+        foreach($tags as $tag)
+        {
+            $content .= '"'.$tag->getTagText() .'"';
+            if(++$i != $count)
+            {
+                $content .=',';
+            }
+        }
+        $content .= ']';
+        $jsonContent = $serializer->serialize($tags, 'json');
+        $fs = new Filesystem();
+        $fs->dumpFile('json/tags.json', $content);
+
+    }
 }

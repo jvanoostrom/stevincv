@@ -341,10 +341,11 @@ $( document ).ready(function() {
 
     // Typeahead
 
+
     var tags = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.whitespace,
         queryTokenizer: Bloodhound.tokenizers.whitespace,
-        prefetch: '/json/tags.json'
+        prefetch: '/web/json/tags.json'
     });
 
     $('.n-tag').typeahead(
@@ -352,6 +353,7 @@ $( document ).ready(function() {
         {
             hint: true,
             highlight: true,
+            minLength: 1
         },
         {
             name: 'tags',
