@@ -56,9 +56,9 @@ class CurriculumvitaeController extends Controller
             }
         }
 
+        $this->serializeTags();
+
         $cv = new Curriculumvitae();
-
-
 
         $form = $this->createForm(CurriculumvitaeType::class, $cv, array('userId' => $userId));
 
@@ -120,6 +120,8 @@ class CurriculumvitaeController extends Controller
                 return $this->redirectToRoute('cv_index', array('userId' => $userId));
             }
         }
+
+        $this->serializeTags();
 
         $em = $this->getDoctrine()->getManager();
 
@@ -262,6 +264,35 @@ class CurriculumvitaeController extends Controller
         );
 
         return $this->redirectToRoute('cv_index', array('userId' => $userId));
+
+    }
+
+    public function serializeTags()
+    {
+        // Initialize encoder, normaliser and serializer
+        $encoder = new JsonEncoder();
+        $normalizer = new ObjectNormalizer();
+        $normalizer->setIgnoredAttributes(array('id'));
+        $serializer = new Serializer(array($normalizer), array($encoder));
+
+        // Obtain Tags
+        $em = $this->getDoctrine()->getManager();
+        $tags = $em->getRepository('AppBundle:Tag')->findAll();
+        $count = count($tags);
+        $i=0;
+        $content = '[';
+        foreach($tags as $tag)
+        {
+            $content .= '"'.$tag->getTagText() .'"';
+            if(++$i != $count)
+            {
+                $content .=',';
+            }
+        }
+        $content .= ']';
+        $jsonContent = $serializer->serialize($tags, 'json');
+        $fs = new Filesystem();
+        $fs->dumpFile('json/tags.json', $content);
 
     }
 

@@ -70,6 +70,8 @@ class ProjectController extends Controller
             }
         }
 
+        $this->serializeTags();
+
         $project = new Project();
 
         $form = $this->createForm(ProjectType::class, $project);
@@ -125,6 +127,8 @@ class ProjectController extends Controller
                 return $this->redirectToRoute('project_index', array('userId' => $userId));
             }
         }
+        
+        $this->serializeTags();
 
         $em = $this->getDoctrine()->getManager();
 
@@ -209,6 +213,35 @@ class ProjectController extends Controller
         );
 
         return $this->redirectToRoute('project_index', array('userId' => $userId));
+
+    }
+
+    public function serializeTags()
+    {
+        // Initialize encoder, normaliser and serializer
+        $encoder = new JsonEncoder();
+        $normalizer = new ObjectNormalizer();
+        $normalizer->setIgnoredAttributes(array('id'));
+        $serializer = new Serializer(array($normalizer), array($encoder));
+
+        // Obtain Tags
+        $em = $this->getDoctrine()->getManager();
+        $tags = $em->getRepository('AppBundle:Tag')->findAll();
+        $count = count($tags);
+        $i=0;
+        $content = '[';
+        foreach($tags as $tag)
+        {
+            $content .= '"'.$tag->getTagText() .'"';
+            if(++$i != $count)
+            {
+                $content .=',';
+            }
+        }
+        $content .= ']';
+        $jsonContent = $serializer->serialize($tags, 'json');
+        $fs = new Filesystem();
+        $fs->dumpFile('json/tags.json', $content);
 
     }
 
