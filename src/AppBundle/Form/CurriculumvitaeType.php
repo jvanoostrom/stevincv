@@ -51,6 +51,7 @@ class CurriculumvitaeType extends AbstractType
                     ),
                     'allow_add' => true,
                     'allow_delete' => true,
+                    'error_bubbling' => false
                 ))
 
                 ->add('education', EntityType::class, array(
@@ -120,7 +121,7 @@ class CurriculumvitaeType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => Curriculumvitae::class,
-        ));
+            ));
         $resolver->setRequired('userId');
     }
 
