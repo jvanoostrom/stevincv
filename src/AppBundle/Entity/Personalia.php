@@ -60,14 +60,14 @@ class Personalia
     /**
      * @ORM\Column(type="string", length=255, options={"default":"bassie.jpg"})
      *
-     * @Assert\File(mimeTypes={ "image/png", "image/jpeg" })
+     *
      */
     protected $profileImageName = 'bassie.jpg';
 
     /**
      * @ORM\Column(type="string", length=255, options={"default":"bassie_circle.jpg"})
      *
-     * @Assert\File(mimeTypes={ "image/png", "image/jpeg" })
+     *
      */
     protected $profileAvatarName = 'bassie_circle.jpg';
 

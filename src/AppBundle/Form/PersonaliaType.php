@@ -35,6 +35,7 @@ class PersonaliaType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => Personalia::class,
+            'csrf_protection' => false,
         ));
     }
 }
