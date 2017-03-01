@@ -281,6 +281,28 @@ $( document ).ready(function() {
         }
     });
 
+    // Limit number of skills in CV
+    var $checkBoxSkills = $("input[type=checkbox][id^=curriculumvitae_skills]");
+    var maxBoxesSkills = 15;
+    var countCheckedSkills = $checkBoxSkills.filter(":checked").length;
+    if (countCheckedSkills >= maxBoxesSkills)
+    {
+        $checkBoxSkills.not(":checked").attr("disabled", true);
+    }
+
+    $checkBoxSkills.change(function() {
+        var countCheckedSkills = $checkBoxSkills.filter(":checked").length;
+
+        if (countCheckedSkills >= maxBoxesSkills)
+        {
+            $checkBoxSkills.not(":checked").attr("disabled", true);
+        }
+        else
+        {
+            $checkBoxSkills.attr("disabled", false);
+        }
+    });
+
     // tooltip
     $('[id^=tooltip]').hover(function(){
         // Hover over code

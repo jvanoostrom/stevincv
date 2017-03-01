@@ -164,7 +164,7 @@ class CurriculumvitaeExportController extends Controller
         $oProfileTextRun->getFont()
             ->setCharacterSpacing(0.5)
             ->setName('Open Sans')
-            ->setSize(8)
+            ->setSize(9)
             ->setColor($darkGrey);
 
 
