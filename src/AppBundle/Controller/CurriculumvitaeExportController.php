@@ -217,7 +217,7 @@ class CurriculumvitaeExportController extends Controller
         $oRow = $oTable->createRow();
         $oRow->setHeight(10);
         $oCell = $oRow->nextCell();
-        $oCellText = $oCell->createTextRun('Geboortejaar:');
+        $oCellText = $oCell->createTextRun('Geboortejaar: ');
         $oCellText->getFont()
             ->setSize(9)
             ->setCharacterSpacing(0.5)
@@ -238,7 +238,7 @@ class CurriculumvitaeExportController extends Controller
         $oRow = $oTable->createRow();
         $oRow->setHeight(10);
         $oCell = $oRow->nextCell();
-        $oCellText = $oCell->createTextRun('Woonplaats:');
+        $oCellText = $oCell->createTextRun('Woonplaats: ');
         $oCellText->getFont()
             ->setSize(9)
             ->setCharacterSpacing(0.5)
