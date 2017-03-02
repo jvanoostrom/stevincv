@@ -109,7 +109,8 @@ class CurriculumvitaeExportController extends Controller
         // Add profile picture
         $oProfileImg = new Drawing\File();
         $oProfileImg->setPath($profileImageDirectory.'/'.$personalia->getProfileImageName())
-            ->setHeight(390)
+            //->setHeight(390)
+            ->setWidth(260)
             ->setOffsetX(110)
             ->setOffsetY(165);
         $oSlide1->addShape($oProfileImg);
