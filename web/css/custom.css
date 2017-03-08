@@ -108,16 +108,6 @@ nav {
     color:#929CA1;
 }
 
-.datepicker::-webkit-calendar-picker-indicator {
-    display: none;
-}
-
-.datepicker-field {
-    position: relative;
-    line-height: 0.85;
-    margin-top: 0.2rem;
-}
-
 label.required:after {
     content: "* ";
     color:#CE2C43;
@@ -145,4 +135,14 @@ label.required:after {
 
 a {
     color: #264756;
+}
+
+.datepick {
+    text-align:center;
+}
+
+.datepick-dash {
+    border-bottom:1px solid #9e9e9e;
+    line-height:3rem;
+    display:inline-block;
 }

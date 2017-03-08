@@ -25,11 +25,8 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="datepicker-field col s12 m2">
-                        {{ form_label(form.obtainedDate, 'Datum behaald') }}
-                        {{ form_widget(form.obtainedDate, {'attr': {
-                            'class': 'datepicker',
-                        }}) }}
+                    <div class="input-field col s12 m2">
+                        {{ form_widget(form.obtainedDate) }}
                         {{ form_errors(form.obtainedDate) }}
                     </div>
                 </div>

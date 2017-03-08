@@ -16,18 +16,12 @@
 
             <div class="col s12">
                 <div class="row">
-                    <div class="datepicker-field col s12 m2">
-                        {{ form_label(form.startDate, 'Startdatum') }}
-                        {{ form_widget(form.startDate, {'attr': {
-                            'class': 'datepicker',
-                        }}) }}
+                    <div class="input-field col s12 m2">
+                        {{ form_widget(form.startDate) }}
                         {{ form_errors(form.startDate) }}
                     </div>
-                    <div class="datepicker-field col s12 m2">
-                        {{ form_label(form.endDate, 'Einddatum') }}
-                        {{ form_widget(form.endDate, {'attr': {
-                            'class': 'datepicker',
-                        }}) }}
+                    <div class="input-field col s12 m2">
+                        {{ form_widget(form.endDate) }}
                         {{ form_errors(form.endDate) }}
                     </div>
                 </div>
@@ -56,7 +50,7 @@
                         {{ form_label(form.customerName, 'Klant') }}
                         {{ form_widget(form.customerName, {'attr': {
                             'class': 'validate',
-                            'maxlength': 100,
+                            'maxlength': 75,
                         }}) }}
                         {{ form_errors(form.customerName) }}
                     </div>

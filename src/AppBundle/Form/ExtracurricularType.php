@@ -19,10 +19,12 @@ class ExtracurricularType extends AbstractType
         $builder
                 ->add('extracurricularName', TextType::class)
                 ->add('startDate', DateType::class, array(
-                    'widget' => 'single_text',
+                    'widget' => 'text',
+                    'label' => 'Startdatum',
                     ))
                 ->add('endDate', DateType::class, array(
-                    'widget' => 'single_text',
+                    'widget' => 'text',
+                    'label' => 'Einddatum',
                     'required' => 'false'
                     ))
                 ->add('submit', SubmitType::class, array('label' => 'Opslaan'))

@@ -71,6 +71,12 @@ $( document ).ready(function() {
         });
     });
 
+    $(".datepick").keyup(function () {
+        if (this.value.length == this.maxLength) {
+            $(this).nextAll(':input:first').focus();
+        }
+    });
+
     // Curriculumvitae page
     // CurriculumvitaeProjects
     var actualProjectCount = $('.project').length;

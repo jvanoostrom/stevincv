@@ -38,9 +38,8 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="datepicker-field col s12 m6">
-                        {{ form_label(form.dateOfBirth, 'Geboortedatum') }}
-                        {{ form_widget(form.dateOfBirth, {'attr': {'class': 'datepicker', 'disabled' : 'disabled'}}) }}
+                    <div class="input-field col s12 m6">
+                        {{ form_widget(form.dateOfBirth) }}
                         {{ form_errors(form.dateOfBirth) }}
                     </div>
                     <div class="input-field col s12 m6">

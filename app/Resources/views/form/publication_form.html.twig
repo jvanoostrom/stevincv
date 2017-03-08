@@ -26,11 +26,8 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="datepicker-field col s12 m2">
-                        {{ form_label(form.publishedDate, 'Publicatiedatum') }}
-                        {{ form_widget(form.publishedDate, {'attr': {
-                            'class': 'datepicker',
-                        }}) }}
+                    <div class="input-field col s12 m2">
+                        {{ form_widget(form.publishedDate) }}
                         {{ form_errors(form.publishedDate) }}
                     </div>
                 </div>

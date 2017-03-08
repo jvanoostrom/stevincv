@@ -67,13 +67,21 @@
     {% else -%}
         {% set attr = attr|merge({class: (attr.class|default(''))|trim}) -%}
         {% if datetime is not defined or not datetime -%}
-            <div {{ block('widget_container_attributes') -}}>
+            <div>
         {%- endif %}
-        {{- date_pattern|replace({
-            '{{ year }}': form_widget(form.year),
-            '{{ month }}': form_widget(form.month),
-            '{{ day }}': form_widget(form.day),
-        })|raw -}}
+        {#{{- date_pattern|replace({#}
+            {#'{{ year }}':  form_widget(form.year),#}
+            {#'{{ month }}': form_widget(form.month),#}
+            {#'{{ day }}':   form_widget(form.day),#}
+        {#})|raw -}}#}
+        {% if form.vars.label is same as('Geboortedatum') %}
+            {% set disabled = true %}
+        {% endif %}
+        {% if form.vars.label is not same as('Einddatum') %}
+            {% set required = true %}
+        {% endif %}
+        <label for="{{ form.day.vars.id }}"{% if required %} class="required"{% endif %}>{{ form.vars.label }}</label>
+        <input class="datepick"{% if disabled %} disabled{% endif %} {% if form.vars.value.day is defined %} value="{{ form.vars.value.day }}"{% endif %}type="text" id="{{ form.day.vars.id }}" name="{{ form.day.vars.full_name }}" placeholder="dd" maxlength="2" style="width:20px" required><span class="datepick-dash">/</span><input class="datepick" {% if disabled %} disabled{% endif %} {% if form.vars.value.month is defined %} value="{{ form.vars.value.month }}"{% endif %}type="text" id="{{ form.month.vars.id }}" name="{{ form.month.vars.full_name }}" placeholder="mm" maxlength="2" style="width:25px" required><span class="datepick-dash">/</span><input class="datepick" {% if disabled %} disabled{% endif %} {% if form.vars.value.year is defined %} value="{{ form.vars.value.year }}"{% endif %}type="text" id="{{ form.year.vars.id }}" name="{{ form.year.vars.full_name }}" placeholder="yyyy" maxlength="4" style="width:35px" required>
         {% if datetime is not defined or not datetime -%}
             </div>
         {%- endif -%}
