@@ -1,6 +1,25 @@
 Changelog
 ======
 
+v0.9
+-----
+**Nieuw**:
+- Zoekfunctie in de linkerbalk toegevoegd om consultants te zoeken
+- Landinstellingen SteVee-app aangepast naar NL
+
+**Bugfixes**:
+- Personalia: Problemen met het aanpassen van de geboortedatum zijn verholpen
+- CV: Een maximaal van 15 checkboxes kan geselecteerd worden voor "Competenties"
+- CV: Lettergrootte profiel in het CV verhoogd naar 9pt, conform de rest van het CV
+- CV: De grootte van de profielfoto is afhankelijk gemaakt van de breedte van de foto, in plaats van de hoogte
+- CV: Exporteren naar PDF geeft geen tabelranden meer weer
+- CV: Publicaties zijn correct uitgelijnd
+- CV: Een lange functietitel en klantnaam zullen bij de projecten niet meer overlappen
+- Competenties: Het toevoegen van unieke competenties is nu correct geïmplementeerd
+- Competenties: De slider werkt weer naar behoren
+- SteVee: De kleurstelling is aangepast om de huidige huisstijl van Stevin beter te reflecteren
+- Datum: Er is een alternatief datumveld geïmplementeerd om aan de behoefte van zowel Chrome als IE/Firefox gebruikers te kunnen voldoen
+
 v0.6
 -----
 **Nieuw**:
@@ -14,7 +33,7 @@ v0.6
 **Bugfixes**:
 - Datum: Einddatum moet nu na de startdatum liggen
 - Powerpoint: Tekst 'justified' (uitlijning)
-- Project: Velden 'Situatie', 'Werkzaamheden' en 'Resultaat' hebben maximaal respectievelijk 325, 525 en 725 karakters zodat dit in het CV past.
+- Project: Velden 'Situatie', 'Werkzaamheden' en 'Resultaat' hebben maximaal respectievelijk 325, 525 en 725 karakters zodat dit in het CV past
 - Tags: Tags kunnen meer karakters aan
 - Skills: Skills kunnen meer karakters aan
 - Skills: Skills zijn uniek per persoon
