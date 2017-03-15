@@ -1,5 +1,20 @@
 $( document ).ready(function() {
 
+    $("#search").keyup(function(){
+        $("h6.title").each(function() {
+            var pageText = $(this).text().replace("<span>","").replace("</span>"),
+                searchedText = $("#search").val(),
+                theRegEx = new RegExp("("+searchedText+")", "igm"),
+                newHtml = pageText.replace(theRegEx ,"<span>$1</span>");
+            if ($(this).text().toUpperCase().includes($("#search").val().toUpperCase()) != 1) {
+                $(this).parent().parent().animate({ height: 'hide', opacity: 'hide' }, 'slow');
+            } else {
+                $(this).parent().parent().animate({ height: 'show', opacity: 'show' }, 'slow');
+                $(this).html(newHtml);
+            }
+        });
+    });
+
     // Materialize initialisation
     $(".button-collapse").sideNav();
 

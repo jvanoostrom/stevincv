@@ -75,7 +75,11 @@
             {#'{{ day }}':   form_widget(form.day),#}
         {#})|raw -}}#}
         {% if form.vars.label is same as('Geboortedatum') %}
-            {% set disabled = true %}
+                {% if app.request.attributes.get('_route') starts with 'admin' %}
+                    {% set disabled = false %}
+                {% else %}
+                    {% set disabled = true %}
+                {% endif %}
         {% endif %}
         {% if form.vars.label is not same as('Einddatum') %}
             {% set required = true %}

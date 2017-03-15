@@ -25,6 +25,7 @@ class SkillController extends Controller
         );
 
         $skill = new Skill();
+        $skill->setUser($this->getUser());
         $form = $this->createForm(SkillType::class, $skill);
 
         return $this->render('index/skill.html.twig', array(
@@ -64,7 +65,8 @@ class SkillController extends Controller
         );
 
         $skill = new Skill();
-
+        $skill->setUser($this->getUser());
+        
         $form = $this->createForm(SkillType::class, $skill);
         $form->handleRequest($request);
 

@@ -63,13 +63,11 @@ class Builder implements ContainerAwareInterface
         $menu = $factory->createItem('root');
 
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
-        $em = $this->container->get('doctrine')->getManager();
-        $userPersonalia = $em->getRepository('AppBundle:Personalia')
-                                ->findOneBy( array('user' => $user->getId()));
+        $personalia = $user->getPersonalia();
 
-        $profileAvatarName = $userPersonalia->getProfileAvatarName();
+        $profileAvatarName = $personalia->getProfileAvatarName();
 
-        $child = $userPersonalia->getFirstName().' '.$userPersonalia->getLastName();
+        $child = $personalia->getFirstName().' '.$personalia->getLastName();
         $menu->addChild($child, array(
             'uri' => '#!',
             'extras' => array(

@@ -6,14 +6,15 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-
 /**
  * @ORM\Entity
- * @ORM\Table(name="skill")
+ * @ORM\Table(name="skill",uniqueConstraints={
+ *     @ORM\UniqueConstraint(name="skillText_user", columns={"skill_text", "user_id"})}))
+ *
  * @UniqueEntity(
  *     fields={"user", "skillText"},
  *     errorPath="skillText",
- *     message="Je hebt deze competentie al toegevoegd."
+ *     message="Je hebt competentie {{ value }} al toegevoegd."
  * )
  */
 class Skill
@@ -128,4 +129,5 @@ class Skill
     {
         return $this->user;
     }
+
 }

@@ -95,9 +95,8 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="datepicker-field col s12">
-                        {{ form_label(form.personalia.dateOfBirth, 'Geboortedatum') }}
-                        {{ form_widget(form.personalia.dateOfBirth, {'attr': {'class': 'datepicker'}}) }}
+                    <div class="input-field col s12">
+                        {{ form_widget(form.personalia.dateOfBirth)}}
                         {{ form_errors(form.personalia.dateOfBirth) }}
                     </div>
                 </div>
