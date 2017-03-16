@@ -24,31 +24,39 @@ class CheckOutdatedCommand extends ContainerAwareCommand
         $boundaryDate = date('Y-m-d',strtotime('- 1 day'));
         $em = $this->getContainer()->get('doctrine')->getManager();
 
-        $sql = "SELECT curriculumvitae.curriculumvitae_name, curriculumvitae.user_id, fos_user.email, personalia.first_name, personalia.last_name FROM curriculumvitae JOIN fos_user on curriculumvitae.user_id=fos_user.id join personalia on fos_user.personalia_id=personalia.id WHERE curriculumvitae.updated_at < \"".$boundaryDate."\"";
+        $sql = "SELECT curriculumvitae.user_id, fos_user.email, personalia.first_name, personalia.last_name FROM curriculumvitae JOIN fos_user on curriculumvitae.user_id=fos_user.id join personalia on fos_user.personalia_id=personalia.id WHERE curriculumvitae.updated_at < \"".$boundaryDate."\" GROUP BY curriculumvitae.user_id";
         $query = $em->getConnection()->prepare($sql);
         $query->execute();
         $users = $query->fetchAll();
 
-        foreach($users as $key => $item)
+        foreach($users as $user)
         {
-            $arr[$item['user_id']][$key] = $item;
-            $output->writeln("Item: ".$item['user_id']."   Key: ".$key."   CVNaam: ".$item['curriculumvitae_name']."   email: ".$item['email']."   Voornaam: ".$item['first_name']."   achternaam: ".$item['last_name']);
-            //$output->writeln("Item: ".$item['user_id']);
-            //$output->writeln("Item: ".$item['user_id']);
+            $userid = $user['user_id'];
+            $sql = "SELECT curriculumvitae.curriculumvitae_name FROM curriculumvitae JOIN fos_user on curriculumvitae.user_id=fos_user.id join personalia on fos_user.personalia_id=personalia.id WHERE curriculumvitae.updated_at < \"".$boundaryDate."\" AND curriculumvitae.user_id = $userid";
+            $query = $em->getConnection()->prepare($sql);
+            $query->execute();
+            $cvs = $query->fetchAll();
+
+
+            $message = \Swift_Message::newInstance()
+                ->setSubject('Je hebt verouderde CV\'s')
+                ->setFrom('vanoostrom@stevin.com')
+                ->setTo($user['email'])
+                ->setBody(
+                    $this->getContainer()->get('templating')->render(
+                        'admin/verouderde_cvs_email.html.twig',
+                        array(
+                            'first_name' => $user['first_name'],
+                            'last_name' => $user['last_name'],
+                            'cvs' => $cvs,
+                        ),
+                        'text/html'
+
+                    )
+                );
+
+            $this->getContainer()->get('mailer')->send($message);
         }
-        $output->writeln("");
-        $output->writeln($arr[1][1]);
-
-
-
-//        foreach($users as $user)
-//            {
-//                $output->writeln("User ID: ".$user['user_id']."  CV Naam: ".$user['curriculumvitae_name']);
-//            }
-
-
-
-        //select user_id, curriculumvitae_name from curriculumvitae where updated_at < DATE_ADD(NOW(), INTERVAL -1 DAY)
 
 
     }

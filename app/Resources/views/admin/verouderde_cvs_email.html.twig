@@ -1,0 +1,7 @@
+Beste {{ first_name }} {{ last_name }},
+
+Je hebt verouderde CV's. Deze CV's heb je reeds drie maanden niet aangepast. Het gaat om de volgende CV's:
+
+{% for cv in cvs %}
+- {{ cv.curriculumvitae_name }}
+{% endfor %}

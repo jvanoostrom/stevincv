@@ -34,7 +34,7 @@ class Education
     protected $educationName;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      *
      */
     protected $educationSpecialisation = null;

@@ -88,7 +88,7 @@ class Project
     protected $startDate;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      *
      * @Assert\DateTime()
      */
