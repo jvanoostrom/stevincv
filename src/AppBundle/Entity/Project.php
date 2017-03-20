@@ -57,7 +57,7 @@ class Project
      * @ORM\Column(type="text")
      *
      * @Assert\NotBlank(message="Vul de tekst voor de situatie in.")
-     * @Assert\Length(max=325, maxMessage="De tekst kan maximaal {{ limit }} tekens bevatten.")
+     * @Assert\Length(max=325, maxMessage="De tekst voor de situatie kan maximaal {{ limit }} tekens bevatten.")
      *
      */
     protected $situationText;
@@ -66,7 +66,7 @@ class Project
      * @ORM\Column(type="text")
      *
      * @Assert\NotBlank(message="Vul de tekst voor de werkzaamheden in.")
-     * @Assert\Length(max=525, maxMessage="De tekst kan maximaal {{ limit }} tekens bevatten.")
+     * @Assert\Length(max=525, maxMessage="De tekst voor de werkzaamheden kan maximaal {{ limit }} tekens bevatten.")
      *
      */
     protected $taskText;
@@ -75,7 +75,7 @@ class Project
      * @ORM\Column(type="text")
      *
      * @Assert\NotBlank(message="Vul de tekst voor het resultaat in.")
-     * @Assert\Length(max=725, maxMessage="De tekst kan maximaal {{ limit }} tekens bevatten.")
+     * @Assert\Length(max=725, maxMessage="De tekst voor het resultaat kan maximaal {{ limit }} tekens bevatten.")
      *
      */
     protected $resultText;

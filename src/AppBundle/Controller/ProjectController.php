@@ -108,6 +108,55 @@ class ProjectController extends Controller
     }
 
     /**
+     * @Route("/{userId}/project/copy/{projectId}", name="project_copy")
+     *
+     */
+    public function copyAction(Request $request, $userId, $projectId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $qb = $em->createQueryBuilder();
+
+        $project = $em->getRepository('AppBundle:Project')
+            ->findOneBy(array('id' => $projectId));
+
+        $newProject = clone $project;
+        $functionTitle = $project->getFunctionTitle();
+
+        if(strpos(strtoupper($functionTitle),strtoupper("- Kopie")) !== false)
+        {
+            $functionTitle = substr($functionTitle,0,strpos($functionTitle,"-")-1);
+        }
+
+        $qb->select(array('u.functionTitle')) // string 'u' is converted to array internally
+        ->from('AppBundle:Project', 'u')
+            ->where($qb->expr()->andX(
+                $qb->expr()->eq('u.user', ':userId'),
+                $qb->expr()->like('u.functionTitle', ':functionTitle')
+            ))
+            ->orderBy('u.functionTitle', 'DESC')
+            ->setParameter('functionTitle', $functionTitle."%")
+            ->setParameter('userId', $userId);
+
+        $maxFunctionTitle = $qb->getQuery()->getResult();
+        $maxFunctionTitle = $maxFunctionTitle[0]['functionTitle'];
+
+        $copyNumber = substr($maxFunctionTitle,-1);
+        $copyNumber = $copyNumber + 1;
+        $newProject->setFunctionTitle($functionTitle." - Kopie ".$copyNumber);
+        $newProject->setUpdatedAt(new \DateTime());
+
+        $em->persist($newProject);
+        $em->flush();
+
+        $this->addFlash(
+            'notice',
+            'Het project is succesvol gekopieërd.'
+        );
+
+        return $this->redirectToRoute('project_index', array('userId' => $userId));
+    }
+
+    /**
      * @Route("/{userId}/project/edit/{projectId}", name="project_edit")
      *
      */

@@ -51,6 +51,56 @@ class ProfileController extends Controller
             'profile' => $profile
         ));
     }
+
+    /**
+     * @Route("/{userId}/profile/copy/{profileId}", name="profile_copy")
+     *
+     */
+    public function copyAction(Request $request, $userId, $profileId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $qb = $em->createQueryBuilder();
+
+        $profile = $em->getRepository('AppBundle:Profile')
+            ->findOneBy(array('id' => $profileId));
+
+        $newProfile = clone $profile;
+        $shortDescription = $profile->getShortDescription();
+
+        if(strpos(strtoupper($shortDescription),strtoupper("- Kopie")) !== false)
+        {
+            $shortDescription = substr($shortDescription,0,strpos($shortDescription,"-")-1);
+        }
+
+        $qb->select(array('u.shortDescription')) // string 'u' is converted to array internally
+        ->from('AppBundle:Profile', 'u')
+            ->where($qb->expr()->andX(
+                $qb->expr()->eq('u.user', ':userId'),
+                $qb->expr()->like('u.shortDescription', ':shortDescription')
+            ))
+            ->orderBy('u.shortDescription', 'DESC')
+            ->setParameter('shortDescription', $shortDescription."%")
+            ->setParameter('userId', $userId);
+
+        $maxDescription = $qb->getQuery()->getResult();
+        $maxDescription = $maxDescription[0]['shortDescription'];
+
+        $copyNumber = substr($maxDescription,-1);
+        $copyNumber = $copyNumber + 1;
+        $newProfile->setShortDescription($shortDescription." - Kopie ".$copyNumber);
+        $newProfile->setUpdatedAt(new \DateTime());
+
+        $em->persist($newProfile);
+        $em->flush();
+
+        $this->addFlash(
+            'notice',
+            'Het profiel is succesvol gekopieërd.'
+        );
+
+        return $this->redirectToRoute('profile_index', array('userId' => $userId));
+    }
+
     /**
      * @Route("/{userId}/profile/add", name="profile_add")
      *

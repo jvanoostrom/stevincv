@@ -101,6 +101,55 @@ class CurriculumvitaeController extends Controller
     }
 
     /**
+     * @Route("/{userId}/cv/copy/{cvId}", name="cv_copy")
+     *
+     */
+    public function copyAction(Request $request, $userId, $cvId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $qb = $em->createQueryBuilder();
+
+        $cv = $em->getRepository('AppBundle:Curriculumvitae')
+            ->findOneBy(array('id' => $cvId));
+
+        $newCv = clone $cv;
+        $cvName = $cv->getCurriculumvitaeName();
+
+        if(strpos(strtoupper($cvName),strtoupper("- Kopie")) !== false)
+        {
+            $cvName = substr($cvName,0,strpos($cvName,"-")-1);
+        }
+
+        $qb->select(array('u.curriculumvitaeName')) // string 'u' is converted to array internally
+        ->from('AppBundle:Curriculumvitae', 'u')
+            ->where($qb->expr()->andX(
+                $qb->expr()->eq('u.user', ':userId'),
+                $qb->expr()->like('u.curriculumvitaeName', ':curriculumvitaeName')
+            ))
+            ->orderBy('u.curriculumvitaeName', 'DESC')
+            ->setParameter('curriculumvitaeName', $cvName."%")
+            ->setParameter('userId', $userId);
+
+        $maxCvName = $qb->getQuery()->getResult();
+        $maxCvName = $maxCvName[0]['curriculumvitaeName'];
+
+        $copyNumber = substr($maxCvName,-1);
+        $copyNumber = $copyNumber + 1;
+        $newCv->setCurriculumvitaeName($maxCvName." - Kopie ".$copyNumber);
+        $newCv->setUpdatedAt(new \DateTime());
+
+        $em->persist($newCv);
+        $em->flush();
+
+        $this->addFlash(
+            'notice',
+            'Het cv is succesvol gekopieërd.'
+        );
+
+        return $this->redirectToRoute('cv_index', array('userId' => $userId));
+    }
+
+    /**
      * @Route("/{userId}/cv/edit/{cvId}", name="cv_edit")
      *
      */

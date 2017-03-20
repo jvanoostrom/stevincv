@@ -39,14 +39,13 @@ class Builder implements ContainerAwareInterface
         foreach($users as $user) {
             $personalia = $user->getPersonalia();
 
-            $helper = $this->container->get('vich_uploader.templating.helper.uploader_helper');
-            $path = $helper->asset($personalia, 'profileImageFile');
+            $profileAvatarName = $personalia->getProfileAvatarName();
 
             $child = $personalia->getFirstName().' '.$personalia->getLastName();
             $menu->addChild($child, array(
                 'uri' => $user->getId(),
                 'extras' => array(
-                    'img' => $path,
+                    'img' => $profileAvatarName,
                     'userId' => $user->getId()
                 ),
             ));

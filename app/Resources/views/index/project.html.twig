@@ -27,7 +27,7 @@
     <table class="highlight responsive-table">
         <thead>
         <tr>
-            <th data-field="id" width="65"></th>
+            <th data-field="id" width="100"></th>
             <th data-field="functionTitle" width="300">Functie</th>
             <th data-field="customerName">Klant</th>
             <th data-field="tags">Tags</th>
@@ -42,6 +42,9 @@
                 {% if isUser %}
                 <a href="{{ url('project_edit',{'userId' : userId, 'projectId' : project.Id}) }}" alt="Bewerken">
                     <i class="material-icons">edit</i>
+                </a>
+                <a href="{{ url('project_copy',{'userId' : userId, 'projectId' : project.Id}) }}" alt="Kopieëren">
+                    <i class="material-icons">content_copy</i>
                 </a>
                 <a href="#" class="delete-button-{{ project.id }}" alt="Verwijderen">
                     <i class="material-icons">delete</i>

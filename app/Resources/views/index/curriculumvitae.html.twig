@@ -19,7 +19,7 @@
     <table class="highlight responsive-table">
         <thead>
         <tr>
-            <th data-field="" width="100"></th>
+            <th data-field="" width="135"></th>
             <th data-field="curriculumvitaeName">Naam</th>
             <th data-field="tags">Tags</th>
             <th data-field="updatedAt" width="150">Bijgewerkt</th>
@@ -33,6 +33,9 @@
                 {% if isUser %}
                     <a href="{{ url('cv_edit',{'userId' : userId, 'cvId' : cv.Id}) }}" alt="Bewerken">
                         <i class="material-icons">edit</i>
+                    </a>
+                    <a href="{{ url('cv_copy',{'userId' : userId, 'cvId' : cv.Id}) }}" alt="Kopieëren">
+                        <i class="material-icons">content_copy</i>
                     </a>
                     <a href="#" class="delete-button-{{ cv.id }}" alt="Verwijderen">
                         <i class="material-icons">delete</i>
