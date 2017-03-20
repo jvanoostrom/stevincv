@@ -106,3 +106,5 @@ vich_uploader:
             profile_image:
                 uri_prefix:         /img/profile
                 upload_destination: '%kernel.root_dir%/../web/img/profile'
+                namer:
+                      service: vich_uploader.namer_uniqid

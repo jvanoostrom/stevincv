@@ -74,6 +74,9 @@ class Personalia
     /**
      *
      * @Vich\UploadableField(mapping="profile_image", fileNameProperty="profileImageName")
+     * @Assert\File(
+     *     maxSize="18M", maxSizeMessage="De foto mag niet groter zijn dan 15MB.",
+     *     mimeTypes={"image/jpeg","image/png"}, mimeTypesMessage="Voeg een JPEG of PNG foto toe.")
      *
      * @var File
      */

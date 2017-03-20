@@ -152,7 +152,7 @@ class PersonaliaController extends Controller
     {
         $filesize = filesize($filename) / 1000000;
 
-        while($filesize > 3.) {
+        while($filesize > 1.5) {
             $percent = 0.5;
 
             // Get new dimensions

@@ -20,6 +20,8 @@ class Builder implements ContainerAwareInterface
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $personalia = $user->getPersonalia();
 
+        $profileAvatarName = $personalia->getProfileAvatarName();
+
         $helper = $this->container->get('vich_uploader.templating.helper.uploader_helper');
         $path = $helper->asset($personalia, 'profileImageFile');
 
@@ -27,7 +29,7 @@ class Builder implements ContainerAwareInterface
         $menu->addChild($child, array(
             'uri' => $user->getId(),
             'extras' => array(
-                'img' => $path,
+                'img' => $profileAvatarName,
                 'userId' => $user->getId()
             ),
         ));
