@@ -265,37 +265,7 @@ class ProjectController extends Controller
         return $this->redirectToRoute('project_index', array('userId' => $userId));
 
     }
-
-    /**
-     * @Route("/{userId}/project/updateall", name="project_update")
-     *
-     */
-    public function updateAction(Request $request, $userId)
-    {
-
-
-        $em = $this->getDoctrine()->getManager();
-
-        $projects = $em->getRepository('AppBundle:Project')
-            ->findAll();
-
-        foreach($projects as $project)
-        {
-            $functionTitle = $project->getFunctionTitle();
-            $project->setProjectName($functionTitle);
-            $em->persist($project);
-            $em->flush();
-        }
-
-        $this->addFlash(
-            'notice',
-            'De projecten zijn succesvol geupdate.'
-        );
-
-        return $this->redirectToRoute('project_index', array('userId' => $userId));
-
-    }
-
+    
     public function serializeTags()
     {
         // Obtain Tags
