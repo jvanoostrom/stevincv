@@ -374,8 +374,9 @@ Sizes: [
                                                                             -->
                                                                             <h3 mc:edit="header" style="color:#5F5F5F;line-height:125%;font-family:Helvetica,Arial,sans-serif;font-size:20px;font-weight:normal;margin-top:0;margin-bottom:3px;text-align:left;">Beste {{ first_name }},</h3>
                                                                             <div mc:edit="body" style="text-align:left;font-family:Helvetica,Arial,sans-serif;font-size:15px;margin-bottom:0;color:#5F5F5F;line-height:135%;">
-                                                                                Je hebt verouderde CV's. Deze CV's heb je al drie maanden niet aangepast. Het gaat om de volgende CV's:
+                                                                                Je hebt je CV's sinds {{ threemonthsago }} niet meer aangepast, terwijl je wel gave nieuwe dingen hebt gedaan die relevant zijn voor potentiele opdrachtgevers. Nu het nog vers in je geheugen zit, loop je CV's door en voeg je nieuwe ervaringen, opleidingen en ontwikkelde competenties toe. Zo houden we elkaar scherp!
 
+                                                                                Het gaat om de volgende CV's:
                                                                                 <ul>
                                                                                 {% for cv in cvs %}
                                                                                     <li>{{ cv.curriculumvitae_name }}</li>
