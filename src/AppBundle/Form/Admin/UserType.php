@@ -24,14 +24,6 @@ class UserType extends AbstractType
     {
         $builder
                 ->add('username', EmailType::class)
-//                ->add('plainPassword', RepeatedType::class, array(
-//                    'type' => PasswordType::class,
-//                    'options' => array('translation_domain' => 'FOSUserBundle'),
-//                    'first_options' => array('label' => 'Wachtwoord'),
-//                    'second_options' => array('label' => 'Herhaal wachtwoord'),
-//                    'invalid_message' => 'fos_user.password.mismatch',
-//                    'required' => false
-//                ))
                 ->add('roles', ChoiceType::class,array(
                     'multiple' => true,
                     'choices'  => array(
@@ -40,7 +32,7 @@ class UserType extends AbstractType
                         'Beheerder' => 'ROLE_SUPER_ADMIN',
                 )))
                 ->add('personalia', PersonaliaType::class)
-                ->add('enabled', CheckboxType::class, array('required' => false, 'data' => false))
+                ->add('enabled', CheckboxType::class, array('required' => false))
                 ->add('submit', SubmitType::class, array('label' => 'Opslaan'))
                 ->getForm();
     }
