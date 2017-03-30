@@ -1,0 +1,19 @@
+{% extends 'admin/email/email_template.html.twig' %}
+
+{% block header %}
+    Beste {{ first_name }},
+{% endblock %}
+
+{% block body %}
+    Welkom bij SteVee!
+
+    Er is een account voor je aangemaakt op SteVee, de Stevin Curriculum Vitae App. In deze app kan je alle details uit je CV invoeren en met een simpele druk op de knop draai je het CV in de juiste opmaak uit. Het wijst zich vanzelf, maar mocht je meer willen weten, kijk dan even op de SteViki. Je kunt met de volgende gegevens inloggen:<br/>
+    <br/>
+    Gebruikersnaam: {{ username }}<br/>
+    Wachtwoord: {{ password }}<br/>
+    <br/>
+    Noot: Bij de eerste keer inloggen dien je direct je wachtwoord te wijzigen!<br/>
+    <br/>
+    Bedankt,<br/><br/>
+    SteVee AutoMailer
+{% endblock %}

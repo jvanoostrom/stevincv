@@ -43,7 +43,7 @@ class CheckOutdatedCommand extends ContainerAwareCommand
                 ->setTo($user['email'])
                 ->setBody(
                     $this->getContainer()->get('templating')->render(
-                        'admin/verouderde_cvs_email.html.twig',
+                        'admin/email/verouderde_cvs.html.twig',
                         array(
                             'first_name' => $user['first_name'],
                             'last_name' => $user['last_name'],
@@ -55,7 +55,7 @@ class CheckOutdatedCommand extends ContainerAwareCommand
                 )
                 ->setContentType("text/html");
 
-            $this->getcontainer()->get('mailer')->send($message);
+            $this->getContainer()->get('mailer')->send($message);
 
         }
 

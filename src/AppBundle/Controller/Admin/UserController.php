@@ -46,19 +46,43 @@ class UserController extends Controller
             $user->setEmail($user->getUsername());
             $user->setEmailCanonical($user->getUsernameCanonical());
 
+            // Generate random password
+            $tokenGenerator = $this->container->get('fos_user.util.token_generator');
+            $randompass = substr($tokenGenerator->generateToken(), 0, 8);
+            $user->setPlainPassword($randompass);
+
             $user->getPersonalia()->setProfileImageName('bassie_'.$user->getPersonalia()->getLastName().'.jpg');
             $user->getPersonalia()->setProfileAvatarName('bassie_'.$user->getPersonalia()->getLastName().'_circle.png');
 
             $user->getPersonalia()->setUser($user);
-
             $fs = new Filesystem();
             $dir = $this->container->getParameter('kernel.root_dir');
             $fs->copy($dir.'/../web/img/bassie.jpg',$dir.'/../web/img/profile/'.$user->getPersonalia()->getProfileImageName());
             $fs->copy($dir.'/../web/img/bassie_circle.png',$dir.'/../web/img/profile/'.$user->getPersonalia()->getProfileAvatarName());
 
+            // Send e-mail with login details
+            $message = \Swift_Message::newInstance()
+                ->setSubject('Welkom bij SteVee!')
+                ->setFrom(array('vanoostrom@stevin.com' => 'Jeffrey van Oostrom'))
+                ->setTo($user->getEmail())
+                ->setBody(
+                    $this->renderView(
+                        'admin/email/new_user.html.twig',
+                        array(
+                            'first_name' => $user->getPersonalia()->getFirstName(),
+                            'username' => $user->getUsername(),
+                            'password' => $randompass
+                        )
+
+                    )
+                )
+                ->setContentType("text/html");
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
+
+            $this->get('mailer')->send($message);
 
             $this->addFlash(
                 'notice',

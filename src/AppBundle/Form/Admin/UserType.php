@@ -24,14 +24,14 @@ class UserType extends AbstractType
     {
         $builder
                 ->add('username', EmailType::class)
-                ->add('plainPassword', RepeatedType::class, array(
-                    'type' => PasswordType::class,
-                    'options' => array('translation_domain' => 'FOSUserBundle'),
-                    'first_options' => array('label' => 'Wachtwoord'),
-                    'second_options' => array('label' => 'Herhaal wachtwoord'),
-                    'invalid_message' => 'fos_user.password.mismatch',
-                    'required' => false
-                ))
+//                ->add('plainPassword', RepeatedType::class, array(
+//                    'type' => PasswordType::class,
+//                    'options' => array('translation_domain' => 'FOSUserBundle'),
+//                    'first_options' => array('label' => 'Wachtwoord'),
+//                    'second_options' => array('label' => 'Herhaal wachtwoord'),
+//                    'invalid_message' => 'fos_user.password.mismatch',
+//                    'required' => false
+//                ))
                 ->add('roles', ChoiceType::class,array(
                     'multiple' => true,
                     'choices'  => array(

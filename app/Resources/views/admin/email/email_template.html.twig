@@ -372,23 +372,8 @@ Sizes: [
                                                                                 you to edit certain row. It makes it easy for you to quickly edit row sections.
                                                                                 http://kb.mailchimp.com/templates/code/create-editable-content-areas-with-mailchimps-template-language
                                                                             -->
-                                                                            <h3 mc:edit="header" style="color:#5F5F5F;line-height:125%;font-family:Helvetica,Arial,sans-serif;font-size:20px;font-weight:normal;margin-top:0;margin-bottom:3px;text-align:left;">Beste {{ first_name }},</h3>
-                                                                            <div mc:edit="body" style="text-align:left;font-family:Helvetica,Arial,sans-serif;font-size:15px;margin-bottom:0;color:#5F5F5F;line-height:135%;">
-                                                                                Je hebt je CV's sinds {{ threemonthsago }} niet meer aangepast, terwijl je wel gave nieuwe dingen hebt gedaan die relevant zijn voor potentiele opdrachtgevers. Nu het nog vers in je geheugen zit, loop je CV's door en voeg je nieuwe ervaringen, opleidingen en ontwikkelde competenties toe. Zo houden we elkaar scherp!
-
-                                                                                Het gaat om de volgende CV's:
-                                                                                <ul>
-                                                                                {% for cv in cvs %}
-                                                                                    <li>{{ cv.curriculumvitae_name }}</li>
-                                                                                {% endfor %}
-                                                                                </ul>
-
-                                                                                Je kunt je CV's updaten in SteVee.<br/> <br/>
-                                                                                Bedankt!<br/><br/>
-                                                                                SteVee AutoMailer
-
-
-                                                                            </div>
+                                                                            <h3 mc:edit="header" style="color:#5F5F5F;line-height:125%;font-family:Helvetica,Arial,sans-serif;font-size:20px;font-weight:normal;margin-top:0;margin-bottom:3px;text-align:left;">{% block header %}{% endblock %}</h3>
+                                                                            <div mc:edit="body" style="text-align:left;font-family:Helvetica,Arial,sans-serif;font-size:15px;margin-bottom:0;color:#5F5F5F;line-height:135%;">{% block body %}{% endblock %}</div>
                                                                         </td>
                                                                     </tr>
                                                                 </table>
@@ -425,7 +410,7 @@ Sizes: [
                                                     <table border="0" cellpadding="0" cellspacing="0" width="50%" class="emailButton" style="background-color: #264756;">
                                                         <tr>
                                                             <td align="center" valign="middle" class="buttonContent" style="padding-top:15px;padding-bottom:15px;padding-right:15px;padding-left:15px;">
-                                                                <a style="color:#FFFFFF;text-decoration:none;font-family:Helvetica,Arial,sans-serif;font-size:20px;line-height:135%;" href="http://cv.stevin.com" target="_blank">Naar SteVee</a>
+                                                                <a style="color:#FFFFFF;text-decoration:none;font-family:Helvetica,Arial,sans-serif;font-size:20px;line-height:135%;" href="https://cv.stevin.com" target="_blank">Naar SteVee</a>
                                                             </td>
                                                         </tr>
                                                     </table>
