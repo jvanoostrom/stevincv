@@ -2,8 +2,8 @@
 <html>
 <head>
     <meta charset="UTF-8" />
-    <title>{% block title %}{% endblock %}</title>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>SteVee | Onderhoud</title>
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="{{ asset('css/materialize.css') }}" media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="{{ asset('css/custom.css') }}" media="screen,projection"/>
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
@@ -43,15 +43,17 @@
 
 <body>
 
-{% if error %}
-    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-{% endif %}
 <div class="section"></div>
 <main>
     <center>
         <img class="responsive-img" style="width: 250px;" src="{{ asset('img/logostevin.png') }}" />
-        <div class="container"><h3>{% block header %}{% endblock %}</h3></div>
-        {% block content %}{% endblock %}
+        <div class="container"><h3>Onderhoud</h3></div>
+        <div class="container">
+            <div class="row" style="display: inline-block; padding: 32px 48px 0px 48px;">
+                <img src="{{ asset('img/ic_build_black_48dp_2x.png') }}" /><br />
+                We zijn snel weer terug!
+            </div>
+        </div>
     </center>
 
     <div class="section"></div>

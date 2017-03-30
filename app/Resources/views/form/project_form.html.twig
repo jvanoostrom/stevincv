@@ -13,8 +13,17 @@
                     </div>
                 </div>
             {% endfor %}
-
             <div class="col s12">
+                <div class="row">
+                    <div class="input-field col s12 m6">
+                        {{ form_label(form.projectName, 'Projectnaam') }}
+                        {{ form_widget(form.projectName, {'attr': {
+                            'class': 'validate',
+                            'maxlength': 100,
+                        }}) }}
+                        {{ form_errors(form.projectName) }}
+                    </div>
+                </div>
                 <div class="row">
                     <div class="input-field col s12 m2">
                         {{ form_widget(form.startDate) }}

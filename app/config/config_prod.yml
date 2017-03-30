@@ -69,10 +69,10 @@ doctrine:
 
 # Swiftmailer Configuration
 swiftmailer:
-    transport: "%mailer_transport%"
-    host:      "%mailer_host%"
-    username:  "%mailer_user%"
-    password:  "%mailer_password%"
+    transport: "mailgun"
+    host:      '%mailer_host%'
+    username:  '%mailer_user%'
+    password:  '%mailer_password%'
     spool:     { type: memory }
 
 fos_user:
@@ -108,3 +108,22 @@ vich_uploader:
                 upload_destination: '%kernel.root_dir%/../web/img/profile'
                 namer:
                       service: vich_uploader.namer_uniqid
+
+cspoo_swiftmailer_mailgun:
+    key: key-76a223eade5a9fe88de277f7cc5bc606
+    domain: cv.stevin.com
+
+monolog:
+    handlers:
+        # this "file_log" key could be anything
+        file_log:
+            type: stream
+            # log to var/logs/(environment).log
+            path: "%kernel.logs_dir%/%kernel.environment%.log"
+            # log *all* messages (debug is lowest level)
+            level: debug
+
+        syslog_handler:
+            type: syslog
+            # log error-level messages and higher
+            level: debug

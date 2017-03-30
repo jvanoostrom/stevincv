@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="ProjectRepository")
  * @ORM\Table(name="project")
  */
 class Project
@@ -52,6 +52,14 @@ class Project
      *
      */
     protected $functionTitle;
+
+    /**
+     * @ORM\Column(type="string")
+     *
+     * @Assert\NotBlank(message="Vul de projectnaam in.")
+     *
+     */
+    protected $projectName;
 
     /**
      * @ORM\Column(type="text")
@@ -369,6 +377,30 @@ class Project
     }
 
     /**
+     * Set projectName
+     *
+     * @param string $projectName
+     *
+     * @return Project
+     */
+    public function setProjectName($projectName)
+    {
+        $this->projectName = $projectName;
+
+        return $this;
+    }
+
+    /**
+     * Get projectName
+     *
+     * @return string
+     */
+    public function getProjectName()
+    {
+        return $this->projectName;
+    }
+
+    /**
      * @Assert\Callback
      */
     public function validateEndDate(ExecutionContextInterface $context, $payload)
@@ -383,5 +415,4 @@ class Project
             }
         }
     }
-
 }

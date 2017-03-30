@@ -120,29 +120,29 @@ class ProjectController extends Controller
             ->findOneBy(array('id' => $projectId));
 
         $newProject = clone $project;
-        $functionTitle = $project->getFunctionTitle();
+        $projectName = $project->getProjectName();
 
-        if(strpos(strtoupper($functionTitle),strtoupper("- Kopie")) !== false)
+        if(strpos(strtoupper($projectName),strtoupper("- Kopie")) !== false)
         {
-            $functionTitle = substr($functionTitle,0,strpos($functionTitle,"-")-1);
+            $projectName = substr($projectName,0,strpos($projectName,"-")-1);
         }
 
-        $qb->select(array('u.functionTitle')) // string 'u' is converted to array internally
+        $qb->select(array('u.projectName')) // string 'u' is converted to array internally
         ->from('AppBundle:Project', 'u')
             ->where($qb->expr()->andX(
                 $qb->expr()->eq('u.user', ':userId'),
-                $qb->expr()->like('u.functionTitle', ':functionTitle')
+                $qb->expr()->like('u.projectName', ':projectName')
             ))
-            ->orderBy('u.functionTitle', 'DESC')
-            ->setParameter('functionTitle', $functionTitle."%")
+            ->orderBy('u.projectName', 'DESC')
+            ->setParameter('projectName', $projectName."%")
             ->setParameter('userId', $userId);
 
-        $maxFunctionTitle = $qb->getQuery()->getResult();
-        $maxFunctionTitle = $maxFunctionTitle[0]['functionTitle'];
+        $maxProjectName = $qb->getQuery()->getResult();
+        $maxProjectName = $maxProjectName[0]['projectName'];
 
-        $copyNumber = substr($maxFunctionTitle,-1);
+        $copyNumber = substr($maxProjectName,-1);
         $copyNumber = $copyNumber + 1;
-        $newProject->setFunctionTitle($functionTitle." - Kopie ".$copyNumber);
+        $newProject->setProjectName($projectName." - Kopie ".$copyNumber);
         $newProject->setUpdatedAt(new \DateTime());
 
         $em->persist($newProject);
@@ -260,6 +260,36 @@ class ProjectController extends Controller
         $this->addFlash(
             'notice',
             'Het project is succesvol verwijderd.'
+        );
+
+        return $this->redirectToRoute('project_index', array('userId' => $userId));
+
+    }
+
+    /**
+     * @Route("/{userId}/project/updateall", name="project_update")
+     *
+     */
+    public function updateAction(Request $request, $userId)
+    {
+
+
+        $em = $this->getDoctrine()->getManager();
+
+        $projects = $em->getRepository('AppBundle:Project')
+            ->findAll();
+
+        foreach($projects as $project)
+        {
+            $functionTitle = $project->getFunctionTitle();
+            $project->setProjectName($functionTitle);
+            $em->persist($project);
+            $em->flush();
+        }
+
+        $this->addFlash(
+            'notice',
+            'De projecten zijn succesvol geupdate.'
         );
 
         return $this->redirectToRoute('project_index', array('userId' => $userId));
