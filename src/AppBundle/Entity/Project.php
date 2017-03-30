@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 
 /**
- * @ORM\Entity(repositoryClass="ProjectRepository")
+ * @ORM\Entity
  * @ORM\Table(name="project")
  */
 class Project
