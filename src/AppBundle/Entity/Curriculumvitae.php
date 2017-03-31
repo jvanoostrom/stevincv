@@ -490,4 +490,30 @@ class Curriculumvitae
     {
         return $this->curriculumvitaeProjects;
     }
+
+    /**
+     * @Assert\Callback
+     */
+    public function validatePublication(ExecutionContextInterface $context, $payload)
+    {
+        if (count($this->getExtracurricular()) + count($this->getPublications()) == 0)
+        {
+            $context->buildViolation('Voeg een publicatie toe.')
+                ->atPath('publications')
+                ->addViolation();
+        }
+    }
+
+    /**
+     * @Assert\Callback
+     */
+    public function validateExtracurricular(ExecutionContextInterface $context, $payload)
+    {
+        if (count($this->getExtracurricular()) + count($this->getPublications()) == 0)
+        {
+            $context->buildViolation('Voeg een nevenactiviteit toe.')
+                ->atPath('extracurricular')
+                ->addViolation();
+        }
+    }
 }

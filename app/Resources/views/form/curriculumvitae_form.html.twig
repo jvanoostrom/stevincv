@@ -44,9 +44,9 @@
                         <ul class="collapsible" data-collapsible="expandable">
                             <li>
                                 <div class="collapsible-header row" style="margin-bottom:0">
-                                    <div class="col s6" style="padding-left:0">{{ form_label(form.profile, 'Profiel') }}</div>
+                                    <div class="col s5" style="padding-left:0">{{ form_label(form.profile, 'Profiel') }}</div>
                                     <div class="col s5">{{ form_errors(form.profile) }}</div>
-                                    <div class="col s1" style="padding-right:0"><i class="material-icons">arrow_drop_down</i></div>
+                                    <div class="col s2" style="padding-right:0"><i class="material-icons">arrow_drop_down</i></div>
                                 </div>
                                 <div class="collapsible-body">
                                     {{ form_widget(form.profile) }}
@@ -54,9 +54,9 @@
                             </li>
                             <li>
                                 <div class="collapsible-header row" style="margin-bottom:0">
-                                    <div class="col s6" style="padding-left:0">{{ form_label(form.curriculumvitaeProjects, 'Projecten (maximaal 6)') }}</div>
+                                    <div class="col s5" style="padding-left:0">{{ form_label(form.curriculumvitaeProjects, 'Projecten (maximaal 6)') }}</div>
                                     <div class="col s5">{{ form_errors(form.curriculumvitaeProjects) }}</div>
-                                    <div class="col s1" style="padding-right:0"><i class="material-icons">arrow_drop_down</i></div>
+                                    <div class="col s2" style="padding-right:0"><i class="material-icons">arrow_drop_down</i></div>
                                 </div>
                                 <div class="collapsible-body" id="project-fields-list" data-prototype="{{ form_widget(form.curriculumvitaeProjects.vars.prototype)|e }}">
                                     <div id="project-div">
@@ -84,9 +84,9 @@
                             </li>
                             <li>
                                 <div class="collapsible-header row" style="margin-bottom:0">
-                                    <div class="col s6" style="padding-left:0">{{ form_label(form.education, 'Opleidingen (maximaal 4)') }}</div>
+                                    <div class="col s5" style="padding-left:0">{{ form_label(form.education, 'Opleidingen (maximaal 4)') }}</div>
                                     <div class="col s5">{{ form_errors(form.education) }}</div>
-                                    <div class="col s1" style="padding-right:0"><i class="material-icons">arrow_drop_down</i></div>
+                                    <div class="col s2" style="padding-right:0"><i class="material-icons">arrow_drop_down</i></div>
                                 </div>
                                 <div class="collapsible-body">
                                     {{ form_widget(form.education) }}
@@ -94,9 +94,9 @@
                             </li>
                             <li>
                                 <div class="collapsible-header row" style="margin-bottom:0">
-                                    <div class="col s6" style="padding-left:0">{{ form_label(form.certificates, 'Certificaten (maximaal 6)') }}</div>
+                                    <div class="col s5" style="padding-left:0">{{ form_label(form.certificates, 'Certificaten (maximaal 6)') }}</div>
                                     <div class="col s5">{{ form_errors(form.certificates) }}</div>
-                                    <div class="col s1" style="padding-right:0"><i class="material-icons">arrow_drop_down</i></div>
+                                    <div class="col s2" style="padding-right:0"><i class="material-icons">arrow_drop_down</i></div>
                                 </div>
                                 <div class="collapsible-body">
                                     {{ form_widget(form.certificates) }}
@@ -104,9 +104,9 @@
                             </li>
                             <li>
                                 <div class="collapsible-header row" style="margin-bottom:0">
-                                    <div class="col s6" style="padding-left:0">{{ form_label(form.skills, 'Competenties (maximaal 15)') }}</div>
+                                    <div class="col s5" style="padding-left:0">{{ form_label(form.skills, 'Competenties (maximaal 15)') }}</div>
                                     <div class="col s5">{{ form_errors(form.skills) }}</div>
-                                    <div class="col s1" style="padding-right:0"><i class="material-icons">arrow_drop_down</i></div>
+                                    <div class="col s2" style="padding-right:0"><i class="material-icons">arrow_drop_down</i></div>
                                 </div>
                                 <div class="collapsible-body">
                                     {{ form_widget(form.skills) }}
