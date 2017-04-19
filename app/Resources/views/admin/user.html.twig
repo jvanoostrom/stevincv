@@ -78,13 +78,11 @@
                     <div id="card-alert" class="card red reset-entity-{{ user.id }}" style="display:none">
                         <div class="card-content white-text valign-wrapper">
                             <i class="material-icons valign">warning</i>&nbsp;
-                            <span>Weet je zeker dat je het wachtwoord van {{ user.personalia.firstName }} {{ user.personalia.lastName }} wilt resetten?
-                                    <form method="post" action="{{ path('fos_user_resetting_send_email') }}">
-                                        <input type="hidden" value="{{ user.username }}" name="username">
-                                        <input type="hidden" value="1" name="admin">
-                                        <input type="submit" value="Ja, reset wachtwoord.">
+                            <span>Weet je zeker dat je het wachtwoord van {{ user.personalia.firstName }} {{ user.personalia.lastName }} wilt resetten?</span><form method="post" action="{{ path('fos_user_resetting_send_email') }}"><input class="linkButton" type="submit" value="Ja, reset wachtwoord.">
+                                    <input type="hidden" value="{{ user.username }}" name="username">
+                                    <input type="hidden" value="1" name="admin">
                                     </form>
-                                </span>
+
                         </div>
                     </div>
             {% endfor %}

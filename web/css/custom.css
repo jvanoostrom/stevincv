@@ -213,3 +213,11 @@ a {
 .title span {
     font-weight: bold;
 }
+
+.linkButton {
+    background: none;
+    border: none;
+    color: #FFFFFF;
+    font-weight: bold;
+    cursor: pointer;
+}
