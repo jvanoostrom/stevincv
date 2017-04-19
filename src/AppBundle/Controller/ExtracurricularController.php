@@ -76,7 +76,7 @@ class ExtracurricularController extends Controller
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $extracurricular = $form->getData();
 
             $em = $this->getDoctrine()->getManager();
@@ -134,7 +134,7 @@ class ExtracurricularController extends Controller
         $form = $this->createForm(ExtracurricularType::class, $extracurricular);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $extracurricular = $form->getData();
 
             $em->persist($extracurricular);

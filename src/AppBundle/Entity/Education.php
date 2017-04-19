@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 
 /**
@@ -27,21 +28,21 @@ class Education
     /**
      * @ORM\Column(type="string")
      *
-     * @Assert\NotBlank(message="Vul de naam van de opleiding in.", groups={"Education"})
+     * @Assert\NotBlank(message="Vul de naam van de opleiding in.")
      *
      */
     protected $educationName;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      *
      */
-    protected $educationSpecialisation;
+    protected $educationSpecialisation = null;
 
     /**
      * @ORM\Column(type="string")
      *
-     * @Assert\NotBlank(message="Vul het opleidingsinstituut in.", groups={"Education"})
+     * @Assert\NotBlank(message="Vul het opleidingsinstituut in.")
      *
      */
     protected $educationInstitute;
@@ -49,16 +50,17 @@ class Education
     /**
      * @ORM\Column(type="date")
      *
-     * @Assert\NotBlank(message="Vul de startdatum in.", groups={"Education"})
+     * @Assert\DateTime()
+     * @Assert\NotBlank(message="Vul de startdatum in.")
      */
     protected $startDate;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      *
-     * @Assert\NotBlank(message="Vul de einddatum in.", groups={"Education"})
+     * @Assert\DateTime()
      */
-    protected $endDate;
+    protected $endDate = null;
 
     /**
      * @ORM\Column(type="datetime")
@@ -161,7 +163,7 @@ class Education
      *
      * @return Education
      */
-    public function setStartDate(\DateTime $startDate)
+    public function setStartDate(\DateTime $startDate = null)
     {
         $this->startDate = $startDate;
 
@@ -185,7 +187,7 @@ class Education
      *
      * @return Education
      */
-    public function setEndDate(\DateTime $endDate)
+    public function setEndDate(\DateTime $endDate = null)
     {
         $this->endDate = $endDate;
 
@@ -248,6 +250,22 @@ class Education
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * @Assert\Callback
+     */
+    public function validateEndDate(ExecutionContextInterface $context, $payload)
+    {
+        if ($this->getEndDate() != null)
+        {
+            if($this->getEndDate() < $this->getStartDate())
+            {
+                $context->buildViolation('De einddatum moet na de startdatum liggen.')
+                    ->atPath('endDate')
+                    ->addViolation();
+            }
+        }
     }
 
 }

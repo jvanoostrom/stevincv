@@ -18,13 +18,18 @@ class EducationType extends AbstractType
     {
         $builder
                 ->add('educationName', TextType::class)
-                ->add('educationSpecialisation', TextType::class)
+                ->add('educationSpecialisation', TextType::class, array(
+                    'required' => false,
+                ))
                 ->add('educationInstitute', TextType::class)
                 ->add('startDate', DateType::class, array(
-                    'widget' => 'single_text',
+                    'widget' => 'text',
+                    'label' => 'Startdatum',
                     ))
                 ->add('endDate', DateType::class, array(
-                    'widget' => 'single_text',
+                    'widget' => 'text',
+                    'label' => 'Einddatum',
+                    'required' => false
                     ))
                 ->add('submit', SubmitType::class, array('label' => 'Opslaan'))
                 ->getForm();

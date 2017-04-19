@@ -51,6 +51,7 @@ class CurriculumvitaeType extends AbstractType
                     ),
                     'allow_add' => true,
                     'allow_delete' => true,
+                    'error_bubbling' => false
                 ))
 
                 ->add('education', EntityType::class, array(
@@ -85,6 +86,7 @@ class CurriculumvitaeType extends AbstractType
                             ->where('u.user = '.$userId)
                             ->orderBy('u.endDate', 'DESC');
                     },
+                    'required' => false
                 ))
                 ->add('publications', EntityType::class, array(
                     'expanded' => true,
@@ -96,6 +98,7 @@ class CurriculumvitaeType extends AbstractType
                             ->where('u.user = '.$userId)
                             ->orderBy('u.publishedDate', 'DESC');
                     },
+                    'required' => false
                 ))
                 ->add('skills', EntityType::class, array(
                     'expanded' => true,
@@ -118,7 +121,7 @@ class CurriculumvitaeType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => Curriculumvitae::class,
-        ));
+            ));
         $resolver->setRequired('userId');
     }
 

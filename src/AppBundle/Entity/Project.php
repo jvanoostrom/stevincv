@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 
 /**
@@ -24,6 +25,8 @@ class Project
      *      joinColumns={@ORM\JoinColumn(name="project_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
      *      )
+     *
+     * @Assert\Count(min=3, minMessage="Voeg minimaal {{ limit }} tags toe.")
      */
     private $tags;
 
@@ -37,7 +40,7 @@ class Project
     /**
      * @ORM\Column(type="string")
      *
-     * @Assert\NotBlank(message="Vul de klantnaam in.", groups={"Project"})
+     * @Assert\NotBlank(message="Vul de klantnaam in.")
      *
      */
     protected $customerName;
@@ -45,15 +48,24 @@ class Project
     /**
      * @ORM\Column(type="string")
      *
-     * @Assert\NotBlank(message="Vul de functietitel in.", groups={"Project"})
+     * @Assert\NotBlank(message="Vul de functietitel in.")
      *
      */
     protected $functionTitle;
 
     /**
+     * @ORM\Column(type="string")
+     *
+     * @Assert\NotBlank(message="Vul de projectnaam in.")
+     *
+     */
+    protected $projectName;
+
+    /**
      * @ORM\Column(type="text")
      *
-     * @Assert\NotBlank(message="Vul de tekst voor de situatie in.", groups={"Project"})
+     * @Assert\NotBlank(message="Vul de tekst voor de situatie in.")
+     * @Assert\Length(max=325, maxMessage="De tekst voor de situatie kan maximaal {{ limit }} tekens bevatten.")
      *
      */
     protected $situationText;
@@ -61,7 +73,8 @@ class Project
     /**
      * @ORM\Column(type="text")
      *
-     * @Assert\NotBlank(message="Vul de tekst voor de werkzaamheden in.", groups={"Project"})
+     * @Assert\NotBlank(message="Vul de tekst voor de werkzaamheden in.")
+     * @Assert\Length(max=525, maxMessage="De tekst voor de werkzaamheden kan maximaal {{ limit }} tekens bevatten.")
      *
      */
     protected $taskText;
@@ -69,7 +82,8 @@ class Project
     /**
      * @ORM\Column(type="text")
      *
-     * @Assert\NotBlank(message="Vul de tekst voor het resultaat in.", groups={"Project"})
+     * @Assert\NotBlank(message="Vul de tekst voor het resultaat in.")
+     * @Assert\Length(max=725, maxMessage="De tekst voor het resultaat kan maximaal {{ limit }} tekens bevatten.")
      *
      */
     protected $resultText;
@@ -77,16 +91,16 @@ class Project
     /**
      * @ORM\Column(type="date")
      *
-     * @Assert\NotBlank(message="Vul de startdatum in.", groups={"Project"})
+     * @Assert\NotBlank(message="Vul de startdatum in.")
      */
     protected $startDate;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      *
-     * @Assert\NotBlank(message="Vul de einddatum in.", groups={"Project"})
+     * @Assert\DateTime()
      */
-    protected $endDate;
+    protected $endDate = null;
 
     /**
      * @ORM\Column(type="datetime")
@@ -239,7 +253,7 @@ class Project
      *
      * @return Project
      */
-    public function setStartDate(\DateTime $startDate)
+    public function setStartDate(\DateTime $startDate = null)
     {
         $this->startDate = $startDate;
 
@@ -263,7 +277,7 @@ class Project
      *
      * @return Project
      */
-    public function setEndDate(\DateTime $endDate)
+    public function setEndDate(\DateTime $endDate = null)
     {
         $this->endDate = $endDate;
 
@@ -362,4 +376,43 @@ class Project
         return $this;
     }
 
+    /**
+     * Set projectName
+     *
+     * @param string $projectName
+     *
+     * @return Project
+     */
+    public function setProjectName($projectName)
+    {
+        $this->projectName = $projectName;
+
+        return $this;
+    }
+
+    /**
+     * Get projectName
+     *
+     * @return string
+     */
+    public function getProjectName()
+    {
+        return $this->projectName;
+    }
+
+    /**
+     * @Assert\Callback
+     */
+    public function validateEndDate(ExecutionContextInterface $context, $payload)
+    {
+        if ($this->getEndDate() != null)
+        {
+            if($this->getEndDate() < $this->getStartDate())
+            {
+                $context->buildViolation('De einddatum moet na de startdatum liggen.')
+                    ->atPath('endDate')
+                    ->addViolation();
+            }
+        }
+    }
 }

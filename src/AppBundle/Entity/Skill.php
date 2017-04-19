@@ -4,16 +4,24 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="skill")
+ * @ORM\Table(name="skill",uniqueConstraints={
+ *     @ORM\UniqueConstraint(name="skillText_user", columns={"skill_text", "user_id"})}))
+ *
+ * @UniqueEntity(
+ *     fields={"user", "skillText"},
+ *     errorPath="skillText",
+ *     message="Je hebt competentie {{ value }} al toegevoegd."
+ * )
  */
 class Skill
 {
     /**
      * @ORM\ManyToOne(targetEntity="User")
+     *
      */
     private $user;
     
@@ -25,9 +33,9 @@ class Skill
     protected $id;
 
     /**
-     * @ORM\Column(type="string", length=20, unique=true)
+     * @ORM\Column(type="string", length=30)
      *
-     * @Assert\NotBlank(message="Vul een competentie in.", groups={"Skill"})
+     * @Assert\NotBlank(message="Vul een competentie in.")
      *
      */
     protected $skillText;
@@ -35,7 +43,7 @@ class Skill
     /**
      * @ORM\Column(type="integer")
      *
-     * @Assert\NotBlank(message="Vul een gewicht in.", groups={"Skill"})
+     * @Assert\NotBlank(message="Vul een gewicht in.")
      *
      */
     protected $skillWeight;
@@ -121,4 +129,5 @@ class Skill
     {
         return $this->user;
     }
+
 }

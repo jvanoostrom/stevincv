@@ -20,6 +20,8 @@ class Builder implements ContainerAwareInterface
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $personalia = $user->getPersonalia();
 
+        $profileAvatarName = $personalia->getProfileAvatarName();
+
         $helper = $this->container->get('vich_uploader.templating.helper.uploader_helper');
         $path = $helper->asset($personalia, 'profileImageFile');
 
@@ -27,7 +29,7 @@ class Builder implements ContainerAwareInterface
         $menu->addChild($child, array(
             'uri' => $user->getId(),
             'extras' => array(
-                'img' => $path,
+                'img' => $profileAvatarName,
                 'userId' => $user->getId()
             ),
         ));
@@ -39,14 +41,13 @@ class Builder implements ContainerAwareInterface
         foreach($users as $user) {
             $personalia = $user->getPersonalia();
 
-            $helper = $this->container->get('vich_uploader.templating.helper.uploader_helper');
-            $path = $helper->asset($personalia, 'profileImageFile');
+            $profileAvatarName = $personalia->getProfileAvatarName();
 
             $child = $personalia->getFirstName().' '.$personalia->getLastName();
             $menu->addChild($child, array(
                 'uri' => $user->getId(),
                 'extras' => array(
-                    'img' => $path,
+                    'img' => $profileAvatarName,
                     'userId' => $user->getId()
                 ),
             ));
@@ -63,13 +64,11 @@ class Builder implements ContainerAwareInterface
         $menu = $factory->createItem('root');
 
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
-        $em = $this->container->get('doctrine')->getManager();
-        $userPersonalia = $em->getRepository('AppBundle:Personalia')
-                                ->findOneBy( array('user' => $user->getId()));
+        $personalia = $user->getPersonalia();
 
-        $profileAvatarName = $userPersonalia->getProfileAvatarName();
+        $profileAvatarName = $personalia->getProfileAvatarName();
 
-        $child = $userPersonalia->getFirstName().' '.$userPersonalia->getLastName();
+        $child = $personalia->getFirstName().' '.$personalia->getLastName();
         $menu->addChild($child, array(
             'uri' => '#!',
             'extras' => array(

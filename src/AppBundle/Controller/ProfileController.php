@@ -51,6 +51,56 @@ class ProfileController extends Controller
             'profile' => $profile
         ));
     }
+
+    /**
+     * @Route("/{userId}/profile/copy/{profileId}", name="profile_copy")
+     *
+     */
+    public function copyAction(Request $request, $userId, $profileId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $qb = $em->createQueryBuilder();
+
+        $profile = $em->getRepository('AppBundle:Profile')
+            ->findOneBy(array('id' => $profileId));
+
+        $newProfile = clone $profile;
+        $shortDescription = $profile->getShortDescription();
+
+        if(strpos(strtoupper($shortDescription),strtoupper("- Kopie")) !== false)
+        {
+            $shortDescription = substr($shortDescription,0,strpos($shortDescription,"-")-1);
+        }
+
+        $qb->select(array('u.shortDescription')) // string 'u' is converted to array internally
+        ->from('AppBundle:Profile', 'u')
+            ->where($qb->expr()->andX(
+                $qb->expr()->eq('u.user', ':userId'),
+                $qb->expr()->like('u.shortDescription', ':shortDescription')
+            ))
+            ->orderBy('u.shortDescription', 'DESC')
+            ->setParameter('shortDescription', $shortDescription."%")
+            ->setParameter('userId', $userId);
+
+        $maxDescription = $qb->getQuery()->getResult();
+        $maxDescription = $maxDescription[0]['shortDescription'];
+
+        $copyNumber = substr($maxDescription,-1);
+        $copyNumber = $copyNumber + 1;
+        $newProfile->setShortDescription($shortDescription." - Kopie ".$copyNumber);
+        $newProfile->setUpdatedAt(new \DateTime());
+
+        $em->persist($newProfile);
+        $em->flush();
+
+        $this->addFlash(
+            'notice',
+            'Het profiel is succesvol gekopieërd.'
+        );
+
+        return $this->redirectToRoute('profile_index', array('userId' => $userId));
+    }
+
     /**
      * @Route("/{userId}/profile/add", name="profile_add")
      *
@@ -73,6 +123,8 @@ class ProfileController extends Controller
             }
         }
 
+        $this->serializeTags();
+
         $profile = new Profile();
 
         $em = $this->getDoctrine()->getManager();
@@ -83,7 +135,7 @@ class ProfileController extends Controller
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $profile = $form->getData();
 
             $profile->setUser($user);
@@ -128,6 +180,7 @@ class ProfileController extends Controller
                 return $this->redirectToRoute('profile_index', array('userId' => $userId));
             }
         }
+        $this->serializeTags();
 
         $em = $this->getDoctrine()->getManager();
 
@@ -137,7 +190,7 @@ class ProfileController extends Controller
         $form = $this->createForm(ProfileType::class, $profile);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $profile = $form->getData();
 
             $em->persist($profile);
@@ -213,53 +266,25 @@ class ProfileController extends Controller
 
     }
 
-//    public function serializeTags()
-//    {
-//        // Initialize encoder, normaliser and serializer
-//        $encoder = new JsonEncoder();
-//        $normalizer = new ObjectNormalizer();
-//        $normalizer->setIgnoredAttributes(array('id'));
-//        $serializer = new Serializer(array($normalizer), array($encoder));
-//
-//        // Obtain Tags
-//        $em = $this->getDoctrine()->getManager();
-//        $tags = $em->getRepository('AppBundle:Tag')->findAll();
-//        $count = count($tags);
-//        $i=0;
-//        $content = '[';
-//        $content .= "\r\n";
-//        foreach($tags as $tag)
-//        {
-//            $content .= "  ";
-//            $content .= '"'.$tag->getTagText() .'"';
-//            if(++$i != $count)
-//            {
-//                $content .=',';
-//            }
-//            $content .= "\r\n";
-//        }
-//        $content .= ']';
-//        $jsonContent = $serializer->serialize($tags, 'json');
-//        $fs = new Filesystem();
-//        //$fs->dumpFile('json/tags.json', $content);
-//
-//    }
-//
-//    public function checkUser($msg, $route, $userId)
-//    {
-//        // If not correct user
-//        $roles = $this->getUser()->getRoles();
-//        if($userId != $this->getUser()->getId())
-//        {
-//            if (!in_array('ROLE_ADMIN', $roles)) {
-//                $this->addFlash(
-//                    'error',
-//                    $msg
-//                );
-//
-//                return $this->redirectToRoute($route, array('userId' => $userId));
-//            }
-//        }
-//    }
+    public function serializeTags()
+    {
+        // Obtain Tags
+        $em = $this->getDoctrine()->getManager();
+        $tags = $em->getRepository('AppBundle:Tag')->findAll();
+        $count = count($tags);
+        $i=0;
+        $content = '[';
+        foreach($tags as $tag)
+        {
+            $content .= '"'.$tag->getTagText() .'"';
+            if(++$i != $count)
+            {
+                $content .=',';
+            }
+        }
+        $content .= ']';
+        $fs = new Filesystem();
+        $fs->dumpFile('json/tags.json', $content);
 
+    }
 }

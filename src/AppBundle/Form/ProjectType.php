@@ -27,6 +27,7 @@ class ProjectType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+                ->add('projectName', TextType::class)
                 ->add('customerName', TextType::class)
                 ->add('tags', TextType::class)
                 ->add('functionTitle', TextType::class)
@@ -34,10 +35,13 @@ class ProjectType extends AbstractType
                 ->add('taskText', TextareaType::class)
                 ->add('resultText', TextareaType::class)
                 ->add('startDate', DateType::class, array(
-                    'widget' => 'single_text',
+                    'widget' => 'text',
+                    'label' => 'Startdatum',
                     ))
                 ->add('endDate', DateType::class, array(
-                    'widget' => 'single_text',
+                    'widget' => 'text',
+                    'label' => 'Einddatum',
+                    'required' => false
                     ))
                 ->add('submit', SubmitType::class, array('label' => 'Opslaan'))
                 ->getForm();

@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 
 /**
@@ -27,23 +28,23 @@ class Extracurricular
     /**
      * @ORM\Column(type="string")
      *
-     * @Assert\NotBlank(message="Vul de titel van de nevenactiviteit in.", groups={"Extracurricular"})
+     * @Assert\NotBlank(message="Vul de titel van de nevenactiviteit in.")
      *
      */
     protected $extracurricularName;
 
     /**
      * @ORM\Column(type="date")
-     *
-     * @Assert\NotBlank(message="Vul de startdatum van de nevenactiviteit in.", groups={"Extracurricular"})
+     * @Assert\DateTime()
+     * @Assert\NotBlank(message="Vul de startdatum in.")
      */
     protected $startDate;
 
     /**
      * @ORM\Column(type="date", nullable=true)
-     *
+     * @Assert\DateTime()
      */
-    protected $endDate;
+    protected $endDate = null;
 
     /**
      * @ORM\Column(type="datetime")
@@ -185,5 +186,21 @@ class Extracurricular
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * @Assert\Callback
+     */
+    public function validateEndDate(ExecutionContextInterface $context, $payload)
+    {
+        if ($this->getEndDate() != null)
+        {
+            if($this->getEndDate() < $this->getStartDate())
+            {
+                $context->buildViolation('De einddatum moet na de startdatum liggen.')
+                    ->atPath('endDate')
+                    ->addViolation();
+            }
+        }
     }
 }

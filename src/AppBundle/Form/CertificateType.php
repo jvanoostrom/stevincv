@@ -20,7 +20,8 @@ class CertificateType extends AbstractType
                 ->add('certificateName', TextType::class)
                 ->add('certificateInstitute', TextType::class)
                 ->add('obtainedDate', DateType::class, array(
-                    'widget' => 'single_text',
+                    'widget' => 'text',
+                    'label' => 'Datum behaald',
                     ))
                 ->add('submit', SubmitType::class, array('label' => 'Opslaan'))
                 ->getForm();

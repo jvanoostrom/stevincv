@@ -3,13 +3,23 @@
 {% block content %}
 {% if project %}
     <div class="row">
+        <div class="col s12">
+            <label>Projectnaam</label><br/>
+            {{ project.projectName }}
+        </div>
+    </div>
+    <div class="row">
         <div class="col s12 m2">
             <label>Startdatum</label><br/>
             {{ project.startDate|date('d-m-Y') }}
         </div>
         <div class="col s12 m2">
             <label>Einddatum</label><br/>
-            {{ project.endDate|date('d-m-Y') }}
+            {% if education.endDate %}
+                {{ project.endDate|date('d-m-Y') }}
+            {% else %}
+                Heden
+            {% endif %}
         </div>
     </div>
     <div class="row">

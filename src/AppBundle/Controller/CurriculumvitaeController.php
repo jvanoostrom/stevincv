@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 
 
@@ -56,19 +57,21 @@ class CurriculumvitaeController extends Controller
             }
         }
 
-        $cv = new Curriculumvitae();
+        $this->serializeTags();
 
-        $em = $this->getDoctrine()->getManager();
-        $user = $em->getRepository('AppBundle:User')
-            ->findOneBy(array('id' => $userId));
+        $cv = new Curriculumvitae();
 
         $form = $this->createForm(CurriculumvitaeType::class, $cv, array('userId' => $userId));
 
         $form->handleRequest($request);
 
 
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $cv = $form->getData();
+
+            $em = $this->getDoctrine()->getManager();
+            $user = $em->getRepository('AppBundle:User')
+                ->findOneBy(array('id' => $userId));
 
             $cv->setUser($user);
 
@@ -98,6 +101,55 @@ class CurriculumvitaeController extends Controller
     }
 
     /**
+     * @Route("/{userId}/cv/copy/{cvId}", name="cv_copy")
+     *
+     */
+    public function copyAction(Request $request, $userId, $cvId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $qb = $em->createQueryBuilder();
+
+        $cv = $em->getRepository('AppBundle:Curriculumvitae')
+            ->findOneBy(array('id' => $cvId));
+
+        $newCv = clone $cv;
+        $cvName = $cv->getCurriculumvitaeName();
+
+        if(strpos(strtoupper($cvName),strtoupper("- Kopie")) !== false)
+        {
+            $cvName = substr($cvName,0,strpos($cvName,"-")-1);
+        }
+
+        $qb->select(array('u.curriculumvitaeName')) // string 'u' is converted to array internally
+        ->from('AppBundle:Curriculumvitae', 'u')
+            ->where($qb->expr()->andX(
+                $qb->expr()->eq('u.user', ':userId'),
+                $qb->expr()->like('u.curriculumvitaeName', ':curriculumvitaeName')
+            ))
+            ->orderBy('u.curriculumvitaeName', 'DESC')
+            ->setParameter('curriculumvitaeName', $cvName."%")
+            ->setParameter('userId', $userId);
+
+        $maxCvName = $qb->getQuery()->getResult();
+        $maxCvName = $maxCvName[0]['curriculumvitaeName'];
+
+        $copyNumber = substr($maxCvName,-1);
+        $copyNumber = $copyNumber + 1;
+        $newCv->setCurriculumvitaeName($maxCvName." - Kopie ".$copyNumber);
+        $newCv->setUpdatedAt(new \DateTime());
+
+        $em->persist($newCv);
+        $em->flush();
+
+        $this->addFlash(
+            'notice',
+            'Het cv is succesvol gekopieërd.'
+        );
+
+        return $this->redirectToRoute('cv_index', array('userId' => $userId));
+    }
+
+    /**
      * @Route("/{userId}/cv/edit/{cvId}", name="cv_edit")
      *
      */
@@ -119,6 +171,8 @@ class CurriculumvitaeController extends Controller
             }
         }
 
+        $this->serializeTags();
+
         $em = $this->getDoctrine()->getManager();
 
         $cv = $em->getRepository('AppBundle:Curriculumvitae')
@@ -134,7 +188,7 @@ class CurriculumvitaeController extends Controller
         $form = $this->createForm(CurriculumvitaeType::class, $cv, array('userId' => $userId));
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $cv = $form->getData();
 
             foreach ($originalProjects as $project) {
@@ -260,6 +314,28 @@ class CurriculumvitaeController extends Controller
         );
 
         return $this->redirectToRoute('cv_index', array('userId' => $userId));
+
+    }
+
+    public function serializeTags()
+    {
+        // Obtain Tags
+        $em = $this->getDoctrine()->getManager();
+        $tags = $em->getRepository('AppBundle:Tag')->findAll();
+        $count = count($tags);
+        $i=0;
+        $content = '[';
+        foreach($tags as $tag)
+        {
+            $content .= '"'.$tag->getTagText() .'"';
+            if(++$i != $count)
+            {
+                $content .=',';
+            }
+        }
+        $content .= ']';
+        $fs = new Filesystem();
+        $fs->dumpFile('json/tags.json', $content);
 
     }
 

@@ -76,7 +76,8 @@ class CertificateController extends Controller
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
+
             $certificate = $form->getData();
 
             $em = $this->getDoctrine()->getManager();
@@ -134,7 +135,7 @@ class CertificateController extends Controller
         $form = $this->createForm(CertificateType::class, $certificate);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $certificate = $form->getData();
 
             $em->persist($certificate);

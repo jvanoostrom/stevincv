@@ -27,7 +27,7 @@
     <table class="highlight responsive-table">
         <thead>
         <tr>
-            <th data-field="id" width="65"></th>
+            <th data-field="id" width="100"></th>
             <th data-field="shortDescription">Beschrijving</th>
             <th data-field="tags" width="450">Tags</th>
             <th data-field="updatedAt" width="150">Bijgewerkt</th>
@@ -41,6 +41,9 @@
                 {% if isUser %}
                     <a href="{{ url('profile_edit',{'userId' : userId, 'profileId' : profile.Id}) }}" alt="Bewerken">
                         <i class="material-icons">edit</i>
+                    </a>
+                    <a href="{{ url('profile_copy',{'userId' : userId, 'profileId' : profile.Id}) }}" alt="Kopieëren">
+                        <i class="material-icons">content_copy</i>
                     </a>
                     <a href="#" class="delete-button-{{ profile.id }}" alt="Verwijderen">
                         <i class="material-icons">delete</i>

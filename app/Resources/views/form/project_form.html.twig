@@ -4,7 +4,7 @@
 {% block content %}
 
     <div class="row">
-        <form class="col s12" method="POST" enctype="multipart/form-data">
+        <form class="col s12" method="POST" enctype="multipart/form-data" novalidate>
 
             {% for flash_message in app.session.flashBag.get('notice') %}
                 <div id="card-alert" class="card green" style="display:none">
@@ -13,88 +13,96 @@
                     </div>
                 </div>
             {% endfor %}
-
             <div class="col s12">
                 <div class="row">
-                    <div class="input-field col s12 m1">
-                        {{ form_label(form.startDate, 'Startdatum') }}
-                        {{ form_errors(form.startDate) }}
-                        {{ form_widget(form.startDate, {'attr': {
-                            'class': 'datepicker',
+                    <div class="input-field col s12 m6">
+                        {{ form_label(form.projectName, 'Projectnaam') }}
+                        {{ form_widget(form.projectName, {'attr': {
+                            'class': 'validate',
+                            'maxlength': 100,
                         }}) }}
+                        {{ form_errors(form.projectName) }}
                     </div>
-                    <div class="input-field col s12 m1">
-                        {{ form_label(form.endDate, 'Einddatum') }}
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m2">
+                        {{ form_widget(form.startDate) }}
+                        {{ form_errors(form.startDate) }}
+                    </div>
+                    <div class="input-field col s12 m2">
+                        {{ form_widget(form.endDate) }}
                         {{ form_errors(form.endDate) }}
-                        {{ form_widget(form.endDate, {'attr': {
-                            'class': 'datepicker',
-                        }}) }}
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12 m6">
                         {{ form_label(form.tags, 'Tags') }}
-                        {{ form_errors(form.tags) }}
                         {{ form_widget(form.tags, {'attr': {
                             'data-role': 'materialtags',
+                            'maxlength': 20
                         }}) }}
+                        {{ form_errors(form.tags) }}
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12 m6">
                         {{ form_label(form.functionTitle, 'Functietitel') }}
-                        {{ form_errors(form.functionTitle) }}
                         {{ form_widget(form.functionTitle, {'attr': {
                             'class': 'validate',
                             'maxlength': 100,
                         }}) }}
+                        {{ form_errors(form.functionTitle) }}
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12 m6">
                         {{ form_label(form.customerName, 'Klant') }}
-                        {{ form_errors(form.customerName) }}
                         {{ form_widget(form.customerName, {'attr': {
                             'class': 'validate',
-                            'maxlength': 100,
+                            'maxlength': 75,
                         }}) }}
+                        {{ form_errors(form.customerName) }}
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
                         {{ form_label(form.situationText, 'Situatie') }}
-                        {{ form_errors(form.situationText) }}
                         {{ form_widget(form.situationText, {'attr': {
                             'class': 'validate materialize-textarea',
-                            'length': 1250,
-                            'maxlength': 1250,
+                            'spellcheck': true,
+                            'length': 325,
+                            'maxlength': 325,
                         }}) }}
+                        {{ form_errors(form.situationText) }}
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
                         {{ form_label(form.taskText, 'Werkzaamheden') }}
-                        {{ form_errors(form.taskText) }}
                         {{ form_widget(form.taskText, {'attr': {
                             'class': 'validate materialize-textarea',
-                            'length': 1250,
-                            'maxlength': 1250,
+                            'spellcheck': true,
+                            'length': 525,
+                            'maxlength': 525,
                         }}) }}
+                        {{ form_errors(form.taskText) }}
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
                         {{ form_label(form.resultText, 'Resultaat') }}
-                        {{ form_errors(form.resultText) }}
                         {{ form_widget(form.resultText, {'attr': {
                             'class': 'validate materialize-textarea',
-                            'length': 1250,
-                            'maxlength': 1250,
+                            'spellcheck': true,
+                            'length': 725,
+                            'maxlength': 725,
                         }}) }}
+                        {{ form_errors(form.resultText) }}
                     </div>
                 </div>
                 <div class="row right">
                     {{ form_widget(form.submit, {'attr': {'class': 'btn waves-effect waves-light'}}) }}
+                    <a id="back" class="grey waves-effect waves-light btn">Annuleren</a>
                 </div>
             </div>
             {{ form_rest(form) }}

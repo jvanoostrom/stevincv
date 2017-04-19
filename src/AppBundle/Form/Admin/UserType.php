@@ -3,21 +3,16 @@
 
 namespace AppBundle\Form\Admin;
 
-use AppBundle\Entity\Personalia;
 use AppBundle\Entity\User;
 use AppBundle\Form\PersonaliaType;
-use FOS\UserBundle\Util\LegacyFormHelper;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class UserType extends AbstractType
@@ -28,15 +23,7 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('username', TextType::class)
-                ->add('plainPassword', RepeatedType::class, array(
-                    'type' => PasswordType::class,
-                    'options' => array('translation_domain' => 'FOSUserBundle'),
-                    'first_options' => array('label' => 'Wachtwoord'),
-                    'second_options' => array('label' => 'Herhaal wachtwoord'),
-                    'invalid_message' => 'fos_user.password.mismatch',
-                    'required' => false
-                ))
+                ->add('username', EmailType::class)
                 ->add('roles', ChoiceType::class,array(
                     'multiple' => true,
                     'choices'  => array(
@@ -45,7 +32,7 @@ class UserType extends AbstractType
                         'Beheerder' => 'ROLE_SUPER_ADMIN',
                 )))
                 ->add('personalia', PersonaliaType::class)
-                ->add('enabled', CheckboxType::class, array('required' => false, 'data' => false))
+                ->add('enabled', CheckboxType::class, array('required' => false))
                 ->add('submit', SubmitType::class, array('label' => 'Opslaan'))
                 ->getForm();
     }

@@ -31,9 +31,19 @@ class PersonaliaController extends Controller
         $form = $this->createForm(PersonaliaType::class, $personalia);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
 
             $personalia = $form->getData();
+
+            if(filesize($form['profileImageFile']->getData()) > 18000000)
+            {
+                $this->addFlash(
+                    'error',
+                    'De foto is te groot. Kies een foto van maximaal 15MB.'
+                );
+
+                return $this->redirectToRoute('personalia', array('userId' => $userId));
+            }
 
             // Remove old avatar file
             $fs = new Filesystem();
@@ -83,6 +93,8 @@ class PersonaliaController extends Controller
             die ( 'Please upload a pdf or an image ' );
         }
         finfo_close( $fileInfo );
+
+        $this->resizeImage($picture_url, $detected_type);
 
         if($detected_type == 'image/jpeg')
         {
@@ -136,4 +148,38 @@ class PersonaliaController extends Controller
 
     }
 
+    public function resizeImage($filename, $filetype)
+    {
+        $filesize = filesize($filename) / 1000000;
+
+        while($filesize > 1.5) {
+            $percent = 0.5;
+
+            // Get new dimensions
+            list($width, $height) = getimagesize($filename);
+            $new_width = round($width * $percent);
+            $new_height = round($height * $percent);
+
+            // Resample
+            $image_p = imagecreatetruecolor($new_width, $new_height);
+
+            // Content type
+            if ($filetype == 'image/jpeg') {
+                $image = imagecreatefromjpeg($filename);
+                imagecopyresampled($image_p, $image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+                imagejpeg($image_p, $filename, 100);
+                imagedestroy($image);
+
+            } elseif ($filetype == 'image/png') {
+                $image = imagecreatefrompng($filename);
+                imagecopyresampled($image_p, $image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+                imagepng($image_p, $filename, 100);
+                imagedestroy($image);
+            }
+            imagedestroy($image_p);
+            clearstatcache();
+            $filesize = filesize($filename) / 1000000;
+        }
+
+    }
 }

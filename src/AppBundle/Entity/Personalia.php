@@ -29,69 +29,58 @@ class Personalia
     /**
      * @ORM\Column(type="string", length=255, options={"default":"Bas"})
      *
-     * @Assert\NotBlank(message="Vul je voornaam in.", groups={"Registration", "Personalia"})
-     * @Assert\Length(
-     *     max=255,
-     *     maxMessage="De voornaam is te lang.",
-     *     groups={"Registration", "Personalia"}
-     * )
+     * @Assert\NotBlank(message="Vul je voornaam in.")
+     * @Assert\Length(max=255, maxMessage="De voornaam is te lang.")
      */
-    protected $firstName;
+    protected $firstName = 'Bas';
 
     /**
      * @ORM\Column(type="string", length=255, options={"default":"van Toor"})
      *
-     * @Assert\NotBlank(message="Vul je achternaam in.", groups={"Registration", "Personalia"})
-     * @Assert\Length(
-     *     max=255,
-     *     maxMessage="De achternaam is te lang.",
-     *     groups={"Registration", "Personalia"}
-     * )
+     * @Assert\NotBlank(message="Vul je achternaam in.")
+     * @Assert\Length(max=255, maxMessage="De achternaam is te lang.")
      */
-    protected $lastName;
+    protected $lastName = 'van Toor';
 
     /**
      * @ORM\Column(type="date", options={"default":"1935-09-17"})
      *
-     * @Assert\NotBlank(message="Vul je geboortedatum in.", groups={"Registration", "Personalia"})
+     * @Assert\NotBlank(message="Vul je geboortedatum in.")
      */
-    protected $dateOfBirth;
+    protected $dateOfBirth = '1935-09-17';
 
     /**
      * @ORM\Column(type="string", length=255, options={"default":"Vlaardingen"})
      *
-     * @Assert\NotBlank(message="Vul je woonplaats in.", groups={"Registration", "Personalia"})
-     * @Assert\Length(
-     *     max=255,
-     *     maxMessage="De naam van je woonplaats is te lang.",
-     *     groups={"Registration", "Personalia"}
-     * )
+     * @Assert\NotBlank(message="Vul je woonplaats in.")
+     * @Assert\Length(max=255, maxMessage="De naam van je woonplaats is te lang.")
      */
-    protected $placeOfResidence;
+    protected $placeOfResidence = 'Vlaardingen';
 
     /**
      * @ORM\Column(type="string", length=255, options={"default":"bassie.jpg"})
      *
-     * @Assert\NotBlank(message="Voeg een profielfoto toe.", groups={"Registration", "Personalia"})
-     * @Assert\File(mimeTypes={ "image/png", "image/jpeg" })
+     *
      */
-    protected $profileImageName;
+    protected $profileImageName = 'bassie.jpg';
 
     /**
      * @ORM\Column(type="string", length=255, options={"default":"bassie_circle.jpg"})
      *
-     * @Assert\NotBlank(message="Voeg een profielfoto toe.", groups={"Registration", "Personalia"})
-     * @Assert\File(mimeTypes={ "image/png", "image/jpeg" })
+     *
      */
-    protected $profileAvatarName;
+    protected $profileAvatarName = 'bassie_circle.jpg';
 
     /**
      *
      * @Vich\UploadableField(mapping="profile_image", fileNameProperty="profileImageName")
+     * @Assert\File(
+     *     maxSize="18M", maxSizeMessage="De foto mag niet groter zijn dan 15MB.",
+     *     mimeTypes={"image/jpeg","image/png"}, mimeTypesMessage="Voeg een JPEG of PNG foto toe.")
      *
      * @var File
      */
-    private $profileImageFile;
+    private $profileImageFile = null;
 
     /**
      * @ORM\Column(type="datetime")
@@ -177,7 +166,7 @@ class Personalia
      *
      * @return Personalia
      */
-    public function setDateOfBirth(\DateTime $dateOfBirth)
+    public function setDateOfBirth(\DateTime $dateOfBirth = null)
     {
         $this->dateOfBirth = $dateOfBirth;
 
@@ -225,7 +214,7 @@ class Personalia
      *
      * @return Personalia
      */
-    public function setProfileImageName($profileImageName)
+    public function setProfileImageName($profileImageName = null)
     {
         $this->profileImageName = $profileImageName;
 
@@ -249,7 +238,7 @@ class Personalia
      *
      * @return Personalia
      */
-    public function setProfileAvatarName($profileAvatarName)
+    public function setProfileAvatarName($profileAvatarName = null)
     {
         $this->profileAvatarName = $profileAvatarName;
 

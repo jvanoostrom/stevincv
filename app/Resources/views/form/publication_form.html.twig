@@ -4,7 +4,7 @@
 {% block content %}
 
     <div class="row">
-        <form class="col s12" method="POST" enctype="multipart/form-data">
+        <form class="col s12" method="POST" enctype="multipart/form-data" novalidate>
 
             {% for flash_message in app.session.flashBag.get('notice') %}
                 <div id="card-alert" class="card green" style="display:none">
@@ -18,34 +18,32 @@
                 <div class="row">
                     <div class="input-field col s12 m6">
                         {{ form_label(form.publicationTitle, 'Titel') }}
-                        {{ form_errors(form.publicationTitle) }}
                         {{ form_widget(form.publicationTitle, {'attr': {
                             'class': 'validate',
                             'maxlength': 100,
                         }}) }}
+                        {{ form_errors(form.publicationTitle) }}
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12 m2">
-                        {{ form_label(form.publishedDate, 'Publicatiedatum') }}
+                        {{ form_widget(form.publishedDate) }}
                         {{ form_errors(form.publishedDate) }}
-                        {{ form_widget(form.publishedDate, {'attr': {
-                            'class': 'datepicker',
-                        }}) }}
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12 m6">
                         {{ form_label(form.publicationJournal, 'Medium') }}
-                        {{ form_errors(form.publicationJournal) }}
                         {{ form_widget(form.publicationJournal, {'attr': {
                             'class': 'validate',
                             'maxlength': 100,
                         }}) }}
+                        {{ form_errors(form.publicationJournal) }}
                     </div>
                 </div>
                 <div class="row right">
                     {{ form_widget(form.submit, {'attr': {'class': 'btn waves-effect waves-light'}}) }}
+                    <a id="back" class="grey waves-effect waves-light btn">Annuleren</a>
                 </div>
             </div>
             {{ form_rest(form) }}

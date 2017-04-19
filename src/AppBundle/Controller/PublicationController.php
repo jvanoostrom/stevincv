@@ -76,7 +76,7 @@ class PublicationController extends Controller
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $publication = $form->getData();
 
             $em = $this->getDoctrine()->getManager();
@@ -134,7 +134,7 @@ class PublicationController extends Controller
         $form = $this->createForm(PublicationType::class, $publication);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $publication = $form->getData();
 
             $em->persist($publication);

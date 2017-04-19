@@ -25,12 +25,14 @@ class SkillController extends Controller
         );
 
         $skill = new Skill();
+        $skill->setUser($this->getUser());
         $form = $this->createForm(SkillType::class, $skill);
 
         return $this->render('index/skill.html.twig', array(
             'form' => $form->createView(),
             'skills' => $skills,
-            'userId' => $userId
+            'userId' => $userId,
+            'route' => 'index'
         ));
 
     }
@@ -57,12 +59,18 @@ class SkillController extends Controller
             }
         }
 
+        $skills = $this->getDoctrine()->getRepository('AppBundle:Skill')->findBy(
+            array('user' => $userId),
+            array('skillText' => 'ASC')
+        );
+
         $skill = new Skill();
+        $skill->setUser($this->getUser());
 
         $form = $this->createForm(SkillType::class, $skill);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $skill = $form->getData();
 
             $em = $this->getDoctrine()->getManager();
@@ -84,7 +92,10 @@ class SkillController extends Controller
 
 
         return $this->render('index/skill.html.twig', array(
-            'userId' => $userId
+            'userId' => $userId,
+            'form' => $form->createView(),
+            'skills' => $skills,
+            'route' => 'add'
         ));
 
     }
@@ -113,13 +124,18 @@ class SkillController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
+        $skills = $this->getDoctrine()->getRepository('AppBundle:Skill')->findBy(
+            array('user' => $userId),
+            array('skillText' => 'ASC')
+        );
+
         $skill = $em->getRepository('AppBundle:Skill')
             ->findOneBy(array('id' => $skillId));
 
         $form = $this->createForm(SkillType::class, $skill);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $skill = $form->getData();
 
             $em->persist($skill);
@@ -132,6 +148,14 @@ class SkillController extends Controller
 
             return $this->redirectToRoute('skill_index', array('userId' => $userId));
         }
+
+        return $this->render('index/skill.html.twig', array(
+            'userId' => $userId,
+            'form' => $form->createView(),
+            'skills' => $skills,
+            'route' => 'edit',
+            'skillId' => $skillId
+        ));
 
     }
 

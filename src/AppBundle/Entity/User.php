@@ -7,6 +7,7 @@ namespace AppBundle\Entity;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 
 /**
@@ -24,6 +25,8 @@ class User extends BaseUser
 
     /**
      * @ORM\OneToOne(targetEntity="Personalia", inversedBy="user", cascade={"persist", "remove"}, orphanRemoval=true)
+     *
+     * @Assert\Valid()
      */
     private $personalia;
 
@@ -65,4 +68,5 @@ class User extends BaseUser
     {
         return $this->personalia;
     }
+
 }

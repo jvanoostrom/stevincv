@@ -1,26 +1,19 @@
 $( document ).ready(function() {
 
-    // var tags = new Bloodhound({
-    //     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('text'),
-    //     queryTokenizer: Bloodhound.tokenizers.whitespace,
-    //     prefetch: '/json/tags.json'
-    // });
-    //
-    // tags.initialize();
-    //
-    // $('.typeahead-input').materialtags({
-    //     trimValue: true,
-    //     typeaheadjs: [{
-    //         highlight   : true
-    //     },
-    //         {
-    //             name: 'tags',
-    //             displayKey: 'name',
-    //             valueKey: 'name',
-    //             source: tags.ttAdapter()
-    //         }]
-    // });
-
+    $("#search").keyup(function(){
+        $("h6.title").each(function() {
+            var pageText = $(this).text().replace("<span>","").replace("</span>"),
+                searchedText = $("#search").val(),
+                theRegEx = new RegExp("("+searchedText+")", "igm"),
+                newHtml = pageText.replace(theRegEx ,"<span>$1</span>");
+            if ($(this).text().toUpperCase().includes($("#search").val().toUpperCase()) != 1) {
+                $(this).parent().parent().animate({ height: 'hide', opacity: 'hide' }, 'slow');
+            } else {
+                $(this).parent().parent().animate({ height: 'show', opacity: 'show' }, 'slow');
+                $(this).html(newHtml);
+            }
+        });
+    });
 
     // Materialize initialisation
     $(".button-collapse").sideNav();
@@ -29,26 +22,6 @@ $( document ).ready(function() {
 
     $(".dropdown-button").dropdown({
         belowOrigin: true // Displays dropdown below the button
-    });
-
-    $('.datepicker').pickadate({
-        selectMonths: true, // Creates a dropdown to control month
-        selectYears: 200, // Creates a dropdown of 15 years to control year
-        monthsFull: ['Januari', 'Februari', 'Maart', 'April', 'Mei', 'Juni', 'Juli', 'Augustus', 'September', 'Oktober', 'November', 'December'],
-        monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'],
-        weekdaysFull: ['Zondag', 'Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag', 'Zaterdag'],
-        weekdaysShort: ['Zo', 'Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za'],
-        today: 'Nu',
-        clear: 'Leeg',
-        close: 'Sluit',
-        labelMonthNext: 'Volgende maand',
-        labelMonthPrev: 'Vorige maand',
-        labelMonthSelect: 'Selecteer maand',
-        labelYearSelect: 'Selecteer jaar',
-        formatSubmit: 'yyyy-mm-dd',
-        format: 'yyyy-mm-dd',
-        closeOnSelect: true,
-        closeOnClear: true
     });
 
     $('.collapsible').collapsible();
@@ -63,6 +36,16 @@ $( document ).ready(function() {
         var classes = $(this).attr('class').split( '-' );
 
         $('.delete-entity-' + classes[2]).delay(200).slideDown(300).delay(5000).slideUp(300);
+    });
+
+    $('[class^=reset-button-]').click(function() {
+        var classes = $(this).attr('class').split( '-' );
+        $('.reset-entity-' + classes[2]).delay(200).slideDown(300).delay(5000).slideUp(300);
+    });
+
+    $('a#back').click(function(){
+        parent.history.back();
+        return false;
     });
 
     // Personalia page
@@ -87,7 +70,15 @@ $( document ).ready(function() {
                 });
             }
         });
+        $('div.btn').each(function() {
+            if ($(this).hasClass('disabled')) {
+                $(this).removeClass('disabled');
+            }
+            else {
+                $(this).addClass('disabled');
+            }
 
+        });
         $('#clicker').each(function() {
             if ($(this).attr('disabled')) {
                 $(this).removeAttr('disabled');
@@ -98,6 +89,12 @@ $( document ).ready(function() {
                 });
             }
         });
+    });
+
+    $(".datepick").keyup(function () {
+        if (this.value.length == this.maxLength) {
+            $(this).nextAll(':input:first').focus();
+        }
     });
 
     // Curriculumvitae page
@@ -310,6 +307,28 @@ $( document ).ready(function() {
         }
     });
 
+    // Limit number of skills in CV
+    var $checkBoxSkills = $("input[type=checkbox][id^=curriculumvitae_skills]");
+    var maxBoxesSkills = 15;
+    var countCheckedSkills = $checkBoxSkills.filter(":checked").length;
+    if (countCheckedSkills >= maxBoxesSkills)
+    {
+        $checkBoxSkills.not(":checked").attr("disabled", true);
+    }
+
+    $checkBoxSkills.change(function() {
+        var countCheckedSkills = $checkBoxSkills.filter(":checked").length;
+
+        if (countCheckedSkills >= maxBoxesSkills)
+        {
+            $checkBoxSkills.not(":checked").attr("disabled", true);
+        }
+        else
+        {
+            $checkBoxSkills.attr("disabled", false);
+        }
+    });
+
     // tooltip
     $('[id^=tooltip]').hover(function(){
         // Hover over code
@@ -367,6 +386,29 @@ $( document ).ready(function() {
         var classes = $(this).attr('class').split( '-' );
         $('#edit-skill-'+classes[1]).submit();
     });
+
+    // Typeahead
+
+
+    var tags = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.whitespace,
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        prefetch: '/web/json/tags.json'
+    });
+
+    $('.n-tag').typeahead(
+
+        {
+            hint: true,
+            highlight: true,
+            minLength: 1
+        },
+        {
+            name: 'tags',
+            source: tags
+        }
+    );
+
 
 
 });

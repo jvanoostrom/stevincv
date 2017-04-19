@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 
 /**
@@ -20,6 +21,8 @@ class Curriculumvitae
 
     /**
      * @ORM\ManyToOne(targetEntity="Profile")
+     *
+     * @Assert\NotBlank(message="Kies een profiel.")
      */
     private $profile;
 
@@ -29,11 +32,16 @@ class Curriculumvitae
      *      joinColumns={@ORM\JoinColumn(name="cv_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
      *      )
+     *
+     * @Assert\Count(min=3, minMessage="Voeg minimaal {{ limit }} tags toe.")
      */
     private $tags;
 
     /**
      * @ORM\OneToMany(targetEntity="CurriculumvitaeProject", mappedBy="curriculumvitae", cascade={"persist"})
+     * @Assert\Valid
+     * @Assert\Count(min=2, minMessage="Voeg minimaal {{ limit }} projecten toe.",
+     *               max=6, maxMessage="Voeg maximaal {{ limit }} projecten toe.")
      */
     private $curriculumvitaeProjects;
 
@@ -44,6 +52,9 @@ class Curriculumvitae
      *      inverseJoinColumns={@ORM\JoinColumn(name="education_id", referencedColumnName="id")}
      *      )
      * @ORM\OrderBy({"endDate" = "desc", "startDate" = "desc"})
+     *
+     * @Assert\Count(min=2, minMessage="Voeg minimaal {{ limit }} opleidingen toe.",
+     *               max=4, maxMessage="Voeg maximaal {{ limit }} opleidingen toe.")
      */
     private $education;
 
@@ -54,6 +65,9 @@ class Curriculumvitae
      *      inverseJoinColumns={@ORM\JoinColumn(name="certificate_id", referencedColumnName="id")}
      *      )
      * @ORM\OrderBy({"obtainedDate" = "desc"})
+     *
+     * @Assert\Count(min=2, minMessage="Voeg minimaal {{ limit }} certificaten toe.",
+     *               max=6, maxMessage="Voeg maximaal {{ limit }} certificaten toe.")
      */
     private $certificates;
 
@@ -64,6 +78,7 @@ class Curriculumvitae
      *      inverseJoinColumns={@ORM\JoinColumn(name="extracurricular_id", referencedColumnName="id")}
      *      )
      * @ORM\OrderBy({"endDate" = "desc", "startDate" = "desc"})
+     *
      */
     private $extracurricular;
 
@@ -84,6 +99,9 @@ class Curriculumvitae
      *      inverseJoinColumns={@ORM\JoinColumn(name="skill_id", referencedColumnName="id")}
      *      )
      * @ORM\OrderBy({"skillText" = "asc"})
+     *
+     * @Assert\Count(min=5, minMessage="Voeg minimaal {{ limit }} competenties toe.",
+     *               max=15, maxMessage="Voeg maximaal {{ limit }} competenties toe.")
      */
     private $skills;
 
@@ -97,7 +115,7 @@ class Curriculumvitae
     /**
      * @ORM\Column(type="string")
      *
-     * @Assert\NotBlank(message="Vul de naam van het cv in.", groups={"Curriculumvitae"})
+     * @Assert\NotBlank(message="Vul de naam van het cv in.")
      *
      */
     protected $curriculumvitaeName;
@@ -121,6 +139,7 @@ class Curriculumvitae
         $this->skills = new ArrayCollection();
         $this->projects = new ArrayCollection();
         $this->curriculumvitaeProjects = new ArrayCollection();
+        $this->tags = new ArrayCollection();
     }
 
     /**
@@ -472,4 +491,29 @@ class Curriculumvitae
         return $this->curriculumvitaeProjects;
     }
 
+    /**
+     * @Assert\Callback
+     */
+    public function validatePublication(ExecutionContextInterface $context, $payload)
+    {
+        if (count($this->getExtracurricular()) + count($this->getPublications()) == 0)
+        {
+            $context->buildViolation('Voeg een publicatie toe.')
+                ->atPath('publications')
+                ->addViolation();
+        }
+    }
+
+    /**
+     * @Assert\Callback
+     */
+    public function validateExtracurricular(ExecutionContextInterface $context, $payload)
+    {
+        if (count($this->getExtracurricular()) + count($this->getPublications()) == 0)
+        {
+            $context->buildViolation('Voeg een nevenactiviteit toe.')
+                ->atPath('extracurricular')
+                ->addViolation();
+        }
+    }
 }

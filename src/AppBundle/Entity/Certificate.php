@@ -27,7 +27,7 @@ class Certificate
     /**
      * @ORM\Column(type="string")
      *
-     * @Assert\NotBlank(message="Vul de naam van het certificaat in.", groups={"Certificate"})
+     * @Assert\NotBlank(message="Vul de naam van het certificaat in.")
      *
      */
     protected $certificateName;
@@ -35,21 +35,21 @@ class Certificate
     /**
      * @ORM\Column(type="string")
      *
-     * @Assert\NotBlank(message="Vul het opleidingsinstituut in.", groups={"Certificate"})
+     * @Assert\NotBlank(message="Vul het opleidingsinstituut in.")
      *
      */
     protected $certificateInstitute;
 
     /**
      * @ORM\Column(type="date")
-     *
-     * @Assert\NotBlank(message="Vul de behaalde datum in.", groups={"Certificate"})
+     * @Assert\DateTime()
+     * @Assert\NotBlank(message="Vul de behaalde datum in.")
      */
     protected $obtainedDate;
 
     /**
      * @ORM\Column(type="datetime")
-     *
+     * @Assert\DateTime()
      * @var \DateTime
      */
     private $updatedAt;
@@ -125,7 +125,7 @@ class Certificate
      *
      * @return Certificate
      */
-    public function setObtainedDate(\DateTime $obtainedDate)
+    public function setObtainedDate(\DateTime $obtainedDate = null)
     {
         $this->obtainedDate = $obtainedDate;
 

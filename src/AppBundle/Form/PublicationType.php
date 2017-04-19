@@ -20,7 +20,8 @@ class PublicationType extends AbstractType
                 ->add('publicationTitle', TextType::class)
                 ->add('publicationJournal', TextType::class)
                 ->add('publishedDate', DateType::class, array(
-                    'widget' => 'single_text',
+                    'widget' => 'text',
+                    'label' => 'Publicatiedatum',
                     ))
                 ->add('submit', SubmitType::class, array('label' => 'Opslaan'))
                 ->getForm();

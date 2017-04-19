@@ -1,7 +1,7 @@
 {% extends 'security/base_user.html.twig' %}
 
 {% block title %}
-    SteeVee | Login
+    SteVee | Login
 {% endblock %}
 
 {% block header %}
@@ -31,15 +31,18 @@
                     <label for='password' class="left-align">Wachtwoord</label>
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                 </div>
-                <label style='float: right;' hidden>
-                    <a class='pink-text' href='#!'><b>Forgot Password?</b></a>
+            </div>
+
+            <div class="row right">
+                <label>
+                    <a href='{{ path('fos_user_resetting_request') }}'><b>Wachtwoord vergeten?</b></a>
                 </label>
             </div>
 
             <br />
             <center>
                 <div class='row'>
-                    <button type='submit' name='btn_login' class='col s12 btn btn-large waves-effect indigo'>Login</button>
+                    <button type='submit' name='btn_login' class='col s12 btn btn-large waves-effect'>Login</button>
                 </div>
             </center>
         </form>

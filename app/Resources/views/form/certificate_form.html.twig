@@ -2,9 +2,8 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-
     <div class="row">
-        <form class="col s12" method="POST" enctype="multipart/form-data">
+        <form class="col s12" method="POST" enctype="multipart/form-data" novalidate>
 
             {% for flash_message in app.session.flashBag.get('notice') %}
                 <div id="card-alert" class="card green" style="display:none">
@@ -18,34 +17,32 @@
                 <div class="row">
                     <div class="input-field col s12 m6">
                         {{ form_label(form.certificateName, 'Naam certificaat') }}
-                        {{ form_errors(form.certificateName) }}
                         {{ form_widget(form.certificateName, {'attr': {
                             'class': 'validate',
                             'maxlength': 100,
                         }}) }}
+                        {{ form_errors(form.certificateName) }}
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12 m2">
-                        {{ form_label(form.obtainedDate, 'Datum behaald') }}
+                        {{ form_widget(form.obtainedDate) }}
                         {{ form_errors(form.obtainedDate) }}
-                        {{ form_widget(form.obtainedDate, {'attr': {
-                            'class': 'datepicker',
-                        }}) }}
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12 m6">
                         {{ form_label(form.certificateInstitute, 'Instituut') }}
-                        {{ form_errors(form.certificateInstitute) }}
                         {{ form_widget(form.certificateInstitute, {'attr': {
                             'class': 'validate',
                             'maxlength': 100,
                         }}) }}
+                        {{ form_errors(form.certificateInstitute) }}
                     </div>
                 </div>
                 <div class="row right">
                     {{ form_widget(form.submit, {'attr': {'class': 'btn waves-effect waves-light'}}) }}
+                    <a id="back" class="grey waves-effect waves-light btn">Annuleren</a>
                 </div>
             </div>
             {{ form_rest(form) }}

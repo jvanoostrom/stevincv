@@ -7,6 +7,7 @@ use AppBundle\Entity\Project;
 use AppBundle\Form\ProjectType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 
 
@@ -70,13 +71,15 @@ class ProjectController extends Controller
             }
         }
 
+        $this->serializeTags();
+
         $project = new Project();
 
         $form = $this->createForm(ProjectType::class, $project);
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $project = $form->getData();
 
             $em = $this->getDoctrine()->getManager();
@@ -105,6 +108,55 @@ class ProjectController extends Controller
     }
 
     /**
+     * @Route("/{userId}/project/copy/{projectId}", name="project_copy")
+     *
+     */
+    public function copyAction(Request $request, $userId, $projectId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $qb = $em->createQueryBuilder();
+
+        $project = $em->getRepository('AppBundle:Project')
+            ->findOneBy(array('id' => $projectId));
+
+        $newProject = clone $project;
+        $projectName = $project->getProjectName();
+
+        if(strpos(strtoupper($projectName),strtoupper("- Kopie")) !== false)
+        {
+            $projectName = substr($projectName,0,strpos($projectName,"-")-1);
+        }
+
+        $qb->select(array('u.projectName')) // string 'u' is converted to array internally
+        ->from('AppBundle:Project', 'u')
+            ->where($qb->expr()->andX(
+                $qb->expr()->eq('u.user', ':userId'),
+                $qb->expr()->like('u.projectName', ':projectName')
+            ))
+            ->orderBy('u.projectName', 'DESC')
+            ->setParameter('projectName', $projectName."%")
+            ->setParameter('userId', $userId);
+
+        $maxProjectName = $qb->getQuery()->getResult();
+        $maxProjectName = $maxProjectName[0]['projectName'];
+
+        $copyNumber = substr($maxProjectName,-1);
+        $copyNumber = $copyNumber + 1;
+        $newProject->setProjectName($projectName." - Kopie ".$copyNumber);
+        $newProject->setUpdatedAt(new \DateTime());
+
+        $em->persist($newProject);
+        $em->flush();
+
+        $this->addFlash(
+            'notice',
+            'Het project is succesvol gekopieërd.'
+        );
+
+        return $this->redirectToRoute('project_index', array('userId' => $userId));
+    }
+
+    /**
      * @Route("/{userId}/project/edit/{projectId}", name="project_edit")
      *
      */
@@ -126,6 +178,8 @@ class ProjectController extends Controller
             }
         }
 
+        $this->serializeTags();
+
         $em = $this->getDoctrine()->getManager();
 
         $project = $em->getRepository('AppBundle:Project')
@@ -134,7 +188,7 @@ class ProjectController extends Controller
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $project = $form->getData();
 
             $em->persist($project);
@@ -209,6 +263,28 @@ class ProjectController extends Controller
         );
 
         return $this->redirectToRoute('project_index', array('userId' => $userId));
+
+    }
+    
+    public function serializeTags()
+    {
+        // Obtain Tags
+        $em = $this->getDoctrine()->getManager();
+        $tags = $em->getRepository('AppBundle:Tag')->findAll();
+        $count = count($tags);
+        $i=0;
+        $content = '[';
+        foreach($tags as $tag)
+        {
+            $content .= '"'.$tag->getTagText() .'"';
+            if(++$i != $count)
+            {
+                $content .=',';
+            }
+        }
+        $content .= ']';
+        $fs = new Filesystem();
+        $fs->dumpFile('json/tags.json', $content);
 
     }
 

@@ -2,7 +2,6 @@
 
 namespace AppBundle\Controller\Admin;
 
-
 use AppBundle\Entity\Personalia;
 use AppBundle\Entity\User;
 use AppBundle\Form\Admin\UserType;
@@ -35,7 +34,6 @@ class UserController extends Controller
     {
 
         $user = new User();
-        //$personalia = new Personalia();
 
         $form = $this->createForm(UserType::class, $user);
 
@@ -47,19 +45,43 @@ class UserController extends Controller
             $user->setEmail($user->getUsername());
             $user->setEmailCanonical($user->getUsernameCanonical());
 
+            // Generate random password
+            $tokenGenerator = $this->container->get('fos_user.util.token_generator');
+            $randompass = substr($tokenGenerator->generateToken(), 0, 8);
+            $user->setPlainPassword($randompass);
+
             $user->getPersonalia()->setProfileImageName('bassie_'.$user->getPersonalia()->getLastName().'.jpg');
             $user->getPersonalia()->setProfileAvatarName('bassie_'.$user->getPersonalia()->getLastName().'_circle.png');
 
             $user->getPersonalia()->setUser($user);
-
             $fs = new Filesystem();
             $dir = $this->container->getParameter('kernel.root_dir');
             $fs->copy($dir.'/../web/img/bassie.jpg',$dir.'/../web/img/profile/'.$user->getPersonalia()->getProfileImageName());
             $fs->copy($dir.'/../web/img/bassie_circle.png',$dir.'/../web/img/profile/'.$user->getPersonalia()->getProfileAvatarName());
 
+            // Send e-mail with login details
+            $message = \Swift_Message::newInstance()
+                ->setSubject('Welkom bij SteVee!')
+                ->setFrom(array('vanoostrom@stevin.com' => 'Jeffrey van Oostrom'))
+                ->setTo($user->getEmail())
+                ->setBody(
+                    $this->renderView(
+                        'admin/email/new_user.html.twig',
+                        array(
+                            'first_name' => $user->getPersonalia()->getFirstName(),
+                            'username' => $user->getUsername(),
+                            'password' => $randompass
+                        )
+
+                    )
+                )
+                ->setContentType("text/html");
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
+
+            $this->get('mailer')->send($message);
 
             $this->addFlash(
                 'notice',
@@ -132,7 +154,7 @@ class UserController extends Controller
 
             $this->addFlash(
                 'notice',
-                'De consultant is succesvol toegevoegd.'
+                'De consultant is succesvol aangepast.'
             );
 
             return $this->redirectToRoute('admin_user');
@@ -145,5 +167,37 @@ class UserController extends Controller
 
     }
 
+    /**
+     * @Route("/admin/user/active/{userId}", name="admin_user_toggle_active")
+     */
+    public function toggleActiveAction(Request $request, $userId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('AppBundle:User')->findOneBy(
+            array(
+                'id' => $userId
+            )
+        );
+
+        if($user->isEnabled()) {
+            $user->setEnabled(false);
+            $text = 'gedeactiveerd';
+        }
+        else {
+            $user->setEnabled(true);
+            $text = 'geactiveerd';
+        }
+
+        $em->persist($user);
+        $em->flush();
+
+        $this->addFlash(
+            'notice',
+            $user->getPersonalia()->getFirstName().' '.$user->getPersonalia()->getLastName().' is succesvol '.$text.'.'
+        );
+
+        return $this->redirectToRoute('admin_user');
+
+    }
 
 }

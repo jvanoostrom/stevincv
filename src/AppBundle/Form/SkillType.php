@@ -27,6 +27,7 @@ class SkillType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => Skill::class,
+            'csrf_protection' => false,
         ));
     }
 }

@@ -4,6 +4,8 @@
 namespace AppBundle\Controller;
 
 use PhpOffice\PhpPresentation\Shape\Table\Cell;
+use PhpOffice\PhpPresentation\Style\Border;
+use PhpOffice\PhpPresentation\Style\Bullet;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -108,7 +110,8 @@ class CurriculumvitaeExportController extends Controller
         // Add profile picture
         $oProfileImg = new Drawing\File();
         $oProfileImg->setPath($profileImageDirectory.'/'.$personalia->getProfileImageName())
-            ->setHeight(390)
+            //->setHeight(390)
+            ->setWidth(260)
             ->setOffsetX(110)
             ->setOffsetY(165);
         $oSlide1->addShape($oProfileImg);
@@ -158,12 +161,12 @@ class CurriculumvitaeExportController extends Controller
             ->setHeight(500)
             ->setOffsetX(450)
             ->setOffsetY(210);
-        $oProfileText->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_LEFT );
+        $oProfileText->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_JUSTIFY );
         $oProfileTextRun = $oProfileText->createTextRun($profile->getProfileText());
         $oProfileTextRun->getFont()
             ->setCharacterSpacing(0.5)
             ->setName('Open Sans')
-            ->setSize(8)
+            ->setSize(9)
             ->setColor($darkGrey);
 
 
@@ -216,7 +219,7 @@ class CurriculumvitaeExportController extends Controller
         $oRow = $oTable->createRow();
         $oRow->setHeight(10);
         $oCell = $oRow->nextCell();
-        $oCellText = $oCell->createTextRun('Geboortejaar:');
+        $oCellText = $oCell->createTextRun('Geboortejaar: ');
         $oCellText->getFont()
             ->setSize(9)
             ->setCharacterSpacing(0.5)
@@ -237,7 +240,7 @@ class CurriculumvitaeExportController extends Controller
         $oRow = $oTable->createRow();
         $oRow->setHeight(10);
         $oCell = $oRow->nextCell();
-        $oCellText = $oCell->createTextRun('Woonplaats:');
+        $oCellText = $oCell->createTextRun('Woonplaats: ');
         $oCellText->getFont()
             ->setSize(9)
             ->setCharacterSpacing(0.5)
@@ -544,7 +547,7 @@ NEVENACTIVITEITEN');
             $oTable->setHeight(200);
             $oTable->setWidth(430);
             $oTable->setOffsetX($xOffsetRight);
-            $oTable->setOffsetY(300);
+            $oTable->setOffsetY(400);
 
             $oRow = $oTable->createRow();
             $oRow->setHeight(12);
@@ -655,12 +658,25 @@ PUBLICATIES');
                 ->setSize(10)
                 ->setColor($white);
 
+            // Add company
+            $oCompanyText = $oSlide->createRichTextShape()
+                ->setWidth(450)
+                ->setHeight(15)
+                ->setOffsetX($offset)
+                ->setOffsetY(100);
+            $oCompanyText->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_LEFT );
+            $oCompanyTextRun = $oCompanyText->createTextRun($project['customer_name']);
+            $oCompanyTextRun->getFont()
+                ->setName('Open Sans')
+                ->setSize(8)
+                ->setColor($lightGrey);
+
             // Add Role text
             $oRoleText = $oSlide->createRichTextShape()
                 ->setWidth(450)
                 ->setHeight(15)
                 ->setOffsetX($offset)
-                ->setOffsetY(100);
+                ->setOffsetY(120);
             $oRoleText->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_LEFT );
             $oRoleTextRun = $oRoleText->createTextRun(mb_strtoupper($project['function_title']));
             $oRoleTextRun->getFont()
@@ -670,25 +686,12 @@ PUBLICATIES');
                 ->setSize(10)
                 ->setColor($darkGrey);
 
-            // Add company
-            $oCompanyText = $oSlide->createRichTextShape()
-                ->setWidth(450)
-                ->setHeight(15)
-                ->setOffsetX($offset)
-                ->setOffsetY(125);
-            $oCompanyText->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_LEFT );
-            $oCompanyTextRun = $oCompanyText->createTextRun($project['customer_name']);
-            $oCompanyTextRun->getFont()
-                ->setName('Open Sans')
-                ->setSize(8)
-                ->setColor($lightGrey);
-
-            // Add Executive
+            // Add Situation
             $oExecutiveText = $oSlide->createRichTextShape()
                 ->setWidth(450)
                 ->setHeight(15)
                 ->setOffsetX($offset)
-                ->setOffsetY(145);
+                ->setOffsetY(155);
             $oExecutiveText->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_LEFT );
             $oExecutiveTextRun = $oExecutiveText->createTextRun('SITUATIE');
             $oExecutiveTextRun->getFont()
@@ -702,8 +705,8 @@ PUBLICATIES');
                 ->setWidth(450)
                 ->setHeight(90)
                 ->setOffsetX($offset)
-                ->setOffsetY(165);
-            $oExecutiveTextBox->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_LEFT );
+                ->setOffsetY(175);
+            $oExecutiveTextBox->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_JUSTIFY );
             $oExecutiveTextBox->getActiveParagraph()->setLineSpacing(120);
             $oExecutiveTextBoxRun = $oExecutiveTextBox->createTextRun($project['situation_text']);
             $oExecutiveTextBoxRun->getFont()
@@ -717,7 +720,7 @@ PUBLICATIES');
                 ->setWidth(450)
                 ->setHeight(15)
                 ->setOffsetX($offset)
-                ->setOffsetY(255);
+                ->setOffsetY(265);
             $oTaskText->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_LEFT );
             $oTaskTextRun = $oTaskText->createTextRun('WERKZAAMHEDEN');
             $oTaskTextRun->getFont()
@@ -731,8 +734,8 @@ PUBLICATIES');
                 ->setWidth(450)
                 ->setHeight(150)
                 ->setOffsetX($offset)
-                ->setOffsetY(275);
-            $oTaskTextBox->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_LEFT );
+                ->setOffsetY(285);
+            $oTaskTextBox->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_JUSTIFY );
             $oTaskTextBox->getActiveParagraph()->setLineSpacing(120);
             $oTaskTextBoxRun = $oTaskTextBox->createTextRun($project['task_text']);
             $oTaskTextBoxRun->getFont()
@@ -746,7 +749,7 @@ PUBLICATIES');
                 ->setWidth(450)
                 ->setHeight(15)
                 ->setOffsetX($offset)
-                ->setOffsetY(425);
+                ->setOffsetY(440);
             $oResultsText->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_LEFT );
             $oResultsTextRun = $oResultsText->createTextRun('RESULTAAT');
             $oResultsTextRun->getFont()
@@ -760,8 +763,8 @@ PUBLICATIES');
                 ->setWidth(450)
                 ->setHeight(150)
                 ->setOffsetX($offset)
-                ->setOffsetY(445);
-            $oResultsTextBox->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_LEFT );
+                ->setOffsetY(460);
+            $oResultsTextBox->getActiveParagraph()->getAlignment()->setHorizontal( Alignment::HORIZONTAL_JUSTIFY );
             $oResultsTextBox->getActiveParagraph()->setLineSpacing(120);
             $oResultsTextBoxRun = $oResultsTextBox->createTextRun($project['result_text']);
             $oResultsTextBoxRun->getFont()
@@ -795,10 +798,10 @@ PUBLICATIES');
 
     public function setBorderStyle(Cell $cell, $lineWidth)
     {
-        $cell->getBorders()->getLeft()->setLineWidth($lineWidth);
-        $cell->getBorders()->getRight()->setLineWidth($lineWidth);
-        $cell->getBorders()->getTop()->setLineWidth($lineWidth);
-        $cell->getBorders()->getBottom()->setLineWidth($lineWidth);
+        $cell->getBorders()->getLeft()->setLineStyle(Border::LINE_NONE);
+        $cell->getBorders()->getRight()->setLineStyle(Border::LINE_NONE);
+        $cell->getBorders()->getTop()->setLineStyle(Border::LINE_NONE);
+        $cell->getBorders()->getBottom()->setLineStyle(Border::LINE_NONE);
     }
 
     public function getTranslatedMonth(\DateTime $datetime)

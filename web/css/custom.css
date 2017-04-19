@@ -44,13 +44,13 @@ header, main, footer {
     display: block;
     cursor: pointer;
     background-color: #fff;
-    border-bottom: 1px solid #9e9e9e;
+    border-bottom: 1px solid #929CA1;
     padding:0;
 }
 
 .collapsible-header label {
     font-size: 1.0rem;
-    color: #9e9e9e;
+    color: #929CA1;
 }
 
 .collapsible-header i {
@@ -92,9 +92,42 @@ header, main, footer {
 .select-wrapper input.select-dropdown {
     height:2rem;
 }
+@media only screen and (min-width: 993px) {
+    nav {
+        background-color: #CE2C43;
+    }
 
-nav {
-    background-color: #CE2C43;
+    #perm-identity {
+        background-image: url("../img/ic_perm_identity_white_48dp_1x.png");
+        background-size: 32px;
+        background-position:center;
+        display:block;
+        overflow:hidden;
+        background-repeat: no-repeat;
+        height:64px;
+        width:50px;
+    }
+}
+@media only screen and (max-width: 992px) {
+    nav {
+        background-color: #FFFFFF;
+        border-bottom: 1px solid #CE2C43;
+    }
+
+    nav i {
+        color: #000000;
+    }
+
+    #perm-identity {
+        background-image: url("../img/ic_perm_identity_black_48dp_1x.png");
+        background-size: 32px;
+        background-position:center;
+        display:block;
+        overflow:hidden;
+        background-repeat: no-repeat;
+        height:64px;
+        width:50px;
+    }
 }
 
 .tabs .indicator {
@@ -105,5 +138,86 @@ nav {
 }
 
 .tabs .tab a {
-    color:#808080;
+    color:#929CA1;
+}
+
+label.required:after {
+    content: "* ";
+    color:#CE2C43;
+}
+
+.dropdown-content li > a {
+    color: #264756;
+}
+
+.btn {
+    background-color: #264756;
+}
+
+.btn:hover {
+    background-color: #346176;
+}
+
+.grey {
+    background-color: #929CA1;
+}
+
+.grey:hover {
+    background-color: #adb5b8;
+}
+
+a {
+    color: #264756;
+}
+
+.datepick {
+    text-align:center;
+}
+
+.datepick-dash {
+    border-bottom:1px solid #9e9e9e;
+    line-height:3rem;
+    display:inline-block;
+}
+
+.search-wrapper {
+    margin:0 12px;transition:margin .25s ease;
+    margin-bottom: 10px;
+}
+
+#nav-mobile div.search .search-wrapper.focused {
+    margin:0
+}
+
+#nav-mobile div.search .search-wrapper input#search {
+    display:block;
+    font-size:16px;
+    font-weight:300;
+    width:95%;
+    height:45px;
+    margin:0;
+    padding:0 0px 0 15px;border:0
+}
+
+#nav-mobile div.search .search-wrapper input#search:focus {
+    outline:none
+}
+
+#nav-mobile div.search .search-wrapper i.material-icons {
+    position:absolute;
+    top:-8px;
+    right:10px;
+    cursor:pointer;
+}
+
+.title span {
+    font-weight: bold;
+}
+
+.linkButton {
+    background: none;
+    border: none;
+    color: #FFFFFF;
+    font-weight: bold;
+    cursor: pointer;
 }

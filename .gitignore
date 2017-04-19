@@ -21,6 +21,7 @@ stevincv.zip
 /app/config/parameters.yml
 bfg-1.12.14.jar
 symfony
+/web/img/profile/*
 
 
 # Composer PHAR
