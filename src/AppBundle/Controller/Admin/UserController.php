@@ -63,7 +63,7 @@ class UserController extends Controller
             // Send e-mail with login details
             $message = \Swift_Message::newInstance()
                 ->setSubject('Welkom bij SteVee!')
-                ->setFrom(array('vanoostrom@stevin.com' => 'Jeffrey van Oostrom'))
+                ->setFrom(array('noreply@stevin.com' => 'Stevin NoReply'))
                 ->setTo($user->getEmail())
                 ->setBody(
                     $this->renderView(
@@ -155,7 +155,7 @@ class UserController extends Controller
 
             $this->addFlash(
                 'notice',
-                'De consultant is succesvol toegevoegd.'
+                'De consultant is succesvol aangepast.'
             );
 
             return $this->redirectToRoute('admin_user');
@@ -168,5 +168,37 @@ class UserController extends Controller
 
     }
 
+    /**
+     * @Route("/admin/user/active/{userId}", name="admin_user_toggle_active")
+     */
+    public function toggleActiveAction(Request $request, $userId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('AppBundle:User')->findOneBy(
+            array(
+                'id' => $userId
+            )
+        );
+
+        if($user->isEnabled()) {
+            $user->setEnabled(false);
+            $text = 'gedeactiveerd';
+        }
+        else {
+            $user->setEnabled(true);
+            $text = 'geactiveerd';
+        }
+
+        $em->persist($user);
+        $em->flush();
+
+        $this->addFlash(
+            'notice',
+            $user->getPersonalia()->getFirstName().' '.$user->getPersonalia()->getLastName().' is succesvol '.$text.'.'
+        );
+
+        return $this->redirectToRoute('admin_user');
+
+    }
 
 }

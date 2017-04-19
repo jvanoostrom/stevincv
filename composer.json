@@ -33,10 +33,7 @@
         "knplabs/knp-menu-bundle": "^2.0",
         "vich/uploader-bundle": "^1.4",
         "symfony/filesystem": "^3.2",
-        "symfony/serializer": "^3.2",
-        "cspoo/swiftmailer-mailgun-bundle": "^0.3.1",
-        "php-http/guzzle6-adapter": "^1.0",
-        "php-http/discovery": "^1.0"
+        "symfony/serializer": "^3.2"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

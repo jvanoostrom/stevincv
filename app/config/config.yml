@@ -69,13 +69,20 @@ doctrine:
 
 # Swiftmailer Configuration
 swiftmailer:
-    transport: "mailgun"
+    transport: '%mailer_transport%'
     host:      '%mailer_host%'
     username:  '%mailer_user%'
     password:  '%mailer_password%'
+    encryption: tls
+    port: 587
     spool:     { type: memory }
 
 fos_user:
+#  service:
+#    mailer: fos_user.mailer.twig_swift
+#  resetting:
+#    email:
+#      template:   admin/email/password_reset.email.twig
   db_driver: orm
   firewall_name: main
   user_class: AppBundle\Entity\User
@@ -108,7 +115,3 @@ vich_uploader:
                 upload_destination: '%kernel.root_dir%/../web/img/profile'
                 namer:
                       service: vich_uploader.namer_uniqid
-
-cspoo_swiftmailer_mailgun:
-    key: key-76a223eade5a9fe88de277f7cc5bc606
-    domain: cv.stevin.com

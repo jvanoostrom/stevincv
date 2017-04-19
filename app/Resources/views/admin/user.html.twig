@@ -29,7 +29,7 @@
                 <th data-field="userName">Naam</th>
                 <th data-field="userStatus">Rollen</th>
                 <th data-field="userStatus">Status</th>
-                <th data-field="actions" width="65"></th>
+                <th data-field="actions" width="90"></th>
             </tr>
             </thead>
 
@@ -50,8 +50,15 @@
                         {% endfor %}
                         {{ userRole }}
                     </td>
-                    <td>{% if user.enabled == 1 %}Actief{% else %}Inactief{% endif %}</td>
+                    <td>{% if user.enabled == 1 %}
+                            <a href="{{ url('admin_user_toggle_active',{'userId' : user.id }) }}" alt="Dectiveren" class="valign-wrapper"><i class="material-icons valign">lock_outline</i> Actief</a>
+                        {% else %}
+                            <a href="{{ url('admin_user_toggle_active',{'userId' : user.id }) }}" alt="Activeren" class="valign-wrapper"><i class="material-icons valign">lock_open</i> Inactief</a>
+                        {% endif %}</td>
                     <td>
+                        <a href="#" class="reset-button-{{ user.id }}" alt="Wachtwoord reset">
+                            <i class="material-icons">settings_backup_restore</i>
+                        </a>
                         <a href="{{ url('admin_user_edit',{'userId' : user.id }) }}" alt="Bewerken">
                             <i class="material-icons">edit</i>
                         </a>
@@ -63,9 +70,21 @@
                     <div id="card-alert" class="card red delete-entity-{{ user.id }}" style="display:none">
                         <div class="card-content white-text valign-wrapper">
                             <i class="material-icons valign">warning</i>&nbsp;
-                            <span>Weet je zeker dat je {{ user.personalia.firstName }} wilt verwijderen?
+                            <span>Weet je zeker dat je {{ user.personalia.firstName }} {{ user.personalia.lastName }} wilt verwijderen?
                                 <strong><a class="white-text" href="{{ url('admin_user_delete',{'userId' : user.id}) }}">Ja, verwijder.</a></strong>
-                    </span>
+                            </span>
+                        </div>
+                    </div>
+                    <div id="card-alert" class="card red reset-entity-{{ user.id }}" style="display:none">
+                        <div class="card-content white-text valign-wrapper">
+                            <i class="material-icons valign">warning</i>&nbsp;
+                            <span>Weet je zeker dat je het wachtwoord van {{ user.personalia.firstName }} {{ user.personalia.lastName }} wilt resetten?
+                                    <form method="post" action="{{ path('fos_user_resetting_send_email') }}">
+                                        <input type="hidden" value="{{ user.username }}" name="username">
+                                        <input type="hidden" value="1" name="admin">
+                                        <input type="submit" value="Ja, reset wachtwoord.">
+                                    </form>
+                                </span>
                         </div>
                     </div>
             {% endfor %}

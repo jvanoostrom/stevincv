@@ -69,10 +69,12 @@ doctrine:
 
 # Swiftmailer Configuration
 swiftmailer:
-    transport: "mailgun"
+    transport: '%mailer_transport%'
     host:      '%mailer_host%'
     username:  '%mailer_user%'
     password:  '%mailer_password%'
+    encryption: tls
+    port: 587
     spool:     { type: memory }
 
 fos_user:
@@ -108,10 +110,6 @@ vich_uploader:
                 upload_destination: '%kernel.root_dir%/../web/img/profile'
                 namer:
                       service: vich_uploader.namer_uniqid
-
-cspoo_swiftmailer_mailgun:
-    key: key-76a223eade5a9fe88de277f7cc5bc606
-    domain: cv.stevin.com
 
 monolog:
     handlers:
