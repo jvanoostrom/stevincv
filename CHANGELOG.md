@@ -1,6 +1,22 @@
 Changelog
 ======
 
+v1.0
+-----
+**Nieuw**:
+- Dupliceren van CV's, profielen en projecten is nu mogelijk
+- Project: Een project kan nu ook een naam gegeven worden
+- Gebruikers: Er wordt automatisch een mail gestuurd na 3 maanden van inactiviteit
+- Gebruikers: Je kan nu je wachtwoord resetten als je deze bent vergeten
+- Gebruikers: Nieuwe gebruikers krijgen automatisch een e-mail met hun (tijdelijke) wachtwoord
+- Admin: Gebruikers kunnen nu snel geactiveerd en gedeactiveerd worden
+
+**Bugfixes**:
+- Personalia: Foto's worden nog kleiner gemaakt bij het uploaden
+- Personalia: Foto's krijgen een willekeurige naam om speciale tekens te voorkomen
+- Opleidingen: Het lege veld bij specialisatie wordt nu goed gevalideerd
+- Projecten/Profielen: Betere foutmelding bij te veel tekens in het vak
+
 v0.9
 -----
 **Nieuw**:
