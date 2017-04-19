@@ -1,0 +1,33 @@
+{% extends 'security/base_user.html.twig' %}
+
+{% block title %}
+    SteVee | Wachtwoord herstel aanvragen
+{% endblock %}
+
+{% block header %}
+    Wachtwoord herstel aanvragen
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
+
+            <div class='row'>
+                <div class='col s12'>
+                </div>
+            </div>
+
+            <div class='row'>
+                <div class='col s12'>
+                    Je hebt een e-mail ontvangen met instructies. Let op! Je kan pas over 2 uur een nieuw wachtwoord herstel aanvragen.
+                </div>
+            </div>
+
+    </div>
+    <div class='row'>
+        <div class="col s12">
+            <a href="{{ url('base') }}" style="display:inline-block;"><i class="material-icons left">keyboard_arrow_left</i>Terug naar SteeVee</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -2,7 +2,6 @@
 
 namespace AppBundle\Controller\Admin;
 
-
 use AppBundle\Entity\Personalia;
 use AppBundle\Entity\User;
 use AppBundle\Form\Admin\UserType;
@@ -63,7 +62,7 @@ class UserController extends Controller
             // Send e-mail with login details
             $message = \Swift_Message::newInstance()
                 ->setSubject('Welkom bij SteVee!')
-                ->setFrom(array('noreply@stevin.com' => 'Stevin NoReply'))
+                ->setFrom(array('vanoostrom@stevin.com' => 'Jeffrey van Oostrom'))
                 ->setTo($user->getEmail())
                 ->setBody(
                     $this->renderView(

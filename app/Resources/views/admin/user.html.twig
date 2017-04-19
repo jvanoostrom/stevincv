@@ -35,6 +35,13 @@
 
             <tbody>
             {% for user in users %}
+                {% if user.passwordRequestedAt is null %}
+                    {% set disablereset = false %}
+                {% elseif date(user.passwordRequestedAt) > date('-2hours') %}
+                    {% set disablereset = true %}
+                {% else %}
+                    {% set disablereset = false %}
+                {% endif %}
                 <tr>
                     <td><img src="{{ asset('img/profile/' ~ user.personalia.profileAvatarName) }}" alt="" class="circle" style="max-width:55px"></td>
                     <td>{{ user.personalia.firstName }} {{ user.personalia.lastName }}<br/><em>{{ user.personalia.placeOfResidence }}</em></td>
@@ -56,7 +63,7 @@
                             <a href="{{ url('admin_user_toggle_active',{'userId' : user.id }) }}" alt="Activeren" class="valign-wrapper"><i class="material-icons valign">lock_open</i> Inactief</a>
                         {% endif %}</td>
                     <td>
-                        <a href="#" class="reset-button-{{ user.id }}" alt="Wachtwoord reset">
+                        <a href="#" alt="Wachtwoord reset" class="reset-button-{{ user.id }} {% if disablereset %}grey-text" style="pointer-events: none{% endif %}">
                             <i class="material-icons">settings_backup_restore</i>
                         </a>
                         <a href="{{ url('admin_user_edit',{'userId' : user.id }) }}" alt="Bewerken">

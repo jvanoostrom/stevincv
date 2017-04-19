@@ -31,8 +31,11 @@
                     <label for='password' class="left-align">Wachtwoord</label>
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                 </div>
-                <label style='float: right;' hidden>
-                    <a class='pink-text' href='#!'><b>Forgot Password?</b></a>
+            </div>
+
+            <div class="row right">
+                <label>
+                    <a href='{{ path('fos_user_resetting_request') }}'><b>Wachtwoord vergeten?</b></a>
                 </label>
             </div>
 
