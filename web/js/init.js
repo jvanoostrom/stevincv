@@ -40,7 +40,6 @@ $( document ).ready(function() {
 
     $('[class^=reset-button-]').click(function() {
         var classes = $(this).attr('class').split( '-' );
-
         $('.reset-entity-' + classes[2]).delay(200).slideDown(300).delay(5000).slideUp(300);
     });
 

@@ -78,11 +78,11 @@ swiftmailer:
     spool:     { type: memory }
 
 fos_user:
-#  service:
-#    mailer: fos_user.mailer.twig_swift
-#  resetting:
-#    email:
-#      template:   admin/email/password_reset.email.twig
+  service:
+    mailer: fos_user.mailer.twig_swift
+  resetting:
+    email:
+      template:   AppBundle:admin:email:resetting_email.html.twig
   db_driver: orm
   firewall_name: main
   user_class: AppBundle\Entity\User
