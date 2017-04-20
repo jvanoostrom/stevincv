@@ -83,6 +83,7 @@ header, main, footer {
     padding:10px;
     color:#fff;
     font-size:12px;
+    max-width: 300px;
 }
 
 .menu-admin {

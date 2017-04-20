@@ -56,7 +56,7 @@
                                 <div class="collapsible-header row" style="margin-bottom:0">
                                     <div class="col s5" style="padding-left:0">{{ form_label(form.curriculumvitaeProjects, 'Projecten (maximaal 6)') }}</div>
                                     <div class="col s5">{{ form_errors(form.curriculumvitaeProjects) }}</div>
-                                    <div class="col s2" style="padding-right:0"><i class="material-icons">arrow_drop_down</i></div>
+                                    <div class="col s2" style="padding-right:0"><i class="material-icons">arrow_drop_down</i><i class="material-icons" id="tooltip_projects" title="Vink het vakje aan als het een belangrijk project is. Je kunt 3 projecten als belangrijk opgeven. Deze zullen onder het kopje 'Belangrijke projecten' komen te staan in het CV, en op de projecten pagina's als eerste worden getoond (chronologisch).">info_outline</i></div>
                                 </div>
                                 <div class="collapsible-body" id="project-fields-list" data-prototype="{{ form_widget(form.curriculumvitaeProjects.vars.prototype)|e }}">
                                     <div id="project-div">
