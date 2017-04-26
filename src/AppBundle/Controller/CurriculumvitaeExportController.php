@@ -449,8 +449,8 @@ CERTIFICATEN');
         $oTable = $oSlide2->createTableShape(1);
         $oTable->setHeight(200);
         $oTable->setWidth(430);
-        $oTable->setOffsetX($xOffsetRight);
-        $oTable->setOffsetY(200);
+        $oTable->setOffsetX($xOffsetRight + 10);
+        $oTable->setOffsetY(240);
 
         $oRow = $oTable->createRow();
         $oRow->setHeight(12);
@@ -488,8 +488,8 @@ BELANGRIJKSTE PROJECTEN');
         $oTable = $oSlide2->createTableShape(2);
         $oTable->setHeight(200);
         $oTable->setWidth(430);
-        $oTable->setOffsetX($xOffsetRight);
-        $oTable->setOffsetY(400);
+        $oTable->setOffsetX($xOffsetRight + 10);
+        $oTable->setOffsetY(440);
 
         $oRow = $oTable->createRow();
         $oRow->setHeight(12);
@@ -546,8 +546,8 @@ NEVENACTIVITEITEN');
             $oTable = $oSlide2->createTableShape(2);
             $oTable->setHeight(200);
             $oTable->setWidth(430);
-            $oTable->setOffsetX($xOffsetRight);
-            $oTable->setOffsetY(400);
+            $oTable->setOffsetX($xOffsetRight + 10);
+            $oTable->setOffsetY(440);
 
             $oRow = $oTable->createRow();
             $oRow->setHeight(12);
