@@ -516,4 +516,27 @@ class Curriculumvitae
                 ->addViolation();
         }
     }
+
+    /**
+     * @Assert\Callback
+     */
+    public function validateImportantProjects(ExecutionContextInterface $context, $payload)
+    {
+
+        $nIsImportant = 0;
+        foreach($this->getCurriculumvitaeProjects() as $project)
+        {
+            if($project->isImportant())
+            {
+                $nIsImportant++;
+            }
+        }
+
+        if ($nIsImportant < 1)
+        {
+            $context->buildViolation('Kies min. één belangrijk project.')
+                ->atPath('curriculumvitaeProjects')
+                ->addViolation();
+        }
+    }
 }
