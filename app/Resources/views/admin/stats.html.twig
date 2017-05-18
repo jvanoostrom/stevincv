@@ -1,0 +1,46 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block content %}
+    {% if users %}
+        <table class="striped bordered">
+            <thead>
+            <tr>
+                <th data-field="userImage" width="65"></th>
+                <th data-field="userName">Naam</th>
+                <th data-field="noCVs"></th>
+                <th data-field="numberOfCVs" class="center-align" width="150"># CVs</th>
+                <th data-field="numberOfProfiles" class="center-align" width="150"># Profielen</th>
+                <th data-field="numberOfProjects" class="center-align" width="150"># Projecten</th>
+                <th data-field="numberOfEducation" class="center-align" width="150"># Opleidingen</th>
+                <th data-field="numberOfCertificates" class="center-align" width="150"># Certificaten</th>
+                <th data-field="numberOfExtracurricular" class="center-align" width="150"># Nevenactiviteiten</th>
+                <th data-field="numberOfPublications" class="center-align" width="150"># Publicaties</th>
+                <th data-field="numberOfSkills" class="center-align" width="150"># Competenties</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td><img src="{{ asset('img/profile/' ~ user.personalia.profileAvatarName) }}" alt="" class="circle" style="max-width:55px"></td>
+                    <td>{{ user.personalia.firstName }} {{ user.personalia.lastName }}<br/><em>{{ user.personalia.placeOfResidence }}</em></td>
+                    <td>{% if counts.cvs[user.username] == 0 %}<span class="valign-wrapper red-text"><i class="material-icons valign">error</i></span>{% endif %}</td>
+                    <td class="center-align{% if counts.cvs[user.username] == 0 %} red-text{% endif %}">{{ counts.cvs[user.username] }}</td>
+                    <td class="center-align{% if counts.profiles[user.username] == 0 %} red-text{% endif %}">{{ counts.profiles[user.username] }}</td>
+                    <td class="center-align{% if counts.projects[user.username] == 0 %} red-text{% endif %}">{{ counts.projects[user.username] }}</td>
+                    <td class="center-align{% if counts.education[user.username] == 0 %} red-text{% endif %}">{{ counts.education[user.username] }}</td>
+                    <td class="center-align{% if counts.certificates[user.username] == 0 %} red-text{% endif %}">{{ counts.certificates[user.username] }}</td>
+                    <td class="center-align{% if counts.extracurricular[user.username] == 0 %} red-text{% endif %}">{{ counts.extracurricular[user.username] }}</td>
+                    <td class="center-align{% if counts.publications[user.username] == 0 %} red-text{% endif %}">{{ counts.publications[user.username] }}</td>
+                    <td class="center-align{% if counts.skills[user.username] == 0 %} red-text{% endif %}">{{ counts.skills[user.username] }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="row">
+            <div class="col s12"><h3>Geen consultants gevonden.</h3></div>
+        </div>
+    {% endif %}
+
+{% endblock %}
