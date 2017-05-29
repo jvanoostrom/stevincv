@@ -33,6 +33,7 @@ class UserType extends AbstractType
                 )))
                 ->add('personalia', PersonaliaType::class)
                 ->add('enabled', CheckboxType::class, array('required' => false))
+                ->add('getThreeMonthsEmail', CheckboxType::class, array('required' => false))
                 ->add('submit', SubmitType::class, array('label' => 'Opslaan'))
                 ->getForm();
     }

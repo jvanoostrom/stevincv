@@ -30,9 +30,20 @@ class User extends BaseUser
      */
     private $personalia;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $getThreeMonthsEmail;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $countThreeMonthsEmail;
+
     public function __construct()
     {
         parent::__construct();
+        $this->setGetThreeMonthsEmail(true);
     }
 
     /**
@@ -69,4 +80,51 @@ class User extends BaseUser
         return $this->personalia;
     }
 
+    /**
+     * Set getThreeMonthsEmail
+     *
+     * @param boolean $getThreeMonthsEmail
+     *
+     * @return User
+     */
+    public function setGetThreeMonthsEmail($getThreeMonthsEmail)
+    {
+        $this->getThreeMonthsEmail = $getThreeMonthsEmail;
+
+        return $this;
+    }
+
+    /**
+     * Get getThreeMonthsEmail
+     *
+     * @return boolean
+     */
+    public function getGetThreeMonthsEmail()
+    {
+        return $this->getThreeMonthsEmail;
+    }
+
+    /**
+     * Set countThreeMonthsEmail
+     *
+     * @param integer $countThreeMonthsEmail
+     *
+     * @return User
+     */
+    public function setCountThreeMonthsEmail($countThreeMonthsEmail)
+    {
+        $this->countThreeMonthsEmail = $countThreeMonthsEmail;
+
+        return $this;
+    }
+
+    /**
+     * Get countThreeMonthsEmail
+     *
+     * @return integer
+     */
+    public function getCountThreeMonthsEmail()
+    {
+        return $this->countThreeMonthsEmail;
+    }
 }

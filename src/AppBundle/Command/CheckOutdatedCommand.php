@@ -24,8 +24,9 @@ class CheckOutdatedCommand extends ContainerAwareCommand
         //$boundaryDate = date('Y-m-d',strtotime('- 1 day'));
         $em = $this->getContainer()->get('doctrine')->getManager();
 
-        //$sql = "SELECT curriculumvitae.user_id, fos_user.email, personalia.first_name, personalia.last_name FROM curriculumvitae JOIN fos_user on curriculumvitae.user_id=fos_user.id join personalia on fos_user.personalia_id=personalia.id WHERE curriculumvitae.updated_at < \"".$boundaryDate."\" AND curriculumvitae.user_id = 1 GROUP BY curriculumvitae.user_id";
-        $sql = "SELECT curriculumvitae.user_id, fos_user.email, personalia.first_name, personalia.last_name FROM curriculumvitae JOIN fos_user on curriculumvitae.user_id=fos_user.id join personalia on fos_user.personalia_id=personalia.id WHERE curriculumvitae.updated_at < \"".$boundaryDate."\" GROUP BY curriculumvitae.user_id";
+        //$sql = "SELECT curriculumvitae.user_id, fos_user.email, personalia.first_name, personalia.last_name FROM curriculumvitae JOIN fos_user on curriculumvitae.user_id=fos_user.id join personalia on fos_user.personalia_id=personalia.id WHERE curriculumvitae.updated_at < \"".$boundaryDate."\" AND curriculumvitae.user_id = 1 AND fos_user.get_three_months_email = 1 GROUP BY curriculumvitae.user_id";
+        //$sql = "SELECT curriculumvitae.user_id, fos_user.email, personalia.first_name, personalia.last_name FROM curriculumvitae JOIN fos_user on curriculumvitae.user_id=fos_user.id join personalia on fos_user.personalia_id=personalia.id WHERE curriculumvitae.updated_at < \"".$boundaryDate."\" AND fos_user.get_three_months_email = 1 GROUP BY curriculumvitae.user_id";
+        $sql = "SELECT * FROM (SELECT curriculumvitae.user_id, fos_user.email, personalia.first_name, personalia.last_name, max(curriculumvitae.updated_at) as updatedat FROM curriculumvitae JOIN fos_user ON curriculumvitae.user_id=fos_user.id join personalia ON fos_user.personalia_id=personalia.id WHERE fos_user.get_three_months_email = 1 GROUP BY curriculumvitae.user_id) as innertable WHERE updatedat < \"".$boundaryDate."\"";
         $query = $em->getConnection()->prepare($sql);
         $query->execute();
         $users = $query->fetchAll();
@@ -56,6 +57,10 @@ class CheckOutdatedCommand extends ContainerAwareCommand
                 ->setContentType("text/html");
 
             $this->getContainer()->get('mailer')->send($message);
+
+            $sql = "UPDATE fos_user SET count_three_months_email = count_three_months_email + 1 WHERE id = ".$userid;
+            $query = $em->getConnection()->prepare($sql);
+            $query->execute();
 
         }
 
