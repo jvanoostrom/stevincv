@@ -33,7 +33,7 @@ class User extends BaseUser
     /**
      * @ORM\Column(type="boolean")
      */
-    protected $getThreeMonthsEmail;
+    protected $getThreeMonthsEmail = true;
 
     /**
      * @ORM\Column(type="integer")
@@ -43,7 +43,6 @@ class User extends BaseUser
     public function __construct()
     {
         parent::__construct();
-        $this->setGetThreeMonthsEmail(true);
     }
 
     /**

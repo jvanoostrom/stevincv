@@ -44,6 +44,7 @@ class UserController extends Controller
             $user->setUsernameCanonical(strtolower($user->getUsername()));
             $user->setEmail($user->getUsername());
             $user->setEmailCanonical($user->getUsernameCanonical());
+            $user->setCountThreeMonthsEmail(0);
 
             // Generate random password
             $tokenGenerator = $this->container->get('fos_user.util.token_generator');
