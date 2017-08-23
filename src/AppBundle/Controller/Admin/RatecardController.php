@@ -18,8 +18,7 @@ class RatecardController extends Controller
     public function indexAction(Request $request)
     {
 
-        $users = $this->getDoctrine()->getRepository('AppBundle:User')->findAll(
-        );
+        $users = $this->getDoctrine()->getRepository('AppBundle:User')->findBy(array('enabled' => true));
 
         return $this->render('admin/ratecard.html.twig', array(
             'users' => $users,
