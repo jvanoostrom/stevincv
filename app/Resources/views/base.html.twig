@@ -28,10 +28,12 @@
                     </ul>
                     <ul id="dropdown-top" class="dropdown-content">
                         {% if is_granted('ROLE_ADMIN') %}
-                        <li><a href="{{ url('admin_home') }}">Administratiepaneel</a></li>
+                        <li><a href="{{ url('admin_home') }}"><i class="material-icons">build</i> Administratiepaneel</a></li>
                         {% endif %}
-                        <li><a href="{{ url('change_password') }}">Wachtwoord wijzigen</a></li>
-                        <li><a href="{{ url('user_logout') }}">Uitloggen</a></li>
+                        <li><a href="{{ url('ratecard',{'userId' : userId}) }}"><i class="material-icons">euro_symbol</i> Ratecard</a></li>
+                        <li class="divider"></li>
+                        <li><a href="{{ url('change_password') }}"><i class="material-icons">fingerprint</i> Wachtwoord wijzigen</a></li>
+                        <li><a href="{{ url('user_logout') }}"><i class="material-icons">exit_to_app</i> Uitloggen</a></li>
                     </ul>
 
                     <div class="side-nav fixed black-text collection" id="nav-mobile">

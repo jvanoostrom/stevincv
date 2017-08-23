@@ -1,0 +1,72 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block content %}
+
+    {% for flash_message in app.session.flashBag.get('notice') %}
+        <div id="card-alert" class="card green succes-entity" style="display:none">
+            <div class="card-content white-text valign-wrapper">
+                <i class="material-icons valign">done</i>&nbsp;<span>{{ flash_message }}</span>
+            </div>
+        </div>
+    {% endfor %}
+    {% for flash_message in app.session.flashBag.get('error') %}
+        <div id="card-alert" class="card red succes-entity" style="display:none">
+            <div class="card-content white-text valign-wrapper">
+                <i class="material-icons valign">warning</i>&nbsp;<span>{{ flash_message }}</span>
+            </div>
+        </div>
+    {% endfor %}
+
+    {% if users %}
+        <table class="highlight responsive-table">
+            <thead>
+            <tr>
+                <th data-field="userImage" width="65"></th>
+                <th data-field="userName">Naam</th>
+                <th data-field="userStatus">Tarief</th>
+                <th data-field="actions" width="20"></th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td><img src="{{ asset('img/profile/' ~ user.personalia.profileAvatarName) }}" alt="" class="circle" style="max-width:55px"></td>
+                    <td>{{ user.personalia.firstName }} {{ user.personalia.lastName }}<br/><em>{{ user.personalia.placeOfResidence }}</em></td>
+                    <td>€ {{ user.rateTariff|number_format('2',',','.') }}</td>
+                    <td>
+                        <a href="#editRate_{{ user.id }}" class="modal-trigger" alt="Bewerken">
+                            <i class="material-icons">edit</i>
+                        </a>
+                    </td>
+                </tr>
+                <div id="editRate_{{ user.id }}" class="modal">
+                    <form class="col s12" action="{{ url('admin_ratecard_edit',{'userId' : user.id }) }}" method="post">
+                        <div class="modal-content">
+                            <h4>Tarief aanpassen</h4>
+                            <p>{{ user.personalia.firstName }} {{ user.personalia.lastName }}</p>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input value="{{ user.rateTariff }}" name="user[rateTariff]" id="user_rateTariff" type="number" step="0.05" min="0.00" max="1000.00">
+                                    <label for="user_rateTariff">Tarief</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#!" class="modal-action modal-close waves-effect waves-light btn grey">Annuleren</a>
+                            <button type="submit" id="ratecard[submit]" class="btn waves-effect waves-light btn">Opslaan</button>
+
+                        </div>
+                    </form>
+                </div>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="row">
+            <div class="col s12"><h3>Geen consultants gevonden.</h3></div>
+        </div>
+    {% endif %}
+
+
+{% endblock %}

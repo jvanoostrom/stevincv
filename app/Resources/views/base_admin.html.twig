@@ -25,9 +25,10 @@
                         <li><a class="dropdown-button" data-beloworigin="true" href="#!" data-activates="dropdown-top"><div id="perm-identity"> </div></a></li>
                     </ul>
                     <ul id="dropdown-top" class="dropdown-content">
-                        <li><a href="{{ url('base') }}">Terug naar SteVee</a></li>
-                        <li><a href="{{ url('change_password') }}">Wachtwoord wijzigen</a></li>
-                        <li><a href="{{ url('user_logout') }}">Uitloggen</a></li>
+                        <li><a href="{{ url('base') }}"><i class="material-icons">keyboard_arrow_left</i> Terug naar SteVee</a></li>
+                        <li class="divider"></li>
+                        <li><a href="{{ url('change_password') }}"><i class="material-icons">fingerprint</i> Wachtwoord wijzigen</a></li>
+                        <li><a href="{{ url('user_logout') }}"><i class="material-icons">exit_to_app</i> Uitloggen</a></li>
                     </ul>
 
                     <ul class="side-nav fixed black-text" id="nav-mobile">
@@ -39,6 +40,7 @@
                         <li><a href="{{ url('admin_user') }}"><i class="material-icons">person_pin</i><span class="menu-admin">Consultants</span></a></li>
                         <li><a href="{{ url('admin_tag') }}"><i class="material-icons">label_outline</i><span class="menu-admin">Tags</span></a></li>
                         <li><a href="{{ url('admin_stats') }}"><i class="material-icons">show_chart</i><span class="menu-admin">Statistieken</span></a></li>
+                        <li><a href="{{ url('admin_ratecard') }}"><i class="material-icons">euro_symbol</i><span class="menu-admin">Ratecard</span></a></li>
                         {#<li><a href="#!"><i class="material-icons">supervisor_account</i><span class="menu-admin">Klanten</span></a></li>#}
 
                     </ul>

@@ -40,6 +40,11 @@ class User extends BaseUser
      */
     protected $countThreeMonthsEmail;
 
+    /**
+     * @ORM\Column(type="decimal", options={"default":"0.00"}, nullable=true, scale=2)
+     */
+    protected $rateTariff;
+
     public function __construct()
     {
         parent::__construct();
@@ -126,4 +131,29 @@ class User extends BaseUser
     {
         return $this->countThreeMonthsEmail;
     }
+
+    /**
+     * Set rateTariff
+     *
+     * @param double $rateTariff
+     *
+     * @return User
+     */
+    public function setRateTariff($rateTariff = 0.00)
+    {
+        $this->rateTariff = $rateTariff;
+
+        return $this;
+    }
+
+    /**
+     * Get rateTariff
+     *
+     * @return double
+     */
+    public function getRateTariff()
+    {
+        return $this->rateTariff;
+    }
+
 }

@@ -24,7 +24,7 @@ header, main, footer {
 }
 
 .dropdown-content {
-    min-width: 200px;
+    min-width: 210px;
 }
 
 #active-link {
@@ -221,4 +221,10 @@ a {
     color: #FFFFFF;
     font-weight: bold;
     cursor: pointer;
+}
+
+.dropdown-content i {
+    font-size:1.3rem !important;
+    display:inline-block !important;
+    vertical-align: middle;
 }

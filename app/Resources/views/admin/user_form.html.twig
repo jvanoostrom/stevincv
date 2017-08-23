@@ -37,23 +37,29 @@
                         {{ form_errors(form.roles) }}
                     </div>
                 </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        {{ form_label(form.rateTariff, 'Tarief') }}
+                        {{ form_widget(form.rateTariff, {'attr': {
+                            'class': 'validate',
+                            'maxlength': 100,
+                        }}) }}
+                        {{ form_errors(form.rateTariff) }}
+                    </div>
+                </div>
                 <div class="row" style="margin-bottom: 0;">
-                    <div class="input-field col s12">
+                    <div class="input-field col s6">
                         <label for="{{ form.enabled.vars.id }}">Actief</label>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s12">
-                        {{ form_widget(form.enabled) }}
-                    </div>
-                </div>
-                <div class="row" style="margin-bottom: 0;">
-                    <div class="input-field col s12">
+                    <div class="input-field col s6">
                         <label for="{{ form.getThreeMonthsEmail.vars.id }}">Drie maanden e-mail</label>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="input-field col s12">
+                    <div class="input-field col s6">
+                        {{ form_widget(form.enabled) }}
+                    </div>
+                    <div class="input-field col s6">
                         {{ form_widget(form.getThreeMonthsEmail) }}
                     </div>
                 </div>
