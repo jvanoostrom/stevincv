@@ -1427,6 +1427,7 @@ PUBLICATIES'
             ->setInsetLeft(0)
             ->setInsetRight(0);
         $oCloud->getActiveParagraph()->getAlignment()->setHorizontal(Alignment::HORIZONTAL_LEFT);
+        $oCloud->getActiveParagraph()->setLineSpacing(132);
 
         foreach ($skills as $skill)
         {

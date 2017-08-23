@@ -11,7 +11,7 @@
 {% block linkElement %}
     {% import _self as knp_menu %}
 <a href="{{ url('base') ~ item.uri }}"{{ knp_menu.attributes(item.linkAttributes) }} {% if item.extra('userId') == app.request.get('userId') %}id="active-link"{% endif %}>
-    <img src="{{ asset('img/profile/' ~ item.extra('img'))}}" alt="" class="circle responsive-img"><h6 class="title">{{ block('label') }}</h6><span style="color:#929CA1">€ {{ item.extra('rateTariff')|number_format(2,',','') }}</span>
+    <img src="{{ asset('img/profile/' ~ item.extra('img'))}}" alt="" class="circle responsive-img"><h6 class="title">{{ block('label') }}</h6>
 </a>
 {% endblock %}
 

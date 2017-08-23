@@ -30,8 +30,7 @@ class Builder implements ContainerAwareInterface
             'uri' => $user->getId(),
             'extras' => array(
                 'img' => $profileAvatarName,
-                'userId' => $user->getId(),
-                'rateTariff' => $user->getRateTariff(),
+                'userId' => $user->getId()
             ),
         ));
 
@@ -49,8 +48,7 @@ class Builder implements ContainerAwareInterface
                 'uri' => $user->getId(),
                 'extras' => array(
                     'img' => $profileAvatarName,
-                    'userId' => $user->getId(),
-                    'rateTariff' => $user->getRateTariff(),
+                    'userId' => $user->getId()
                 ),
             ));
 
@@ -75,8 +73,7 @@ class Builder implements ContainerAwareInterface
             'uri' => '#!',
             'extras' => array(
                 'img' => $profileAvatarName,
-                'userId' => $user->getId(),
-                'rateTariff' => $user->getRateTariff(),
+                'userId' => $user->getId()
             ),
         ));
 
