@@ -41,7 +41,7 @@
                         <i class="material-icons">delete</i>
                     </a>
                 {% endif %}
-                {% if is_granted('ROLE_ADMIN') %}
+
                     <a href="#modalExport" class="modal-trigger" alt="Exporteren">
                         <i class="material-icons">file_download</i>
                     </a>
@@ -63,11 +63,6 @@
                             </div>
                         </div>
                     </div>
-                {% else %}
-                    <a href="{{ url('cv_export_2016',{'userId' : userId, 'cvId' : cv.Id}) }}" alt="Exporteren">
-                        <i class="material-icons">file_download</i>
-                    </a>
-                {% endif %}
             </td>
             <td>{{ cv.curriculumvitaeName }}</td>
             <td id="tags">{% for tag in cv.tags %}
