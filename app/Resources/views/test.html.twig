@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}SteVee | Stevin CV Manager{% endblock %}</title>
+    {% block stylesheets %}
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link type="text/css" rel="stylesheet" href="{{ asset('css/materialize.css') }}" media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="{{ asset('css/custom.css') }}" media="screen,projection"/>
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    {% endblock %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        body {
+            background: rgb(204,204,204);
+            font-family: Arial, sans-serif;
+            font-size: 9pt;
+        }
+
+        td {
+            padding:0;
+        }
+
+        @font-face {
+            font-family: "Marydale";
+            src: local(Marydale), url("{{ asset('fonts/Marydale.ttf')}}");
+            src: url("{{ asset('fonts/Marydale.eot')}}?#iefix") format("embedded-opentype"),
+            url("{{ asset('fonts/Marydale.woff')}}") format("woff"),
+            url("{{ asset('fonts/Marydale.ttf')}}") format("truetype");
+        }
+
+        @page {
+            size: A4 landscape;
+            max-height:100%;
+            max-width:100%;
+            margin:0;
+        }
+
+        page {
+            background-image: url("{{ asset('img/cv/cvbackground_new.png') }}");
+            background-size: 14.5cm 14.5cm;
+            background-repeat:no-repeat;
+            background-position: 17.6cm 8.84cm;
+            background-color: white;
+            display: block;
+            margin: 0 auto;
+            margin-bottom: 0.5cm;
+            box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+            position:relative;
+        }
+
+        page[size="A4"] {
+            width: 21cm;
+            height: 29.7cm;
+        }
+
+        page[size="A4"][layout="landscape"] {
+            width: 29.7cm;
+            height: 21cm;
+        }
+
+        @media print {
+            @page {
+                size: A4 landscape;
+                max-height:100%;
+                max-width:100%;
+                margin:0;
+            }
+
+            body, page {
+                margin: 0;
+                box-shadow: none;
+                line-height: 1.5;
+            }
+        }
+
+        /*
+        *
+        * Generic pages
+        *
+        */
+
+        .cvDiv {
+            position: absolute;
+            left: 22.33cm;
+            top: 0.93cm;
+            width: 5.69cm;
+            font-size: 20pt;
+            font-weight: bold;
+            margin:0;
+            padding:0;
+            line-height:normal;
+        }
+
+        .fontBlue {
+            color: rgb(33,72,86);
+        }
+
+        .fontRed {
+            color: rgb(210,51,58);
+        }
+
+        .logoStevin {
+            height: 1.2cm;
+            width: 6.24cm;
+            position: absolute;
+            left: 1.27cm;
+            top: 1.24cm;
+        }
+
+        .pageNumberDiv {
+            position: absolute;
+            left: 1.27cm;
+            top: 20.06cm;
+        }
+
+        /*
+        *
+        * Profile page
+        *
+        */
+
+        .mainPageTable {
+            width:16.22cm;
+            padding:0;
+            margin:0;
+            position:absolute;
+            left:1.27cm;
+            top:5.27cm;
+        }
+
+        .mainPageName {
+            text-transform: uppercase;
+            font-size: 22pt;
+            font-weight: bold;
+            padding:0;
+            padding-bottom:0.2cm;
+        }
+
+        .mainPagePar1 {
+            font-size: 12pt;
+            font-weight: bold;
+            padding:0;
+            text-align:justify;
+            text-justify: inter-word;
+            max-height: 2.7cm;
+            overflow:hidden;
+        }
+
+        .mainPagePar2 {
+            font-size: 10.5pt;
+            padding:0;
+            text-align:justify;
+            text-justify: inter-word;
+            max-height: 8.5cm;
+            overflow:hidden;
+        }
+
+        .quoteDiv {
+            font-family: Marydale, sans-serif;
+            font-size: 21.6pt;
+            position: absolute;
+            top:17.91cm;
+            left:1.27cm;
+            transform: rotate(-2deg);
+        }
+
+        .fotoImg {
+            position: absolute;
+            height: 8.84cm;
+            left: 19.63cm;
+            top: 4.58cm;
+            transform:rotate(4deg);
+            border-radius: 0.4cm;
+            box-shadow: 4pt 4pt 5pt 1pt rgba(0,0,0,0.5);
+            -webkit-backface-visibility: hidden;
+        }
+
+        /*
+        *
+        * CV Data Page
+        *
+        */
+
+        .secondPageLeftTable {
+             width:13.15cm;
+             padding:0;
+             margin:0;
+             position:absolute;
+             left:1.27cm;
+             top:5.27cm;
+         }
+        .secondPageRightTable {
+            width:13.15cm;
+            padding:0;
+            margin:0;
+            position:absolute;
+            left:15.61cm;
+            top:8.04cm;
+        }
+
+        .tdGeboortejaar {
+            font-size: 12pt;
+            font-weight:bold;
+            width: 5cm;
+        }
+        .tdWoonplaats {
+            font-size: 12pt;
+            font-weight:bold;
+        }
+
+        .tdOpleiding {
+            font-weight:bold;
+            padding-bottom:0.1cm;
+        }
+        .tdInstituut {
+            padding-bottom:0.4cm;
+        }
+        .tdJaartal {
+            text-align: right;
+            padding-bottom:0.1cm;
+        }
+
+        .tdHeader {
+            font-weight:bold;
+        }
+
+        .tdRegular {
+            padding-bottom: 0.1cm;
+        }
+
+        /*
+        *
+        * Project Pages
+        *
+        */
+        .projectPagesTable {
+            width:27.52cm;
+            padding:0;
+            margin:0;
+            position:absolute;
+            left:1.27cm;
+            top:5.27cm;
+        }
+        .projectPagesTable td{
+            width:50%;
+        }
+
+        .tdPeriode {
+            padding-bottom:0.5cm;
+        }
+
+        .padding-page-right {
+            padding-left: 0.58cm;
+        }
+
+        .tdProjectName {
+            text-transform: uppercase;
+            font-size: 14pt;
+            font-weight:bold;
+        }
+        .tdCompanyName {
+            text-transform: uppercase;
+            font-size: 14pt;
+            font-weight:bold;
+            padding-bottom:0.5cm;
+        }
+        .tdText {
+            vertical-align: top;
+            text-align:justify;
+            text-justify: inter-word;
+            padding-bottom: 0.3cm;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Page 1: Front Page -->
+<page size="A4" layout="landscape">
+    <img class="logoStevin" src="{{ asset('img/cv/logostevin_new.png') }}" />
+    <div class="cvDiv fontBlue">Curriculum Vitae</div>
+    <table class="mainPageTable">
+        <tr>
+            <td class="mainPageName fontRed">Jeffrey van Oostrom</td>
+        </tr>
+        <tr>
+            <td>
+                <div class="mainPagePar1 fontBlue">
+                Als technisch consultant bevind ik mij op het snijvlak van techniek en mens. Door gebruik te maken van de combinatie tussen data en domeinkennis realiseer ik waardevolle resultaten voor de organisatie. Ik heb technische kennis in huis om complexe problemen mij inhoudelijk eigen te maken.
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="mainPagePar2 fontBlue">
+                <br />
+                In mijn rol als maintenance engineer bij de HTM richt ik het onderhoud in op het gebied van wissel, seinen en telecom, van onderhoudsconcept tot uitvoering met behulp van werkinstructies. Door onderhoudsdata (zowel preventief als correctief) slim te ontsluiten en te analyseren, haal ik waardevolle informatie op om bij te sturen op onderhoudsplannen.<br />
+                <br />
+                Bij KPN heb ik in mijn rol als data expert consultant de waarde van data-analyse en het belang van een hoge datakwaliteit aangetoond. Ik leid een traject waarin software wordt ontwikkeld om een hoge datakwaliteitsstandaard te realiseren, samen met werknemers de van betrokken afdeling.<br />
+                <br />
+                De RET heb ik ondersteund in het in beheer nemen van het metro spoorbeveiligingssysteem. Een van de opgeleverde producten is een prestatiedashboard, waarmee op basis van storingsgegevens verschillende inzichten zijn verkregen met betrekking tot de kwaliteit van het onderhoud.
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div class="quoteDiv fontRed">Seek first to understand, then to be understood</div>
+    <img src="{{ asset('img/cv/voorpaginaJeffreyVanOostrom.jpg') }}" class="fotoImg" />
+
+
+    <div class="pageNumberDiv fontBlue">1</div>
+</page>
+
+<!-- Page 2: Personalia, Education, Tags -->
+<page size="A4" layout="landscape">
+    <img class="logoStevin" src="{{ asset('img/cv/logostevin_new.png') }}" />
+    <div class="cvDiv fontBlue">Curriculum Vitae</div>
+    <table class="secondPageLeftTable">
+        <tr>
+            <td class="mainPageName fontRed">Jeffrey van Oostrom</td>
+        </tr>
+        <tr>
+            <td style="padding-bottom:0.8cm;">
+                <table>
+                    <tr>
+                        <td class="tdGeboortejaar fontBlue">Geboortejaar: 1990</td>
+                        <td class="tdWoonplaats fontBlue">Woonplaats: Voorburg</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table>
+                    <tr>
+                        <td colspan="2" class="tdHeader fontRed">OPLEIDINGEN</td>
+                    </tr>
+                    <tr>
+                        <td class="tdOpleiding fontBlue">Master Aerospace Engineering, Aerodynamics and Wind Energy</td>
+                        <td class="tdJaartal fontBlue">2011-2015</td>
+                    </tr>
+                    <tr>
+                        <td class="tdInstituut fontBlue">Technische Universiteit Delft</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="tdOpleiding fontBlue">Bachelor Aerospace Engineering</td>
+                        <td class="tdJaartal fontBlue">2008-2011</td>
+                    </tr>
+                    <tr>
+                        <td class="tdInstituut fontBlue">Technische Universiteit Delft</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="tdOpleiding fontBlue">Onderwijsbevoegdheid Wiskunde 2e graads</td>
+                        <td class="tdJaartal fontBlue">2010-2011</td>
+                    </tr>
+                    <tr>
+                        <td class="tdInstituut fontBlue">Technische Universitaire Lerarenopleiding</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="tdOpleiding fontBlue">VWO Natuur & Techniek</td>
+                        <td class="tdJaartal fontBlue">2002-2008</td>
+                    </tr>
+                    <tr>
+                        <td class="tdInstituut fontBlue">Mgr. Frencken College</td>
+                        <td></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table>
+                    <tr>
+                        <td colspan="2" class="tdHeader fontRed" style="padding-top:0.3cm;">CERTIFICATEN</td>
+                    </tr>
+                    <tr>
+                        <td class="tdRegular fontBlue">Registered PRINCE2 Practitioner - Axelos</td>
+                        <td class="tdJaartal fontBlue">2016</td>
+                    </tr>
+                    <tr>
+                        <td class="tdRegular fontBlue">Certified SCRUM Product Owner - ScrumAlliance</td>
+                        <td class="tdJaartal fontBlue">2016</td>
+                    </tr>
+                    <tr>
+                        <td class="tdRegular fontBlue">Certified SCRUM Master - ScrumAlliance</td>
+                        <td class="tdJaartal fontBlue">2016</td>
+                    </tr>
+                    <tr>
+                        <td class="tdRegular fontBlue">Agile Foundation - ScrumAlliance</td>
+                        <td class="tdJaartal fontBlue">2015</td>
+                    </tr>
+                    <tr>
+                        <td class="tdRegular fontBlue"></td>
+                        <td class="tdJaartal fontBlue"></td>
+                    </tr>
+                    <tr>
+                        <td class="tdRegular fontBlue"></td>
+                        <td class="tdJaartal fontBlue"></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    <table class="secondPageRightTable">
+        <tr>
+            <td>
+                <table>
+                    <tr>
+                        <td class="tdHeader fontRed">COMPETENTIES</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom:0.4cm;" class="tdRegular fontBlue">
+                            <div style="max-width:9.8cm;">
+                            &#10004; agile    &#10004; asset management    &#10004; communicatief    &#10004; consultancy    &#10004; dashboards    &#10004; data analytics    &#10004; lightrail    &#10004; maintenance engineering    &#10004; prestatierapportage    &#10004; project management
+                            &#10004; scrum    &#10004; telecommunicatie
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table>
+                    <tr>
+                        <td class="tdHeader fontRed" style="padding-top:0.3cm;">BELANGRIJKE PROJECTEN</td>
+                    </tr>
+                    <tr>
+                        <td class="tdRegular fontBlue">Maintenance Engineer Wissel, Sein en Telecom</td>
+                    </tr>
+                    <tr>
+                        <td class="tdRegular fontBlue">Maintenance Engineer Asset Data</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom:0.4cm;"  class="tdRegular fontBlue">Maintenance Engineer Prestatie</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table>
+                    <tr>
+                        <td colspan="2" class="tdHeader fontRed" style="padding-top:0.3cm;">NEVENACTIVITEITEN</td>
+                    </tr>
+                    <tr>
+                        <td class="tdRegular fontBlue">Stagiair Technische Analyse DAF Trucks N.V.</td>
+                        <td class="tdJaartal fontBlue">2013-2013</td>
+                    </tr>
+                    <tr>
+                        <td class="tdRegular fontBlue">Onderwijsassistent TU Delft (80 studenten)</td>
+                        <td class="tdJaartal fontBlue">2012-2013</td>
+                    </tr>
+                    <tr>
+                        <td class="tdRegular fontBlue">Docent Wiskunde</td>
+                        <td class="tdJaartal fontBlue">2011-2012</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    <div class="pageNumberDiv fontBlue">2</div>
+</page>
+
+<!-- Page 3+: Projects -->
+<page size="A4" layout="landscape">
+    <img class="logoStevin" src="{{ asset('img/cv/logostevin_new.png') }}" />
+    <div class="cvDiv fontBlue">Curriculum Vitae</div>
+    <table class="projectPagesTable">
+        <tr>
+            <td class="tdPeriode fontBlue">Okt 17 - heden</td>
+            <td class="tdPeriode fontBlue padding-page-right">Jun 17 - Sep 17</td>
+        </tr>
+        <tr>
+            <td class="tdProjectName fontRed">MAINTENANCE ENGINEER WISSEL, SEIN EN TELECOM</td>
+            <td class="tdProjectName fontRed padding-page-right">MAINTENANCE ENGINEER ASSET DATA</td>
+        </tr>
+        <tr>
+            <td class="tdCompanyName fontBlue">HTM</td>
+            <td class="tdCompanyName fontBlue padding-page-right">RET N.V.</td>
+        </tr>
+        <tr>
+            <td class="tdHeader fontRed">SITUATIE</td>
+            <td class="tdHeader fontRed padding-page-right">SITUATIE</td>
+        </tr>
+        <tr>
+            <td class="tdText fontBlue">
+                Sinds 1 januari 2017 voert de HTM zelfstandig het beheer en onderhoud uit voor de railinfrastructuur van het zogeheten 'buitengebied': de RandstadRail naar Zoetermeer en Rotterdam. Tegelijkertijd maakt de organisatie een transitie door richting een meer asset management georiënteerde bedrijfsvoering.
+            </td>
+            <td class="tdText fontBlue padding-page-right">
+                Bij de RET is een applicatie ontwikkeld (Conditiemeter) waarmee de condities en prestaties van assets op basis van onderhoud en inspecties kan worden bepaald, zodat vervangingsmomenten beter kunnen worden bepaald. De applicatie moet in gebruik genomen worden door Infra Management.
+            </td>
+        </tr>
+        <tr>
+            <td class="tdHeader fontRed">WERKZAAMHEDEN</td>
+            <td class="tdHeader fontRed padding-page-right">WERKZAAMHEDEN</td>
+        </tr>
+        <tr>
+            <td class="tdText fontBlue">
+                Ik ben betrokken bij de HTM als maintenance engineer. Dit houdt in dat ik samen met de onderhoudsspecialisten (OHS) en monteurs het beheer en onderhoud van de infrastructuur van het buitengebied inricht. Hierbij horen het opstellen van onderhoudsconcepten en de operationele vertaling daarvan naar plannen, instructies en opleidingen. Ik help de OHS bij het opstellen van rapportages omtrent het uitgevoerde onderhoud en de storingen richting de asset manager, zodat de kwaliteit van de dienstverlening verhoogd wordt.
+            </td>
+            <td class="tdText fontBlue padding-page-right">
+                In de rol als maintentance engineer asset data ben ik, samen met de overige maintenance engineers, verantwoordelijk voor het ophalen van de behoefte van de systeembeheerders, het in kaart brengen van de verschillende databronnen binnen Infra Management en Infra Services, het ontsluiten van verschillende data bronnen in de Conditiemeter en tot slot het betekenis geven aan de data in de Conditiemeter zodat het als informatie gebruikt kan worden in besluitvormingsprocessen.
+            </td>
+        </tr>
+        <tr>
+            <td class="tdHeader fontRed">RESULTAAT</td>
+            <td class="tdHeader fontRed padding-page-right">RESULTAAT</td>
+        </tr>
+        <tr>
+            <td class="tdText fontBlue">
+                Ik heb vanuit mijn kennis en ervaring een bijdrage kunnen leveren aan de transitie van de organisatie, voornamelijk op de praktische invulling van de verschillende rollen. Daarnaast heb ik een prestatierapportage van verschillende assets op en rond het spoor ontwikkeld, waardoor direct inzichtelijk is welke assets de grootste bronnen van storingen zijn en waar er bijgestuurd moet worden in de uitvoering van het preventief onderhoud. In 2018 pak ik de nu geldende onderhoudsconcepten met de OHS op om deze door te ontwikkelen op basis van ervaring van één jaar zelfstandig onderhoud railinfrastructuur buitengebied.
+            </td>
+            <td class="tdText fontBlue padding-page-right">
+                Mijn inzet heeft de datagedreven waardeketen binnen de RET op de kaart gezet. Samen met de RET heb ik verschillende databronnen aangesloten op de Conditiemeter. Deze waardevolle inzichten in de prestaties van technische assets worden gebruikt om beter te kunnen sturen op feitelijke prestaties van de assets, door bijvoorbeeld bij te sturen op preventief onderhoud.
+            </td>
+        </tr>
+    </table>
+
+    <div class="pageNumberDiv fontBlue">3</div>
+</page>
+
+
+
+
+
+
+{% block javascripts %}
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+{% endblock %}
+</body>
+</html>

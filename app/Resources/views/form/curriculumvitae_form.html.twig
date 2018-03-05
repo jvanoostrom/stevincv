@@ -67,7 +67,7 @@
                                             </div>
                                             <div class="col s10" style="padding-top:15px">
                                                 <input type="hidden" name="{{ project.project.vars.full_name }}" id="{{ project.project.vars.id }}" value="{{ project.project.vars.value }}">
-                                                <label style="font-size:1rem; color:black" for="{{ project.project.vars.id }}">{{ project.vars.value.project.functionTitle }}</label>
+                                                <label style="font-size:1rem; color:black" for="{{ project.project.vars.id }}">{{ project.vars.value.project.projectName }} - {{ project.vars.value.project.customerName }}</label>
                                             </div>
                                             <div class="col s1">
                                                 {{ form_widget(project.important) }}
