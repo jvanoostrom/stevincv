@@ -114,6 +114,25 @@
             top: 20.06cm;
         }
 
+        li {
+            list-style: none;
+            display: inline;
+            margin-right:0.3cm;
+        }
+        li:before {
+            content: "\2714";
+            padding-right:0.1cm;
+            color: rgb(210,51,58);
+        }
+
+        .hoverlinktr:hover .hoverlink {
+            display: block;
+        }
+
+        .hoverlink {
+            display: none;
+        }
+
         /*
         *
         * Profile page
@@ -121,38 +140,38 @@
         */
 
         .mainPageTable {
-            width:16.22cm;
+            /*width:16.22cm;*/
+            width:17.49cm;
             padding:0;
             margin:0;
             position:absolute;
-            left:1.27cm;
+            left:0cm;
             top:5.27cm;
         }
 
-        .mainPageName {
+        .firstCol {
+            width: 1.27cm;
+            vertical-align:top;
+            padding-left: 0.7cm;
+            padding-top: 0.1cm;
+        }
+
+        .mainPageName, .mainPageName input {
             text-transform: uppercase;
             font-size: 22pt;
             font-weight: bold;
             padding:0;
             padding-bottom:0.2cm;
+            border:0;
+            margin:0;
         }
 
-        .mainPagePar1 {
-            font-size: 12pt;
-            font-weight: bold;
-            padding:0;
-            text-align:justify;
-            text-justify: inter-word;
-            max-height: 2.7cm;
-            overflow:hidden;
-        }
-
-        .mainPagePar2 {
+        .mainPagePar {
             font-size: 10.5pt;
             padding:0;
             text-align:justify;
             text-justify: inter-word;
-            max-height: 8.5cm;
+            max-height: 11.2cm;
             overflow:hidden;
         }
 
@@ -271,39 +290,66 @@
             text-justify: inter-word;
             padding-bottom: 0.3cm;
         }
+
     </style>
 </head>
 <body>
+<!-- Modals -->
+<div id="modal1" class="modal">
+    <div class="modal-content">
+        <h4>Modal Header</h4>
+        <p>A bunch of text</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+</div>
+
+<div id="modal2" class="modal">
+    <div class="modal-content">
+        <h4>Modal Header 2</h4>
+        <p>A bunch of text</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+</div>
 
 <!-- Page 1: Front Page -->
 <page size="A4" layout="landscape">
     <img class="logoStevin" src="{{ asset('img/cv/logostevin_new.png') }}" />
     <div class="cvDiv fontBlue">Curriculum Vitae</div>
     <table class="mainPageTable">
-        <tr>
-            <td class="mainPageName fontRed">Jeffrey van Oostrom</td>
-        </tr>
-        <tr>
-            <td>
-                <div class="mainPagePar1 fontBlue">
-                Als technisch consultant bevind ik mij op het snijvlak van techniek en mens. Door gebruik te maken van de combinatie tussen data en domeinkennis realiseer ik waardevolle resultaten voor de organisatie. Ik heb technische kennis in huis om complexe problemen mij inhoudelijk eigen te maken.
-                </div>
+        <tr class="hoverlinktr">
+            <td class="firstCol" style="padding-top:0.3cm">
+                <a class="hoverlink" href="#">
+                    <i style="font-size:12pt" class="material-icons fontBlue">edit</i>
+                </a>
+            </td>
+            <td class="mainPageName fontRed">
+                    {{ cv.user.personalia.firstName }} {{ cv.user.personalia.lastName }}
+            </td>
+            <td class="mainPageName fontRed" style="display:none">
+                <input type="text" value="{{ cv.user.personalia.firstName }} {{ cv.user.personalia.lastName }}">
             </td>
         </tr>
-        <tr>
+        <tr class="hoverlinktr">
+            <td class="firstCol">
+                <a class="hoverlink" href="#modal2">
+                    <i style="font-size:12pt" class="material-icons fontBlue">edit</i>
+                </a>
+            </td>
             <td>
-                <div class="mainPagePar2 fontBlue">
-                <br />
-                In mijn rol als maintenance engineer bij de HTM richt ik het onderhoud in op het gebied van wissel, seinen en telecom, van onderhoudsconcept tot uitvoering met behulp van werkinstructies. Door onderhoudsdata (zowel preventief als correctief) slim te ontsluiten en te analyseren, haal ik waardevolle informatie op om bij te sturen op onderhoudsplannen.<br />
-                <br />
-                Bij KPN heb ik in mijn rol als data expert consultant de waarde van data-analyse en het belang van een hoge datakwaliteit aangetoond. Ik leid een traject waarin software wordt ontwikkeld om een hoge datakwaliteitsstandaard te realiseren, samen met werknemers de van betrokken afdeling.<br />
-                <br />
-                De RET heb ik ondersteund in het in beheer nemen van het metro spoorbeveiligingssysteem. Een van de opgeleverde producten is een prestatiedashboard, waarmee op basis van storingsgegevens verschillende inzichten zijn verkregen met betrekking tot de kwaliteit van het onderhoud.
+                <div class="mainPagePar fontBlue">
+                    {% set profileText = cv.profile.profileText|split('\n',2) %}
+                    <span style="font-weight:bold;font-size:12pt">{{ profileText|first }}</span>
+                    <br/>
+                    {{ profileText|last|nl2br }}
                 </div>
             </td>
         </tr>
     </table>
-    <div class="quoteDiv fontRed">Seek first to understand, then to be understood</div>
+    <div class="quoteDiv fontRed">{{ cv.profile.quoteLine }}</div>
     <img src="{{ asset('img/cv/voorpaginaJeffreyVanOostrom.jpg') }}" class="fotoImg" />
 
 
@@ -428,8 +474,6 @@
                                     <li>telecommunicatie</li>
                                     <li>scrum</li>
                                 </ul>
-
-                            &#10004;
                             </div>
                         </td>
                     </tr>
@@ -546,6 +590,7 @@
 {% block javascripts %}
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+    <script src="{{ asset('js/cvbuilder.js') }}"></script>
 {% endblock %}
 </body>
 </html>
