@@ -53,6 +53,8 @@
                                 {% set userRole = "Manager" %}
                             {% elseif role == "ROLE_USER" and not userRole %}
                                 {% set userRole = "Consultant" %}
+                            {% elseif role == "ROLE_ZZP" and not userRole %}
+                                {% set userRole = "ZZP" %}
                             {% endif %}
                         {% endfor %}
                         {{ userRole }}
