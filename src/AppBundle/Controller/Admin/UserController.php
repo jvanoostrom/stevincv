@@ -63,7 +63,7 @@ class UserController extends Controller
             // Send e-mail with login details
             $message = \Swift_Message::newInstance()
                 ->setSubject('Welkom bij SteVee!')
-                ->setFrom(array('vanoostrom@stevin.com' => 'Jeffrey van Oostrom'))
+                ->setFrom(array('info@stevin.com' => 'Stevin Technology Consultants'))
                 ->setTo($user->getEmail())
                 ->setBody(
                     $this->renderView(
@@ -112,8 +112,143 @@ class UserController extends Controller
             )
         );
 
-        $user->getPersonalia()->setUser(null);
-        $user->setPersonalia(null);
+        $cvs = $em->getRepository('AppBundle:Curriculumvitae')->findBy(
+            array(
+                'user' => $userId
+            )
+        );
+
+        foreach($cvs as $cv)
+        {
+            $assignedProjects = $cv->getCurriculumvitaeProjects();
+            foreach($assignedProjects as $assignedProject)
+            {
+                $cv->removeCurriculumvitaeProject($assignedProject);
+                $assignedProject->setCurriculumvitae(null);
+                $assignedProject->setProject(null);
+                $em->remove($assignedProject);
+            }
+
+            $assignedTags = $cv->getTags();
+            foreach($assignedTags as $assignedTag)
+            {
+                $cv->removeTag($assignedTag);
+            }
+
+            $assignedSkills = $cv->getSkills();
+            foreach($assignedSkills as $assignedSkill)
+            {
+                $cv->removeSkill($assignedSkill);
+            }
+
+            $assignedEducation = $cv->getEducation();
+            foreach($assignedEducation as $assignedEdu)
+            {
+                $cv->removeEducation($assignedEdu);
+            }
+
+            $assignedCertificates = $cv->getCertificates();
+            foreach($assignedCertificates as $assignedCertificate)
+            {
+                $cv->removeCertificate($assignedCertificate);
+            }
+
+            $assignedPublications = $cv->getPublications();
+            foreach($assignedPublications as $assignedPublication)
+            {
+                $cv->removePublication($assignedPublication);
+            }
+
+            $assignedExtracurricular = $cv->getExtracurricular();
+            foreach($assignedExtracurricular as $assignedExtra)
+            {
+                $cv->removeExtracurricular($assignedExtra);
+            }
+
+            $em->flush();
+            $em->remove($cv);
+            $em->flush();
+        }
+
+        $projects = $em->getRepository('AppBundle:Project')->findBy(
+            array(
+                'user' => $userId
+            )
+        );
+        foreach($projects as $project)
+        {
+            $em->remove($project);
+            $em->flush();
+        }
+
+        $certificates = $em->getRepository('AppBundle:Certificate')->findBy(
+            array(
+                'user' => $userId
+            )
+        );
+        foreach($certificates as $certificate)
+        {
+            $em->remove($certificate);
+            $em->flush();
+        }
+
+        $education = $em->getRepository('AppBundle:Education')->findBy(
+            array(
+                'user' => $userId
+            )
+        );
+        foreach($education as $edu)
+        {
+            $em->remove($edu);
+            $em->flush();
+        }
+
+        $extracurricular = $em->getRepository('AppBundle:Extracurricular')->findBy(
+            array(
+                'user' => $userId
+            )
+        );
+        foreach($extracurricular as $extra)
+        {
+            $em->remove($extra);
+            $em->flush();
+        }
+
+        $profiles = $em->getRepository('AppBundle:Profile')->findBy(
+            array(
+                'user' => $userId
+            )
+        );
+        foreach($profiles as $profile)
+        {
+            $em->remove($profile);
+            $em->flush();
+        }
+
+        $publications = $em->getRepository('AppBundle:Publication')->findBy(
+            array(
+                'user' => $userId
+            )
+        );
+        foreach($publications as $publication)
+        {
+            $em->remove($publication);
+            $em->flush();
+        }
+
+        $skills = $em->getRepository('AppBundle:Skill')->findBy(
+            array(
+                'user' => $userId
+            )
+        );
+        foreach($skills as $skill)
+        {
+            $em->remove($skill);
+            $em->flush();
+        }
+
+//        $user->getPersonalia()->setUser(null);
+//        $user->setPersonalia(null);
         $em->flush();
         $em->remove($user);
         $em->flush();

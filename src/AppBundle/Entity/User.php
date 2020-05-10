@@ -31,12 +31,12 @@ class User extends BaseUser
     private $personalia;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      */
     protected $getThreeMonthsEmail = true;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $countThreeMonthsEmail;
 

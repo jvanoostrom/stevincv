@@ -40,7 +40,7 @@ class CheckOutdatedCommand extends ContainerAwareCommand
 
             $message = \Swift_Message::newInstance()
                 ->setSubject('Je hebt verouderde CV\'s')
-                ->setFrom(array('vanoostrom@stevin.com' => 'Jeffrey van Oostrom'))
+                ->setFrom(array('info@stevin.com' => 'Stevin Technology Consultants'))
                 ->setTo($user['email'])
                 ->setBody(
                     $this->getContainer()->get('templating')->render(

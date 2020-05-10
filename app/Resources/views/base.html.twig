@@ -6,6 +6,7 @@
         {% block stylesheets %}
             <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
             <link type="text/css" rel="stylesheet" href="{{ asset('css/materialize.css') }}" media="screen,projection"/>
+{#            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">#}
             <link type="text/css" rel="stylesheet" href="{{ asset('css/materialize-tags.css') }}" media="screen,projection"/>
             <link type="text/css" rel="stylesheet" href="{{ asset('css/custom.css') }}" media="screen,projection"/>
             <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
@@ -46,7 +47,7 @@
                                 <i class="material-icons">search</i>
                             </div>
                         </div>
-                        {{ knp_menu_render('AppBundle:Builder:mainMenu',{'template': 'Menu/menu.html.twig'}) }}
+{#                        {{ knp_menu_render('AppBundle:Builder:mainMenu',{'template': 'Menu/menu.html.twig'}) }}#}
                     </div>
 
                 </div>
@@ -85,6 +86,7 @@
         {% block javascripts %}
             <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+{#            <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>#}
             <script src="{{ asset('js/typeahead.js') }}"></script>
             <script src="{{ asset('js/materialize-tags.js') }}"></script>
             <script src="{{ asset('js/init.js') }}"></script>

@@ -16,7 +16,7 @@ $( document ).ready(function() {
     });
 
     // Materialize initialisation
-    $(".button-collapse").sideNav();
+    // $(".button-collapse").sideNav();
 
     $('ul.tabs').tabs();
 
