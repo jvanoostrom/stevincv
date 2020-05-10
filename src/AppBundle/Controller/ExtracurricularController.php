@@ -19,6 +19,16 @@ class ExtracurricularController extends Controller
     public function indexAction(Request $request, $userId)
     {
 
+        if(!$this->container->get('app.zzpaccess')->canView($this->getUser(), $userId)) {
+
+            $this->addFlash(
+                'error',
+                'Je kunt geen gegevens van andere consultants bekijken.'
+            );
+            return $this->redirectToRoute('extra_index', array('userId' => $this->getUser()->getId()));
+
+        }
+
         $extracurricular = $this->getDoctrine()->getRepository('AppBundle:Extracurricular')->findBy(
             array('user' => $userId),
             array('updatedAt' => 'DESC')
@@ -37,6 +47,17 @@ class ExtracurricularController extends Controller
      */
     public function showAction(Request $request, $userId, $extracurricularId)
     {
+
+        if(!$this->container->get('app.zzpaccess')->canView($this->getUser(), $userId)) {
+
+            $this->addFlash(
+                'error',
+                'Je kunt geen gegevens van andere consultants bekijken.'
+            );
+            return $this->redirectToRoute('extra_index', array('userId' => $this->getUser()->getId()));
+
+        }
+
         $em = $this->getDoctrine()->getManager();
 
         $extracurricular = $em->getRepository('AppBundle:Extracurricular')

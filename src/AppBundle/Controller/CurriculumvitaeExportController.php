@@ -33,6 +33,16 @@ class CurriculumvitaeExportController extends Controller
     public function exportAction(Request $request, $userId, $cvId)
     {
 
+        if(!$this->container->get('app.zzpaccess')->canView($this->getUser(), $userId)) {
+
+            $this->addFlash(
+                'error',
+                'Je kunt geen gegevens van andere consultants bekijken.'
+            );
+            return $this->redirectToRoute('cv_index', array('userId' => $this->getUser()->getId()));
+
+        }
+
         $locale = 'nl';
         $em = $this->getDoctrine()->getManager();
         $cv = $em->getRepository('AppBundle:Curriculumvitae')

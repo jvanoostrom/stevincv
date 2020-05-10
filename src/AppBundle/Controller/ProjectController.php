@@ -20,6 +20,16 @@ class ProjectController extends Controller
     public function indexAction(Request $request, $userId)
     {
 
+        if(!$this->container->get('app.zzpaccess')->canView($this->getUser(), $userId)) {
+
+            $this->addFlash(
+                'error',
+                'Je kunt geen gegevens van andere consultants bekijken.'
+            );
+            return $this->redirectToRoute('project_index', array('userId' => $this->getUser()->getId()));
+
+        }
+
         $projects = $this->getDoctrine()->getRepository('AppBundle:Project')->findBy(
             array('user' => $userId),
             array('updatedAt' => 'DESC')
@@ -38,6 +48,17 @@ class ProjectController extends Controller
      */
     public function showAction(Request $request, $userId, $projectId)
     {
+
+        if(!$this->container->get('app.zzpaccess')->canView($this->getUser(), $userId)) {
+
+            $this->addFlash(
+                'error',
+                'Je kunt geen gegevens van andere consultants bekijken.'
+            );
+            return $this->redirectToRoute('project_index', array('userId' => $this->getUser()->getId()));
+
+        }
+
         $em = $this->getDoctrine()->getManager();
 
         $project = $em->getRepository('AppBundle:Project')

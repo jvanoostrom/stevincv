@@ -20,8 +20,7 @@ class Builder implements ContainerAwareInterface
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $personalia = $user->getPersonalia();
 
-//        $profileAvatarName = $personalia->getProfileAvatarName();
-        $profileAvatarName = '';
+        $profileAvatarName = $personalia->getProfileAvatarName();
 
         $helper = $this->container->get('vich_uploader.templating.helper.uploader_helper');
         $path = $helper->asset($personalia, 'profileImageFile');
@@ -37,24 +36,30 @@ class Builder implements ContainerAwareInterface
 
         $menu[$child]->setLinkAttribute('class', 'collection-item avatar');
 
-        // The rest
-        $users = $em->getRepository('AppBundle:User')->findBy(array('enabled' => true));
-        foreach($users as $user) {
-            $personalia = $user->getPersonalia();
+        if(!in_array('ROLE_ZZP',$user->getRoles())) {
 
-//            $profileAvatarName = $personalia->getProfileAvatarName();
-            $profileAvatarName = '';
+            // The rest
+            $users = $em->getRepository('AppBundle:User')->findBy(array('enabled' => true));
+            foreach ($users as $user) {
+                if(!in_array('ROLE_ZZP',$user->getRoles()))
+                {
+                    $personalia = $user->getPersonalia();
 
-            $child = $personalia->getFirstName().' '.$personalia->getLastName();
-            $menu->addChild($child, array(
-                'uri' => $user->getId(),
-                'extras' => array(
-                    'img' => $profileAvatarName,
-                    'userId' => $user->getId()
-                ),
-            ));
+                    $profileAvatarName = $personalia->getProfileAvatarName();
 
-            $menu[$child]->setLinkAttribute('class', 'collection-item avatar');
+                    $child = $personalia->getFirstName() . ' ' . $personalia->getLastName();
+                    $menu->addChild($child, array(
+                        'uri' => $user->getId(),
+                        'extras' => array(
+                            'img' => $profileAvatarName,
+                            'userId' => $user->getId()
+                        ),
+                    ));
+
+                    $menu[$child]->setLinkAttribute('class', 'collection-item avatar');
+                }
+            }
+
         }
 
         return $menu;

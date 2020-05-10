@@ -23,6 +23,16 @@ class ProfileController extends Controller
     public function indexAction(Request $request, $userId)
     {
 
+        if(!$this->container->get('app.zzpaccess')->canView($this->getUser(), $userId)) {
+
+            $this->addFlash(
+                'error',
+                'Je kunt geen gegevens van andere consultants bekijken.'
+            );
+            return $this->redirectToRoute('profile_index', array('userId' => $this->getUser()->getId()));
+
+        }
+
         $profiles = $this->getDoctrine()->getRepository('AppBundle:Profile')->findBy(
             array('user' => $userId),
             array('updatedAt' => 'DESC')
@@ -41,6 +51,17 @@ class ProfileController extends Controller
      */
     public function showAction(Request $request, $userId, $profileId)
     {
+
+        if(!$this->container->get('app.zzpaccess')->canView($this->getUser(), $userId)) {
+
+            $this->addFlash(
+                'error',
+                'Je kunt geen gegevens van andere consultants bekijken.'
+            );
+            return $this->redirectToRoute('profile_index', array('userId' => $this->getUser()->getId()));
+
+        }
+
         $em = $this->getDoctrine()->getManager();
 
         $profile = $em->getRepository('AppBundle:Profile')

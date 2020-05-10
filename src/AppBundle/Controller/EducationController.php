@@ -19,6 +19,16 @@ class EducationController extends Controller
     public function indexAction(Request $request, $userId)
     {
 
+        if(!$this->container->get('app.zzpaccess')->canView($this->getUser(), $userId)) {
+
+            $this->addFlash(
+                'error',
+                'Je kunt geen gegevens van andere consultants bekijken.'
+            );
+            return $this->redirectToRoute('edu_index', array('userId' => $this->getUser()->getId()));
+
+        }
+
         $education = $this->getDoctrine()->getRepository('AppBundle:Education')->findBy(
             array('user' => $userId),
             array('updatedAt' => 'DESC')
@@ -37,6 +47,16 @@ class EducationController extends Controller
      */
     public function showAction(Request $request, $userId, $educationId)
     {
+        if(!$this->container->get('app.zzpaccess')->canView($this->getUser(), $userId)) {
+
+            $this->addFlash(
+                'error',
+                'Je kunt geen gegevens van andere consultants bekijken.'
+            );
+            return $this->redirectToRoute('edu_index', array('userId' => $this->getUser()->getId()));
+
+        }
+
         $em = $this->getDoctrine()->getManager();
 
         $education = $em->getRepository('AppBundle:Education')

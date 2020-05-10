@@ -17,6 +17,15 @@ class RatecardController extends Controller
      */
     public function indexAction(Request $request, $userId)
     {
+        $roles = $this->getUser()->getRoles();
+        if(in_array('ROLE_ZZP', $roles))
+        {
+            $this->addFlash(
+                'error',
+                'Je kunt geen ratecards bekijken.'
+            );
+            return $this->redirectToRoute('cv_index', array('userId' => $this->getUser()->getId()));
+        }
 
         $users = $this->getDoctrine()->getRepository('AppBundle:User')->findBy(array('enabled' => true));
 

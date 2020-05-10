@@ -18,6 +18,15 @@ class SkillController extends Controller
      */
     public function indexAction(Request $request, $userId)
     {
+        if(!$this->container->get('app.zzpaccess')->canView($this->getUser(), $userId)) {
+
+            $this->addFlash(
+                'error',
+                'Je kunt geen gegevens van andere consultants bekijken.'
+            );
+            return $this->redirectToRoute('skill_index', array('userId' => $this->getUser()->getId()));
+
+        }
 
         $skills = $this->getDoctrine()->getRepository('AppBundle:Skill')->findBy(
             array('user' => $userId),

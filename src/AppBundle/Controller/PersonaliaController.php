@@ -20,6 +20,16 @@ class PersonaliaController extends Controller
      */
     public function showAction(Request $request, $userId)
     {
+
+        if(!$this->container->get('app.zzpaccess')->canView($this->getUser(), $userId)) {
+
+            $this->addFlash(
+                'error',
+                'Je kunt geen gegevens van andere consultants bekijken.'
+            );
+            return $this->redirectToRoute('personalia', array('userId' => $this->getUser()->getId()));
+
+        }
         $em = $this->getDoctrine()->getManager();
         // Retrieve User object and pass it to Personalia for association
         $user = $em->getRepository('AppBundle:User')

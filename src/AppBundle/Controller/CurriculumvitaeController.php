@@ -19,6 +19,17 @@ class CurriculumvitaeController extends Controller
      */
     public function indexAction(Request $request, $userId)
     {
+
+        if(!$this->container->get('app.zzpaccess')->canView($this->getUser(), $userId)) {
+
+            $this->addFlash(
+                'error',
+                'Je kunt geen gegevens van andere consultants bekijken.'
+            );
+            return $this->redirectToRoute('cv_index', array('userId' => $this->getUser()->getId()));
+
+        }
+
         $cvs = $this->getDoctrine()->getRepository('AppBundle:Curriculumvitae')->findBy(
             array('user' => $userId),
             array('updatedAt' => 'DESC')

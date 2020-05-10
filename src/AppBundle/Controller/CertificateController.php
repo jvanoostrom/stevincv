@@ -19,10 +19,33 @@ class CertificateController extends Controller
     public function indexAction(Request $request, $userId)
     {
 
+        if(!$this->container->get('app.zzpaccess')->canView($this->getUser(), $userId)) {
+
+            $this->addFlash(
+                'error',
+                'Je kunt geen gegevens van andere consultants bekijken.'
+            );
+            return $this->redirectToRoute('cert_index', array('userId' => $this->getUser()->getId()));
+
+        }
         $certificates = $this->getDoctrine()->getRepository('AppBundle:Certificate')->findBy(
             array('user' => $userId),
             array('updatedAt' => 'DESC')
         );
+
+//        $roles = $this->getUser()->getRoles();
+//        if($userId != $this->getUser()->getId())
+//        {
+//            if(in_array('ROLE_ZZP', $roles))
+//            {
+//                $this->addFlash(
+//                    'error',
+//                    'Je kunt geen gegevens van andere consultants bekijken.'
+//                );
+//
+//                return $this->redirectToRoute('cert_index', array('userId' => $this->getUser()->getId()));
+//            }
+//        }
 
         return $this->render('index/certificate.html.twig', array(
             'certificates' => $certificates,
@@ -38,6 +61,16 @@ class CertificateController extends Controller
     public function showAction(Request $request, $userId, $certificateId)
     {
         $em = $this->getDoctrine()->getManager();
+
+        if(!$this->container->get('app.zzpaccess')->canView($this->getUser(), $userId)) {
+
+            $this->addFlash(
+                'error',
+                'Je kunt geen gegevens van andere consultants bekijken.'
+            );
+            return $this->redirectToRoute('cert_index', array('userId' => $this->getUser()->getId()));
+
+        }
 
         $certificate = $em->getRepository('AppBundle:Certificate')
             ->findOneBy(array('id' => $certificateId));

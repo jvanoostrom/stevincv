@@ -15,6 +15,13 @@
             </div>
         </div>
     {% endfor %}
+    {% for flash_message in app.session.flashBag.get('error') %}
+        <div id="card-alert" class="card red error-entity" style="display:none">
+            <div class="card-content white-text valign-wrapper">
+                <i class="material-icons valign">warning</i>&nbsp;<span>{{ flash_message }}</span>
+            </div>
+        </div>
+    {% endfor %}
     {% if cvs %}
     <table class="highlight responsive-table">
         <thead>
